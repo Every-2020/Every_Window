@@ -1,7 +1,7 @@
-﻿<Application x:Class="Every.App"
+﻿<Application x:Class="Every_AdminWin.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Every"
+             xmlns:local="clr-namespace:Every_AdminWin"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

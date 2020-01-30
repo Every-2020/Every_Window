@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Every;
+using Every_AdminWin;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -32,7 +32,7 @@ using System.Windows.Shapes;
 using System.Windows.Shell;
 
 
-namespace Every {
+namespace Every_AdminWin {
     
     
     /// <summary>
@@ -61,7 +61,7 @@ namespace Every {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main() {
-            Every.App app = new Every.App();
+            Every_AdminWin.App app = new Every_AdminWin.App();
             app.InitializeComponent();
             app.Run();
         }

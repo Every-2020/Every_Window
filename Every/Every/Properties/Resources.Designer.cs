@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Every.Properties
+namespace Every_AdminWin.Properties
 {
 
 

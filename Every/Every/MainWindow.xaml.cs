@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Every
+namespace Every_AdminWin
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
