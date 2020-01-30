@@ -93,7 +93,7 @@ namespace BIND.Core.Login.ViewModel
             var loginService = new LoginService();
             try
             {
-                loginService.SettingHttpRequest(_serverAddress);
+                loginService.SettingHttpRequest(ServerAddress);
 
                 loginArgs = await loginService.Login(Id, Password);
             }
@@ -105,12 +105,6 @@ namespace BIND.Core.Login.ViewModel
 
             if (loginArgs == null || loginArgs.Status != (int)HttpStatusCode.OK)    //로그인 실패
             {
-                /*  Setting.IsAutoLogin = false;
-                  Setting.Save();
-                  MessageBox.Show("로그인 실패", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
-                  pbPw.Focus();
-                  pbPw.Password = string.Empty;
-                  */
                 SendOnLoginResultRecievedEvent(false);
                 Desc = "로그인에 실패하였습니다!";
                 Debug.WriteLine(Desc);

@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="Every.Control.LoginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Every.Control"
+             xmlns:control="clr-namespace:Every.Control"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <UserControl.Resources>
+        <Style x:Key="LoginBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="Border"
+                                Padding="20 0 0 0"
+                                Background="#f5f8fe"
+                                CornerRadius="3"
+                                BorderBrush="#dce3f2"
+                                BorderThickness="1" >
+                            <Grid Height="50">
+                                <Grid Margin="0 0 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Image Source="/Assets/Icons/ico_mail.png"
+                                           Width="30"></Image>-->
+                                    <Grid Grid.Column="1" Margin="7 0 20 0">
+                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                      VerticalAlignment="Center"
+                                                       Margin="0" Cursor="IBeam"/>
+                                        <TextBlock x:Name="WaterMark" Foreground="#a6b9ce"
+                                                   Margin="2 0 0 0"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="Collapsed"
+                                                   FontWeight="Medium"
+                                                   Text="{TemplateBinding Tag}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="WaterMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="local:PasswordBoxMonitor.IsMonitoring"
+              Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border x:Name="Border"
+                                Padding="20 0 0 0"
+                                Background="#f5f8fe"
+                                CornerRadius="3"
+                                BorderBrush="#dce3f2"
+                                BorderThickness="1" >
+                            <Grid Height="50">
+                                <Grid Margin="0 0 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Image Source="/Assets/Icons/ico_password.png" 
+                                           Width="25" HorizontalAlignment="Center"></Image>-->
+                                    <Grid Grid.Column="1" Margin="7 0 20 0">
+                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0" Cursor="IBeam"/>
+                                        <TextBlock x:Name="WaterMark" Foreground="#a6b9ce"
+                                                   Margin="2 0 0 0"
+                                                   FontWeight="Medium"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="Collapsed"
+                                                   Text="{TemplateBinding Tag}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="local:PasswordBoxMonitor.PasswordLength" Value="0">
+                                <Setter TargetName="WaterMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+        <Grid MaxWidth="450">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.45*"/>
+                <RowDefinition Height="0.55*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel  Grid.Row="1"
+                         x:Name="Login" 
+                         Margin="50, 0, 50, 100">
+
+                <TextBox x:Name="tbId"
+                         Tag="이메일을 입력해 주세요."
+                         Text="{Binding Id}"
+                         Style="{StaticResource LoginBox}"
+                         TextChanged="Tb_TextChanged"/>
+                <PasswordBox x:Name="pbPw"
+                             Tag="비밀번호를 입력해 주세요."
+                             Margin="0, 15, 0, 0"
+                             PasswordChanged="Tb_TextChanged"
+                             local:PasswordHelper.Attach="True"
+                             local:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
+                
+                <Grid Margin="0 15 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="175"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="회원가입" x:Name="tbSign" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Foreground="#778aa0"
+                            FontWeight="Bold"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                    </Button>
+                    <TextBlock Text="자동로그인"
+                               Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Foreground="#778aa0"
+                               FontWeight="Bold"></TextBlock>
+                    <CheckBox x:Name="cbAutoLogin"
+                              Grid.Column="2"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Right"
+                              Checked="CbAutologin_Checked"
+                              Unchecked="CbAutologin_Checked"/>
+                </Grid>
+                <Button x:Name="BtnLogin"
+                        Background="#455ebf"
+                        Foreground="#fff"
+                        Height="50"
+                        Content="로그인" 
+                        Margin="0,15,0,0"
+                        FontSize="15"
+                        Command="{Binding LoginCommand, Mode=TwoWay}"
+                        IsEnabled="{Binding BtnLoginEnabled, Mode=TwoWay}" FontWeight="Normal">
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</UserControl>

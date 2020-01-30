@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -22,17 +23,19 @@ namespace BIND.Core.Login.Network
         private readonly Encoding encoding = Encoding.UTF8;
 
 
-        private const string LOGIN_URL = "auth/login";
+        private const string LOGIN_URL = "/auth/login";
         private const string MEMBER_URL = "members/";
         private const string LOGOUT_URL = MEMBER_URL + "logout";
         private const string TOKEN_REFRESH_URL = "/token/refresh";
+
         public async Task<TResponse<TokenInfo>> Login(string id, string pw)
         {
-
             var jObj = new JObject();
             jObj["device"] = "PC";
-            jObj["id"] = id;
-            jObj["pw"] = Sha512Hash(pw);
+            jObj["email"] = id;
+            jObj["pw"] = pw;
+            //jObj["pw"] = Sha512Hash(pw);
+
             var resp = await networkManager.GetResponse<TokenInfo>(Options.loginUrl, Method.POST, jObj.ToString());
 
             if (resp.Data != null)
@@ -40,7 +43,6 @@ namespace BIND.Core.Login.Network
                 Options.tokenInfo.Token = resp.Data.Token;
                 Options.tokenInfo.RefreshToken = resp.Data.RefreshToken;
             }
-            //resp.Data.Member.IsMe = true;
             return resp;
         }
 

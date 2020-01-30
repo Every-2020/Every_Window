@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Every_AdminWin.Core.Login.ViewModel
 {
-    class LoginViewModel
+    public class LoginViewModel
     {
+        // private NetworkManager
     }
 }

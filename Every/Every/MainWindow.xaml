@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Every_AdminWin"
+        xmlns:control="clr-namespace:Every.Control"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Every" Height="1080" Width="1920"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <control:LoginControl x:Name="LoginCtrl" 
+                              OnLoginResultRecieved="LoginCtrl_OnLoginResultRecieved"/>
     </Grid>
 </Window>

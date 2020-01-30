@@ -70,12 +70,12 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bind.Core.Member\BIND.Core.Member.csproj">
+    <ProjectReference Include="..\..\Bind.Core.Member\Every.Core.Member.csproj">
       <Project>{3D9C9B7B-7C29-45AF-8320-8EB82D747048}</Project>
-      <Name>BIND.Core.Member</Name>
+      <Name>Every.Core.Member</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TNetwork\TNetwork.csproj">
-      <Project>{bbdb688f-dc0d-4881-b367-aa7e34922de7}</Project>
+    <ProjectReference Include="..\..\TNetwork\TNetwork.csproj">
+      <Project>{BBDB688F-DC0D-4881-B367-AA7E34922DE7}</Project>
       <Name>TNetwork</Name>
     </ProjectReference>
   </ItemGroup>

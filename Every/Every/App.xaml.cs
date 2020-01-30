@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BIND.Core.Login;
+using Every.Common;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,11 @@ namespace Every_AdminWin
     /// </summary>
     public partial class App : Application
     {
+        public static LoginData loginData = new LoginData();
+
+        public App()
+        {
+            Setting.Load();
+        }
     }
 }

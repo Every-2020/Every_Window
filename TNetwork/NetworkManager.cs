@@ -154,7 +154,6 @@ namespace TNetwork
 
         public async Task<IRestResponse> PostFormAsync(string formatFileUrl, string contentType, byte[] formData, string extension)
         {
-
             var restClient = new RestClient(Options.serverUrl);
 
             var request = new RestRequest(Options.serverUrl+formatFileUrl, Method.POST);

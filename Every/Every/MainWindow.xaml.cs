@@ -24,5 +24,15 @@ namespace Every_AdminWin
         {
             InitializeComponent();
         }
+
+        private async void LoginCtrl_OnLoginResultRecieved(object sender, bool success)
+        {
+            if (success)
+            {
+                LoginCtrl.Visibility = Visibility.Collapsed;
+                MessageBox.Show("로그인에 성공하셨습니다!");
+            }
+
+        }
     }
 }
