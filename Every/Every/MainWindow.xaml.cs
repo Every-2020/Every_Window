@@ -32,7 +32,6 @@ namespace Every_AdminWin
                 LoginCtrl.Visibility = Visibility.Collapsed;
                 MessageBox.Show("로그인에 성공하셨습니다!");
             }
-
         }
     }
 }
