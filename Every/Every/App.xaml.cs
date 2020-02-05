@@ -1,5 +1,6 @@
 ﻿using BIND.Core.Login;
 using Every.Common;
+using Every.Core.SignUp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +17,7 @@ namespace Every_AdminWin
     public partial class App : Application
     {
         public static LoginData loginData = new LoginData();
+        public static SignUpData signupData = new SignUpData();
 
         public App()
         {

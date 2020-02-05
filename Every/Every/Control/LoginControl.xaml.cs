@@ -23,6 +23,9 @@ namespace Every.Control
     /// </summary>
     public partial class LoginControl : UserControl
     {
+        public delegate void OnSignUpRecievedHandler(object sender, bool success);
+        public event OnSignUpRecievedHandler OnSignUpReceived;
+
         private bool isAutoLogin = false;
 
         public delegate void onLoginResultRecievedHandler(object sender, bool success);
@@ -37,7 +40,6 @@ namespace Every.Control
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             App.loginData.loginViewModel.ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-
             CheckAutoLoginAsync();
             //loginData = new LoginData();
             App.loginData.loginViewModel.OnLoginResultRecieved += LoginViewModel_OnLoginResultRecieved;
@@ -53,11 +55,14 @@ namespace Every.Control
                 Setting.Save();
             }
             #endregion
+
             SetUserData(App.loginData.loginViewModel.Id, App.loginData.loginViewModel.Password);
+
             if (isAutoLogin == true)
             {
                 Setting.IsAutoLogin = true;
             }
+
             // 로그인 ViewModel의 OnLoginResultRecieved가 끝난 후에야 비로소 MainWindow.xaml의 로그인 컨트롤의 OnLoginResultRecieved 이벤트가 연결된다.
             OnLoginResultRecieved?.Invoke(this, success);
         }
@@ -176,6 +181,11 @@ namespace Every.Control
             Setting.Save();
         }
 #endif
+
+        private void tbSign_Click(object sender, RoutedEventArgs e)
+        {
+            OnSignUpReceived?.Invoke(this, true);
+        }
     }
 
     public class PasswordBoxMonitor : DependencyObject

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Project\Every\Every\Every\App.xaml
-21234842057
+4329600819
 
-8-354627138
-14-2018305993
-Control\LoginControl.xaml;MainWindow.xaml;
+10162236848
+17-4693691
+Control\LoginControl.xaml;Control\SignUp\StudentSignUpControl.xaml;Control\SignUp\WorkerSignUp.xaml;MainWindow.xaml;
 
-False
+True
 

@@ -9,7 +9,8 @@
         Title="Every" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <control:LoginControl x:Name="LoginCtrl" 
+        <control:LoginControl x:Name="CtrlLogin" Visibility="Visible"
                               OnLoginResultRecieved="LoginCtrl_OnLoginResultRecieved"/>
+        <control:SignUpControl x:Name="CtrlSignUp" Visibility="Collapsed"/>
     </Grid>
 </Window>

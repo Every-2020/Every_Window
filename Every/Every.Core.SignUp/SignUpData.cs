@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Every.Core.SignUp.ViewModel;
+using System;
 
 namespace Every.Core.SignUp
 {
-    public class Class1
+    public class SignUpData
     {
+        public SignUpViewModel signUpViewModel = new SignUpViewModel();
     }
 }

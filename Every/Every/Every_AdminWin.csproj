@@ -59,6 +59,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Control\SignUp\StudentSignUpControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\SignUp\WorkerSignUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +78,12 @@
     <Compile Include="Common\Setting.cs" />
     <Compile Include="Control\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\SignUp\StudentSignUpControl.xaml.cs">
+      <DependentUpon>StudentSignUpControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\SignUp\WorkerSignUp.xaml.cs">
+      <DependentUpon>WorkerSignUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -107,6 +121,17 @@
       <Project>{0FCBE606-91F0-4982-9DD9-3E8EEB1DC2E8}</Project>
       <Name>Every.Core.Login</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TNetwork\TNetwork.csproj">
+      <Project>{BBDB688F-DC0D-4881-B367-AA7E34922DE7}</Project>
+      <Name>TNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Every.Core.SignUp\Every.Core.SignUp.csproj">
+      <Project>{AFAE4130-57A5-494D-B86A-A40257A82E5C}</Project>
+      <Name>Every.Core.SignUp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\로고.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
