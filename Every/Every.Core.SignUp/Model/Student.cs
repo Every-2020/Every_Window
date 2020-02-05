@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Every.Core.SignUp.Model
 {
-    public class SignUp : BindableBase, ICloneable
+    public class Student : BindableBase, ICloneable
     {
         private string _email;
         [JsonProperty("email")]
@@ -76,7 +76,7 @@ namespace Every.Core.SignUp.Model
 
         public object Clone()
         {
-            return new SignUp
+            return new Student
             {
                 Email = this.Email,
                 Pw = this.Pw,
