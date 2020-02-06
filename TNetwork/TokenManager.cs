@@ -14,10 +14,6 @@ namespace TNetwork
     {
         public const int TOKEN_EXPIRED = 410;
 
-        //TODO: Refresh 토큰이 만료 되었을때 Login함수를 부를 지 새로운 함수 정의할 지 결정해야함
-        //TODO: hyoseong - autoLogin Off일때 refreshtoken만료되면 options에 id, pw 값 저장안되어있음.
-        //TODO : REFRESH 후 APP 단으로 토큰 리턴해야함
-        //TODO : TOKEN을 앱에서 인자로 넘기는 방식으로 변경할 지 결정해야함
         public async Task TokenRefresh()
         {
             JObject jObj = new JObject();

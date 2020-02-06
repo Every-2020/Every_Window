@@ -109,6 +109,31 @@ namespace Every.Core.SignUp.ViewModel
             SignUp();
         }
 
+        // 전화 번호입력시 하이픈 자동 입력
+        //public void phoneNumHyphen(string phoneNumber)
+        //{
+        //    string phone = phoneNumber;
+        //    string str_phoneNumHyphen;
+        //    string[] phoneNumSplit = new string[3];
+
+        //    if (phone.Length == 10)
+        //    {
+        //        phoneNumSplit[0] = phone.Substring(0, 3);
+        //        phoneNumSplit[1] = phone.Substring(3, 3);
+        //        phoneNumSplit[2] = phone.Substring(6, 4);
+        //    }
+        //    else
+        //    {
+        //        phoneNumSplit[0] = phone.Substring(0, 3);
+        //        phoneNumSplit[1] = phone.Substring(3, 4);
+        //        phoneNumSplit[2] = phone.Substring(7, 4);
+        //    }
+
+        //    str_phoneNumHyphen = phoneNumSplit[0] + "-" + phoneNumSplit[1] + "-" + phoneNumSplit[2];
+
+        //    phoneNumber = str_phoneNumHyphen;
+        //}
+
         private async void SignUp()
         {
             TResponse<Nothing> signUpArgs = null;

@@ -7,11 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Every_AdminWin", "Every\Eve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Every.Core.Login", "..\Bind.Core.Login\Bind.Core.Login\Every.Core.Login.csproj", "{0FCBE606-91F0-4982-9DD9-3E8EEB1DC2E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Every.Core.Member", "..\Bind.Core.Member\Every.Core.Member.csproj", "{3D9C9B7B-7C29-45AF-8320-8EB82D747048}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNetwork", "..\TNetwork\TNetwork.csproj", "{BBDB688F-DC0D-4881-B367-AA7E34922DE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Every.Core.SignUp", "Every.Core.SignUp\Every.Core.SignUp.csproj", "{AFAE4130-57A5-494D-B86A-A40257A82E5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Every.Core.SignUp", "Every.Core.SignUp\Every.Core.SignUp.csproj", "{AFAE4130-57A5-494D-B86A-A40257A82E5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +25,6 @@ Global
 		{0FCBE606-91F0-4982-9DD9-3E8EEB1DC2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FCBE606-91F0-4982-9DD9-3E8EEB1DC2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FCBE606-91F0-4982-9DD9-3E8EEB1DC2E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D9C9B7B-7C29-45AF-8320-8EB82D747048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D9C9B7B-7C29-45AF-8320-8EB82D747048}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D9C9B7B-7C29-45AF-8320-8EB82D747048}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D9C9B7B-7C29-45AF-8320-8EB82D747048}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BBDB688F-DC0D-4881-B367-AA7E34922DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBDB688F-DC0D-4881-B367-AA7E34922DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBDB688F-DC0D-4881-B367-AA7E34922DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU

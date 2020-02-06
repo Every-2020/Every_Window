@@ -8,6 +8,67 @@
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid>
-            
+        <StackPanel Margin="50, 0, 50, 100" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="500"
+                    Width="500">
+
+            <TextBlock FontSize="12" 
+                       Text="이메일을 입력해 주세요."
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputEmail"
+                     Height="30" 
+                     Text="{Binding InputEmail, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <TextBlock FontSize="12" 
+                       Text="비밀번호를 입력해 주세요."
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputPw"
+                     Height="30" 
+                     Text="{Binding InputPw, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <TextBlock FontSize="12" 
+                       Text="이름을 입력해 주세요."
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputName"
+                     Height="30" 
+                     Text="{Binding InputName, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <TextBlock FontSize="12" 
+                       Text="전화번호를 입력해 주세요."
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputPhone"
+                     Height="30" 
+                     Text="{Binding InputPhone, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <TextBlock FontSize="12" 
+                       Text="태어난 년도를 입력해 주세요."
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputBirth_Year"
+                     Height="30" 
+                     Text="{Binding InputBirth_Year, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <TextBlock FontSize="12" 
+                       Text="학교 정보를 입력해 주세요."
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputSchool_Id"
+                     Height="30" 
+                     Text="{Binding InputSchool_Id, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <Button x:Name="btnSignUp"
+                    Command="{Binding SignUpCommand}"
+                    Margin="10 20"
+                    Background="Transparent"
+                    Height="30"
+                    Content="회원 가입하기"
+                    Foreground="Black"/>
+        </StackPanel>
     </Grid>
 </UserControl>
