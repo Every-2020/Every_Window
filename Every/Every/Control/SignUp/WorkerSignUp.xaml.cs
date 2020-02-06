@@ -24,7 +24,7 @@ namespace Every.Control.SignUp
         public WorkerSignUp()
         {
             InitializeComponent();
-            this.DataContext = App.signupData.signUpViewModel;
+            this.DataContext = App.signUpData.signUpViewModel;
         }
     }
 }

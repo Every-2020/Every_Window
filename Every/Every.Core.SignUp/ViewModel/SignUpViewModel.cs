@@ -15,10 +15,14 @@ namespace Every.Core.SignUp.ViewModel
     {
         SignUpService signUpService = new SignUpService();
 
-        public delegate void OnSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
-        public event OnSignUpResultReceivedHandler OnSignUpResultRecieved;
+        public delegate void OnStudentSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
+        public event OnStudentSignUpResultReceivedHandler OnStudentSignUpResultRecieved;
 
-        #region Properties
+        public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
+        public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
+
+#region Properties
+        #region 학생 & 직장인 공통 Properties
         private string _inputEmail;
         public string InputEmail
         {
@@ -59,8 +63,8 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
-        private string _inputBirth_Year;
-        public string InputBirth_Year
+        private int? _inputBirth_Year;
+        public int? InputBirth_Year
         {
             get => _inputBirth_Year;
             set
@@ -68,7 +72,9 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _inputBirth_Year, value);
             }
         }
+        #endregion
 
+        #region 학생 전용 Properties
         private string _inputSchool_Id;
         public string InputSchool_Id
         {
@@ -78,7 +84,31 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _inputSchool_Id, value);
            }
         }
+        #endregion
 
+        #region 직장인 전용 Properties
+        private string _inputwork_Place;
+        public string InputWork_Place
+        {
+            get => _inputwork_Place;
+            set
+            {
+                SetProperty(ref _inputwork_Place, value);
+            }
+        }
+
+        private int? _inputwork_Category;
+        public int? InputWork_Category
+        {
+            get => _inputwork_Category;
+            set
+            {
+                SetProperty(ref _inputwork_Category, value);
+            }
+        }
+        #endregion
+
+        // SettingHttpRequest
         private string _serverAddress;
         public string ServerAddress
         {
@@ -86,15 +116,17 @@ namespace Every.Core.SignUp.ViewModel
             set => SetProperty(ref _serverAddress, value.Trim());
         }
 
-        public ICommand SignUpCommand { get; set; }
-        public ICommand CreateStudentCommand { get; set; }
-        public ICommand CreateWorkerCommand { get; set; }
+        #region Commands
+        public ICommand StudentSignUpCommand { get; set; }
+        public ICommand WorkerSignUpCommand { get; set; }
+        #endregion
 #endregion
 
         // 생성자
         public SignUpViewModel()
         {
-            SignUpCommand = new DelegateCommand(OnSignUp, CanSignUp).ObservesProperty(()=>InputEmail);
+            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp).ObservesProperty(()=>InputEmail);
+            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanSignUp).ObservesProperty(() =>InputEmail);
         }
 
         // 회원가입시 필요한 정보가 모두 입력되어있는지 확인
@@ -106,9 +138,14 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         // SignUpCommand
-        private void OnSignUp()
+        private void OnStudentSignUp()
         {
-            SignUp();
+            StudentSignUp();
+        }
+
+        private void OnWorkerSignUp()
+        {
+            WorkerSignUp();
         }
 
         // 전화 번호입력시 하이픈 자동 입력
@@ -136,7 +173,7 @@ namespace Every.Core.SignUp.ViewModel
         //    phoneNumber = str_phoneNumHyphen;
         //}
 
-        private async void SignUp()
+        private async void StudentSignUp()
         {
             TResponse<Nothing> signUpArgs = null;
             try
@@ -152,7 +189,26 @@ namespace Every.Core.SignUp.ViewModel
                 signUpArgs = null;
             }
 
-            OnSignUpResultRecieved?.Invoke(signUpArgs);
+            OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
+        }
+
+        private async void WorkerSignUp()
+        {
+            TResponse<Nothing> signUpArgs = null;
+            try
+            {
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
+
+                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+                signUpArgs = null;
+            }
+
+            OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
         }
     }
 }

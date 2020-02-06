@@ -55,15 +55,23 @@
                      Margin="10 0"/>
 
             <TextBlock FontSize="12" 
-                       Text="직장 또는 대학교 정보를 입력해 주세요."
+                       Text="근무 직장 또는 대학교 정보를 입력해 주세요."
                        Margin="10 5"/>
-            <TextBox x:Name="tbInputSchool_Id"
+            <TextBox x:Name="tbInputWork_Place"
                      Height="30" 
-                     Text="{Binding InputSchool_Id, Mode=TwoWay}"
+                     Text="{Binding InputWork_Place, Mode=TwoWay}"
+                     Margin="10 0"/>
+
+            <TextBlock FontSize="12" 
+                       Text="근무 직종의 종류를 입력해 주세요.(대학생이라면 학과를 입력해 주세요.)"
+                       Margin="10 5"/>
+            <TextBox x:Name="tbInputWork_Category"
+                     Height="30" 
+                     Text="{Binding InputWork_Category, Mode=TwoWay}"
                      Margin="10 0"/>
 
             <Button x:Name="btnSignUp"
-                    Command="{Binding SignUpCommand}"
+                    Command="{Binding WorkerSignUpCommand}"
                     Margin="10 20"
                     Background="Transparent"
                     Height="30"

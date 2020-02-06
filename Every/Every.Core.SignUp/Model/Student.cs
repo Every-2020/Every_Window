@@ -52,9 +52,9 @@ namespace Every.Core.SignUp.Model
             }
         }
 
-        private string _birth_Year;
+        private int? _birth_Year;
         [JsonProperty("birth_year")]
-        public string Birth_Year
+        public int? Birth_Year
         {
             get => _birth_Year;
             set

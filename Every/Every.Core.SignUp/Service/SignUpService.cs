@@ -33,7 +33,7 @@ namespace Every.Core.SignUp.Service
         /// <param name="birth_year", 태어난 년도></param>
         /// <param name="school_id", 학교 정보></param>
         /// <returns></returns>
-        public async Task<TResponse<Nothing>> Student_SignUp(string email, string pw, string name, string phone, string birth_year, string school_id)
+        public async Task<TResponse<Nothing>> Student_SignUp(string email, string pw, string name, string phone, int? birth_year, string school_id)
         {
             JObject jObject = new JObject();
             jObject["email"] = email;
@@ -56,7 +56,7 @@ namespace Every.Core.SignUp.Service
         /// <param name="work_place", 근무 직장></param>
         /// <param name="work_category", 근무 직종></param>
         /// <returns></returns>
-        public async Task<TResponse<Nothing>> Worker_SignUp(string email, string pw, string name, string phone, string birth_year, string work_place, string work_category)
+        public async Task<TResponse<Nothing>> Worker_SignUp(string email, string pw, string name, string phone, int? birth_year, string work_place, int? work_category)
         {
             JObject jObject = new JObject();
             jObject["email"] = email;

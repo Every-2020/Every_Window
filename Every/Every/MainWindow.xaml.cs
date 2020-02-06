@@ -29,18 +29,29 @@ namespace Every_AdminWin
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            App.signupData.signUpViewModel.OnSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
+            App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
+            App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;
             CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived;
-        }
+        }        
 
+        // 학생 회원가입
         private void SignUpViewModel_OnSignUpResultRecieved(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)
         {
-            // TODO : 회원가입 할 때 학생 가입인지 직장인 가입인지 구분하고 실행하기.
-
             if(signUpArgs.Status == (int)HttpStatusCode.Created)
             {
                 CtrlStudentSignUp.Visibility = Visibility.Collapsed;
-                MessageBox.Show("회원가입에 성공하였습니다.");
+                MessageBox.Show("학생 회원가입에 성공하였습니다.");
+                CtrlLogin.Visibility = Visibility.Visible;
+            }
+        }
+
+        // 직장인 회원가입
+        private void SignUpViewModel_OnWorkerSignUpResultReceived(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)
+        {
+            if (signUpArgs.Status == (int)HttpStatusCode.Created)
+            {
+                CtrlWorkerSignUp.Visibility = Visibility.Collapsed;
+                MessageBox.Show("직장인 회원가입에 성공하였습니다.");
                 CtrlLogin.Visibility = Visibility.Visible;
             }
         }

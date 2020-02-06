@@ -18,7 +18,7 @@ namespace Every_AdminWin
     public partial class App : Application
     {
         public static LoginData loginData = new LoginData();
-        public static SignUpData signupData = new SignUpData();
+        public static SignUpData signUpData = new SignUpData();
 
         public static SelectIdentity selectIdentity = new SelectIdentity();
         public App()
