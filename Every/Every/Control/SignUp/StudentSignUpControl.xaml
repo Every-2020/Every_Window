@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="Every.Control.SignUpControl"
+﻿<UserControl x:Class="Every.Control.SignUp.StudentSignUpControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Every.Control"
-             xmlns:control="clr-namespace:Every.Control"
+             xmlns:local="clr-namespace:Every.Control.SignUp"
+             xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid>

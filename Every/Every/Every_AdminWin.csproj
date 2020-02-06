@@ -59,6 +59,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Control\SignUp\SelectIdentity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Control\SignUp\StudentSignUpControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +82,9 @@
     <Compile Include="Common\Setting.cs" />
     <Compile Include="Control\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\SignUp\SelectIdentity.xaml.cs">
+      <DependentUpon>SelectIdentity.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\SignUp\StudentSignUpControl.xaml.cs">
       <DependentUpon>StudentSignUpControl.xaml</DependentUpon>

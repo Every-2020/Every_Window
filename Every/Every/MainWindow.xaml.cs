@@ -24,26 +24,50 @@ namespace Every_AdminWin
         public MainWindow()
         {
             InitializeComponent();
-            App.signupData.signUpViewModel.OnSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved1;
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            App.signupData.signUpViewModel.OnSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
             CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived;
         }
 
-        private void SignUpViewModel_OnSignUpResultRecieved1(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)
+        private void SignUpViewModel_OnSignUpResultRecieved(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)
         {
+            // TODO : 회원가입 할 때 학생 가입인지 직장인 가입인지 구분하고 실행하기.
+
             if(signUpArgs.Status == (int)HttpStatusCode.Created)
             {
-                CtrlSignUp.Visibility = Visibility.Collapsed;
+                CtrlStudentSignUp.Visibility = Visibility.Collapsed;
                 MessageBox.Show("회원가입에 성공하였습니다.");
                 CtrlLogin.Visibility = Visibility.Visible;
             }
         }
 
-        private void CtrlLogin_OnSignUpReceived(object sender, bool success)
+        private void CtrlLogin_OnSignUpReceived(object sender, RoutedEventArgs e)
         {
             CtrlLogin.Visibility = Visibility.Collapsed;
-            CtrlSignUp.Visibility = Visibility.Visible;
+            CtrlSelectIdentity.Visibility = Visibility.Visible;
+
+            // 학생 or 직장인 선택 후 각각의 해당 컨트롤 호출
+            CtrlSelectIdentity.OnCreateStudentAccount += SelectIdentity_OnCreateStudentAccount;
+            CtrlSelectIdentity.OnCreateWorkerAccount += SelectIdentity_OnCreateWorkerAccount;
         }
 
+        #region 회원가입 선택
+        private void SelectIdentity_OnCreateStudentAccount(object Sender, RoutedEventArgs e)
+        {
+            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
+            CtrlStudentSignUp.Visibility = Visibility.Visible;
+        }
+
+        private void SelectIdentity_OnCreateWorkerAccount(object Sender, RoutedEventArgs e)
+        {
+            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
+            CtrlWorkerSignUp.Visibility = Visibility.Visible;
+        }
+        #endregion
         private async void LoginCtrl_OnLoginResultRecieved(object sender, bool success)
         {
             if (success)

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Project\Every\Every\Every\obj\Debug\
+C:\Project\Every_Window\Every\Every\obj\Debug\
 Every
 none
 false
 DEBUG;TRACE
-C:\Project\Every\Every\Every\App.xaml
-4329600819
+C:\Project\Every_Window\Every\Every\App.xaml
+5665371046
 
-10162236848
-17-4693691
-Control\LoginControl.xaml;Control\SignUp\StudentSignUpControl.xaml;Control\SignUp\WorkerSignUp.xaml;MainWindow.xaml;
+11235125923
+17-1601775640
+Control\LoginControl.xaml;Control\SignUp\SelectIdentity.xaml;Control\SignUp\StudentSignUpControl.xaml;Control\SignUp\WorkerSignUp.xaml;MainWindow.xaml;
 
 True
 

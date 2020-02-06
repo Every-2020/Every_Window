@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Every.Control.SignUp"
-             xmlns:control="clr-namespace:Every.Control"
+             xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid>
@@ -55,7 +55,7 @@
                      Margin="10 0"/>
 
             <TextBlock FontSize="12" 
-                       Text="학교 정보를 입력해 주세요."
+                       Text="직장 또는 대학교 정보를 입력해 주세요."
                        Margin="10 5"/>
             <TextBox x:Name="tbInputSchool_Id"
                      Height="30" 

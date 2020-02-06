@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Every.Control.SignUp.SelectIdentity"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Every.Control.SignUp"
+             xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnCreateStudentAccount"
+                        Grid.Column="0"
+                        Content="학생"
+                        Background="Transparent"
+                        Height="100"
+                        HorizontalContentAlignment="Center"
+                        Click="btnCreateStudentAccount_Click"
+                        Width="800"/>
+
+                <Button x:Name="btnCreateWorkerAccount"
+                        Grid.Column="1"
+                        Content="직장인"
+                        Background="Transparent"
+                        Height="100"
+                        HorizontalContentAlignment="Center"
+                        Click="btnCreateWorkerAccount_Click"
+                        Width="800"/>
+            </Grid>
+        </StackPanel>  
+    </Grid>
+</UserControl>

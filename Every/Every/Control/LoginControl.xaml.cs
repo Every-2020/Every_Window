@@ -23,7 +23,7 @@ namespace Every.Control
     /// </summary>
     public partial class LoginControl : UserControl
     {
-        public delegate void OnSignUpRecievedHandler(object sender, bool success);
+        public delegate void OnSignUpRecievedHandler(object sender, RoutedEventArgs e);
         public event OnSignUpRecievedHandler OnSignUpReceived;
 
         private bool isAutoLogin = false;
@@ -184,7 +184,7 @@ namespace Every.Control
 
         private void tbSign_Click(object sender, RoutedEventArgs e)
         {
-            OnSignUpReceived?.Invoke(this, true);
+            OnSignUpReceived?.Invoke(this, e);
         }
     }
 

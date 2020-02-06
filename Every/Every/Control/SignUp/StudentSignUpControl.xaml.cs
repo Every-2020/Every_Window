@@ -15,14 +15,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Every.Control
+namespace Every.Control.SignUp
 {
     /// <summary>
     /// Interaction logic for SignUpControl.xaml
     /// </summary>
-    public partial class SignUpControl : UserControl
+    public partial class StudentSignUpControl : UserControl
     {
-        public SignUpControl()
+        public StudentSignUpControl()
         {
             InitializeComponent();
             this.DataContext = App.signupData.signUpViewModel;

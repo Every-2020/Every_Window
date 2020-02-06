@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Every_AdminWin"
         xmlns:control="clr-namespace:Every.Control"
+        xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
         mc:Ignorable="d"
         Title="Every" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <control:LoginControl x:Name="CtrlLogin" Visibility="Visible"
                               OnLoginResultRecieved="LoginCtrl_OnLoginResultRecieved"/>
-        <control:SignUpControl x:Name="CtrlSignUp" Visibility="Collapsed"/>
+
+        <control_SignUp:SelectIdentity x:Name="CtrlSelectIdentity" Visibility="Collapsed"/>
+
+        <control_SignUp:StudentSignUpControl x:Name="CtrlStudentSignUp" Visibility="Collapsed"/>
+        <control_SignUp:WorkerSignUp x:Name="CtrlWorkerSignUp" Visibility="Collapsed"/>
     </Grid>
 </Window>

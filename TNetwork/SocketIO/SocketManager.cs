@@ -18,9 +18,7 @@ using TNetwork.SocketIO.Response;
 namespace TNetwork
 {
     public partial class SocketManager
-    {
-
-        
+    {    
         private Manager manager;
 
         public delegate void SocketEventHandler(object sender, string resp);
@@ -58,7 +56,6 @@ namespace TNetwork
         //    DisConnectTo(ref boardSocket);
         //}
 
-        //TODO : APP에서 소켓 생성할 때 이걸로 호출해야함 ㅇㅋ?
         public void ConnectTo(ref Socket target, string targetNamespace)
         {
             if(target != null)

@@ -87,6 +87,8 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         public ICommand SignUpCommand { get; set; }
+        public ICommand CreateStudentCommand { get; set; }
+        public ICommand CreateWorkerCommand { get; set; }
 #endregion
 
         // 생성자
