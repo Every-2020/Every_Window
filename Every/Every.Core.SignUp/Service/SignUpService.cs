@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Every.Core.SignUp.Service.Response;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Every.Core.SignUp.Service
         public readonly string SIGNUP_STUDENT_URL = "/auth/register/student"; // 학생용 회원가입
         public readonly string SIGNUP_WORKER_URL = "/auth/register/worker"; // 직장인용 회원가입
 
+        public readonly string SEARCH_SCHOOL_URL = "/school?query="; // 학교 목록 조회
+
         public NetworkManager networkManager = new NetworkManager();
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace Every.Core.SignUp.Service
             jObject["phone"] = phone;
             jObject["birth_year"] = birth_year;
             jObject["school_id"] = school_id;
-            return await networkManager.GetResponse<Nothing>(SIGNUP_WORKER_URL, Method.POST, jObject.ToString());
+            return await networkManager.GetResponse<Nothing>(SIGNUP_STUDENT_URL, Method.POST, jObject.ToString());
         }
 
         /// <summary>
@@ -67,6 +70,17 @@ namespace Every.Core.SignUp.Service
             jObject["work_place"] = work_place;
             jObject["work_category"] = work_category;
             return await networkManager.GetResponse<Nothing>(SIGNUP_WORKER_URL, Method.POST, jObject.ToString());
+        }
+
+        /// <summary>
+        /// 학교 목록 조회 메소드
+        /// </summary>
+        /// <param name="schoolName", 매개변수(Query Parameters)></param>
+        /// <returns></returns>
+        public async Task<TResponse<GetSchoolListResponse>> GetSchoolList(string schoolName)
+        {
+            string requestUrl = SEARCH_SCHOOL_URL + schoolName;
+            return await networkManager.GetResponse<GetSchoolListResponse>(requestUrl, Method.GET, null);
         }
 
         public void SettingHttpRequest(string serverUrl)

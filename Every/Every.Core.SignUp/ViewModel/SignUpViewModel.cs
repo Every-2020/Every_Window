@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Every.Core.SignUp.ViewModel
         public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
-#region Properties
+        #region Properties
         #region 학생 & 직장인 공통 Properties
         private string _inputEmail;
         public string InputEmail
@@ -36,7 +37,7 @@ namespace Every.Core.SignUp.ViewModel
         private string _inputPw;
         public string InputPw
         {
-            get => _inputEmail;
+            get => _inputPw;
             set
             {
                 SetProperty(ref _inputPw, value);
@@ -86,15 +87,27 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         // Query Parameters, 학교 검색시에 사용
-        private string _schoolName;
-        public string SchoolName
+        private string _inputschool_Name;
+        public string InputSchool_Name
         {
-            get => _schoolName;
+            get => _inputschool_Name;
             set
             {
-                SetProperty(ref _schoolName, value);
+                SetProperty(ref _inputschool_Name, value);
             }
         }
+
+        // 학교 정보 저장
+        private ObservableCollection<Model.School> _schoolItems = new ObservableCollection<Model.School>();
+        public ObservableCollection<Model.School> SchoolItems
+        {
+            get => _schoolItems;
+            set
+            {
+                SetProperty(ref _schoolItems, value);
+            }
+        }
+
         #endregion
 
         #region 직장인 전용 Properties
@@ -130,20 +143,33 @@ namespace Every.Core.SignUp.ViewModel
         #region Commands
         public ICommand StudentSignUpCommand { get; set; }
         public ICommand WorkerSignUpCommand { get; set; }
+        public ICommand SearchSchoolCommand { get; set; }
         #endregion
-#endregion
+        #endregion
 
         // 생성자
         public SignUpViewModel()
         {
-            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp).ObservesProperty(()=>InputEmail);
-            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanSignUp).ObservesProperty(() =>InputEmail);
+            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp).ObservesProperty(() => InputEmail)
+                                                                                  .ObservesProperty(() => InputPw)
+                                                                                  .ObservesProperty(() => InputName)
+                                                                                  .ObservesProperty(() => InputPhone)
+                                                                                  .ObservesProperty(() => InputBirth_Year)
+                                                                                  .ObservesProperty(() => InputSchool_Id);
+            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanSignUp).ObservesProperty(() =>InputEmail)
+                                                                                .ObservesProperty(() => InputPw)
+                                                                                .ObservesProperty(() => InputName)
+                                                                                .ObservesProperty(() => InputPhone)
+                                                                                .ObservesProperty(() => InputBirth_Year)
+                                                                                .ObservesProperty(() => InputWork_Place)
+                                                                                .ObservesProperty(() => InputWork_Category);
+            SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
         }
 
         // 회원가입시 필요한 정보가 모두 입력되어있는지 확인
         private bool CanSignUp()
         {
-            return (InputEmail != null) && (InputEmail != "") && (InputEmail != string.Empty);
+            return (InputSchool_Id != null) && (InputSchool_Id != "") && (InputSchool_Id != string.Empty);
 
             //InputPw != null && InputName != null && InputPhone != null && InputBirth_Year != null && InputSchool_Id != null;
         }
@@ -157,6 +183,16 @@ namespace Every.Core.SignUp.ViewModel
         private void OnWorkerSignUp()
         {
             WorkerSignUp();
+        }
+
+        private bool CanSearchSchool()
+        {
+            return (InputSchool_Name != null) && (InputSchool_Name != "") && (InputSchool_Name != string.Empty);
+        }
+
+        private void OnSearchSchool()
+        {
+            SearchSchool();
         }
 
         // 전화 번호입력시 하이픈 자동 입력
@@ -220,6 +256,38 @@ namespace Every.Core.SignUp.ViewModel
             }
 
             OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
+        }
+
+        private async void SearchSchool()
+        {
+            SchoolItems.Clear();
+
+            ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+            signUpService.SettingHttpRequest(ServerAddress);
+
+            var resp = await signUpService.GetSchoolList(InputSchool_Name);
+
+            if(resp != null && resp.Status == 200 && resp.Data != null)
+            {
+                try
+                {
+                    Model.School schoolInfo = new Model.School();
+
+                    foreach(var item in resp.Data.Schools)
+                    {
+                        schoolInfo.School_Id = item.School_Id;
+                        schoolInfo.Office_Id = item.Office_Id;
+                        schoolInfo.School_Name = item.School_Name;
+                        schoolInfo.School_Location = item.School_Location;
+
+                        SchoolItems.Add((Model.School)item.Clone());
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                }
+            }
         }
     }
 }

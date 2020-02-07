@@ -67,7 +67,8 @@
                        Margin="10 5"/>
             <TextBox x:Name="tbInputWork_Category"
                      Height="30" 
-                     Text="{Binding InputWork_Category, Mode=TwoWay}"
+                     Text="{Binding InputWork_Category, Mode=TwoWay, 
+                                    UpdateSourceTrigger=PropertyChanged}"
                      Margin="10 0"/>
 
             <Button x:Name="btnSignUp"
