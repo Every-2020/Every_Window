@@ -84,6 +84,17 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _inputSchool_Id, value);
            }
         }
+
+        // Query Parameters, 학교 검색시에 사용
+        private string _schoolName;
+        public string SchoolName
+        {
+            get => _schoolName;
+            set
+            {
+                SetProperty(ref _schoolName, value);
+            }
+        }
         #endregion
 
         #region 직장인 전용 Properties
