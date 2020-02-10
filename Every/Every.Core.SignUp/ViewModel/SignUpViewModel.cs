@@ -26,6 +26,7 @@ namespace Every.Core.SignUp.ViewModel
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
         private bool Check_Result;
+        private int Distinguish_Identity; // 0 : 학생, 1 : 직장인(대학생 포함)
 
         #region Properties
         #region 학생 & 직장인 공통 Properties
@@ -202,124 +203,84 @@ namespace Every.Core.SignUp.ViewModel
 
         private void OnStudentSignUp()
         {
-            StudentSignUp();
+            CheckRegularExpression(0);
         }
 
         private void OnWorkerSignUp()
         {
-            WorkerSignUp();
+            CheckRegularExpression(1);
         }
 
-        // TODO : 중복코드 수정하기.
+        private void CheckRegularExpression(int Distinguish_Identity)
+        {
+            // 휴대전화 입력시 하이픈("-")을 입력한 경우
+            if (InputPhone.Contains("-"))
+            {
+                // 하이픈이 있는 휴대전화 번호의 정규식 확인
+                HypenPhoneNumRegularExpressionCheck(InputPhone);
+
+                if (Check_Result == true && Distinguish_Identity == 0)
+                {
+                    StudentSignUp();
+                }
+                else if(Check_Result == true && Distinguish_Identity == 1)
+                {
+                    WorkerSignUp();
+                }
+            }
+            else // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
+            {
+                // 하이픈이 없는 휴대전화 번호의 정규식 확인
+                PhoneNumRegularExpressionCheck(InputPhone);
+
+                // 정규식 확인 후 자동으로 하이픈 입력
+                AutoInput_Hyphen(InputPhone);
+
+                if (Check_Result == true && Distinguish_Identity == 0)
+                {
+                    StudentSignUp();
+                }
+                else if(Check_Result == true && Distinguish_Identity == 1)
+                {
+                    WorkerSignUp();
+                }
+            }
+        }
+
         private async void StudentSignUp()
         {
-            // 휴대전화 입력시 하이픈("-")을 입력한 경우
-            if (InputPhone.Contains("-"))
+            TResponse<Nothing> signUpArgs = null;
+            try
             {
-                // 하이픈이 있는 휴대전화 번호의 정규식 확인
-                HypenPhoneNumRegularExpressionCheck(InputPhone);
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
 
-                if (Check_Result == true)
-                {
-                    TResponse<Nothing> signUpArgs = null;
-                    try
-                    {
-                        ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                        signUpService.SettingHttpRequest(ServerAddress);
-
-                        signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.StackTrace);
-                        signUpArgs = null;
-                    }
-                    OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
-                }
+                signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
             }
-            else // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
+            catch (Exception e)
             {
-                // 하이픈이 없는 휴대전화 번호의 정규식 확인
-                PhoneNumRegularExpressionCheck(InputPhone);
-
-                // 정규식 확인 후 자동으로 하이픈 입력
-                AutoInput_Hyphen(InputPhone);
-
-                if (Check_Result == true)
-                {
-                    TResponse<Nothing> signUpArgs = null;
-                    try
-                    {
-                        ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                        signUpService.SettingHttpRequest(ServerAddress);
-
-                        signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.StackTrace);
-                        signUpArgs = null;
-                    }
-                    OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
-                }
+                Debug.WriteLine(e.StackTrace);
+                signUpArgs = null;
             }
+            OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
         }
 
-
-
-        // TODO : 중복코드 수정하기.
         private async void WorkerSignUp()
         {
-            // 휴대전화 입력시 하이픈("-")을 입력한 경우
-            if (InputPhone.Contains("-"))
+            TResponse<Nothing> signUpArgs = null;
+            try
             {
-                // 하이픈이 있는 휴대전화 번호의 정규식 확인
-                HypenPhoneNumRegularExpressionCheck(InputPhone);
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
 
-                if(Check_Result == true)
-                {
-                    TResponse<Nothing> signUpArgs = null;
-                    try
-                    {
-                        ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                        signUpService.SettingHttpRequest(ServerAddress);
-
-                        signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.StackTrace);
-                        signUpArgs = null;
-                    }
-                    OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
-                }
+                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
             }
-            else // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
+            catch (Exception e)
             {
-                // 하이픈이 없는 휴대전화 번호의 정규식 확인
-                PhoneNumRegularExpressionCheck(InputPhone);
-
-                // 정규식 확인 후 자동으로 하이픈 입력
-                AutoInput_Hyphen(InputPhone);
-
-                if (Check_Result == true)
-                {
-                    TResponse<Nothing> signUpArgs = null;
-                    try
-                    {
-                        ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                        signUpService.SettingHttpRequest(ServerAddress);
-
-                        signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.StackTrace);
-                        signUpArgs = null;
-                    }
-                    OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
-                }
+                Debug.WriteLine(e.StackTrace);
+                signUpArgs = null;
             }
+            OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
         }
 
         #region 휴대전화번호 관련 검증 메소드들
@@ -366,7 +327,7 @@ namespace Every.Core.SignUp.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("휴대전화 번호가 아닙니다.");
+                    MessageBox.Show("휴대전화 번호를 다시 확인해 주세요.");
                 }
             }
             else
@@ -392,7 +353,7 @@ namespace Every.Core.SignUp.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("휴대전화 번호가 아닙니다.");
+                    MessageBox.Show("휴대전화 번호를 다시 확인해 주세요.");
                 }
             }
             else
