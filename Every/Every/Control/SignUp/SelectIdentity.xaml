@@ -7,6 +7,17 @@
              xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
+
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="btnStyle">
+            <Setter Property="Background" Value="MediumPurple"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="800"/>
+            <Setter Property="Height" Value="200"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <StackPanel VerticalAlignment="Center">
             <Grid>
@@ -18,20 +29,14 @@
                 <Button x:Name="btnCreateStudentAccount"
                         Grid.Column="0"
                         Content="학생"
-                        Background="Transparent"
-                        Height="100"
-                        HorizontalContentAlignment="Center"
                         Click="btnCreateStudentAccount_Click"
-                        Width="800"/>
+                        Style="{StaticResource btnStyle}"/>
 
                 <Button x:Name="btnCreateWorkerAccount"
                         Grid.Column="1"
                         Content="직장인"
-                        Background="Transparent"
-                        Height="100"
-                        HorizontalContentAlignment="Center"
                         Click="btnCreateWorkerAccount_Click"
-                        Width="800"/>
+                        Style="{StaticResource btnStyle}"/>
             </Grid>
         </StackPanel>  
     </Grid>

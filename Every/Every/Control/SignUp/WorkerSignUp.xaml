@@ -17,10 +17,34 @@
             <TextBlock FontSize="12" 
                        Text="이메일을 입력해 주세요."
                        Margin="10 5"/>
-            <TextBox x:Name="tbInputEmail"
-                     Height="30" 
-                     Text="{Binding InputEmail, Mode=TwoWay}"
-                     Margin="10 0"/>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             x:Name="tbInputEmail"
+                             Height="30" 
+                             Text="{Binding InputEmail, Mode=TwoWay, 
+                                    UpdateSourceTrigger=PropertyChanged}"
+                             Margin="10 0"/>
+                    <Button Grid.Column="1"
+                            Content="중복 확인"
+                            Height="30"
+                            Margin="10 0"
+                            Background="Transparent"
+                            Command="{Binding CheckEmailOverLapCommand}"/>
+                </Grid>
+
+                <TextBlock Margin="10 5"
+                           Height="30"
+                           Text="{Binding Email_Desc}"
+                           Foreground="{Binding Desc_Foreground}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
 
             <TextBlock FontSize="12" 
                        Text="비밀번호를 입력해 주세요."

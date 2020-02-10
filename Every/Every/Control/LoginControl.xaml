@@ -115,8 +115,9 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid Background="White">
+
         <Grid MaxWidth="450">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.45*"/>
