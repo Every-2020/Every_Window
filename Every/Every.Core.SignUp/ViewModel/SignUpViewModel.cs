@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Windows.Input;
+using System.Windows.Media;
 using TNetwork.Data;
 
 namespace Every.Core.SignUp.ViewModel
@@ -73,6 +74,27 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _inputBirth_Year, value);
             }
         }
+
+        private string _eamil_Desc;
+        public string Email_Desc
+        {
+            get => _eamil_Desc;
+            set
+            {
+                SetProperty(ref _eamil_Desc, value);
+            }
+        }
+
+        private System.Windows.Media.Brush _desc_Foreground;
+        public System.Windows.Media.Brush Desc_Foreground
+        {
+            get => _desc_Foreground;
+            set
+            {
+                SetProperty(ref _desc_Foreground, value);
+            }
+        }
+
         #endregion
 
         #region 학생 전용 Properties
@@ -144,37 +166,36 @@ namespace Every.Core.SignUp.ViewModel
         public ICommand StudentSignUpCommand { get; set; }
         public ICommand WorkerSignUpCommand { get; set; }
         public ICommand SearchSchoolCommand { get; set; }
+        public ICommand CheckEmailOverLapCommand { get; set; }
         #endregion
         #endregion
 
         // 생성자
         public SignUpViewModel()
         {
-            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp).ObservesProperty(() => InputEmail)
+            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp)/*.ObservesProperty(() => InputEmail)
                                                                                   .ObservesProperty(() => InputPw)
                                                                                   .ObservesProperty(() => InputName)
                                                                                   .ObservesProperty(() => InputPhone)
-                                                                                  .ObservesProperty(() => InputBirth_Year)
+                                                                                  .ObservesProperty(() => InputBirth_Year)*/
                                                                                   .ObservesProperty(() => InputSchool_Id);
-            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanSignUp).ObservesProperty(() =>InputEmail)
+            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanSignUp)/*.ObservesProperty(() => InputEmail)
                                                                                 .ObservesProperty(() => InputPw)
                                                                                 .ObservesProperty(() => InputName)
                                                                                 .ObservesProperty(() => InputPhone)
                                                                                 .ObservesProperty(() => InputBirth_Year)
-                                                                                .ObservesProperty(() => InputWork_Place)
+                                                                                .ObservesProperty(() => InputWork_Place)*/
                                                                                 .ObservesProperty(() => InputWork_Category);
             SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
+            CheckEmailOverLapCommand = new DelegateCommand(OnCheckEmailOverLap, CanCheckEmailOverLap).ObservesProperty(() => InputEmail);
         }
 
-        // 회원가입시 필요한 정보가 모두 입력되어있는지 확인
+        #region 회원 가입 Command
         private bool CanSignUp()
         {
             return (InputSchool_Id != null) && (InputSchool_Id != "") && (InputSchool_Id != string.Empty);
-
-            //InputPw != null && InputName != null && InputPhone != null && InputBirth_Year != null && InputSchool_Id != null;
         }
 
-        // SignUpCommand
         private void OnStudentSignUp()
         {
             StudentSignUp();
@@ -185,17 +206,50 @@ namespace Every.Core.SignUp.ViewModel
             WorkerSignUp();
         }
 
-        private bool CanSearchSchool()
+        private async void StudentSignUp()
         {
-            return (InputSchool_Name != null) && (InputSchool_Name != "") && (InputSchool_Name != string.Empty);
+            PhoneNumHyphen(InputPhone);
+
+            TResponse<Nothing> signUpArgs = null;
+            try
+            {
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
+
+                signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+                signUpArgs = null;
+            }
+
+            OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
         }
 
-        private void OnSearchSchool()
+        private async void WorkerSignUp()
         {
-            SearchSchool();
+            PhoneNumHyphen(InputPhone);
+
+            TResponse<Nothing> signUpArgs = null;
+            try
+            {
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
+
+                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+                signUpArgs = null;
+            }
+
+            OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
         }
 
-        public void phoneNumHyphen(string phoneNumber)
+        // 전화번호 입력시 자동으로 하이픈 입력
+        public void PhoneNumHyphen(string phoneNumber)
         {
             string phone = phoneNumber;
             string str_phoneNumHyphen;
@@ -221,45 +275,17 @@ namespace Every.Core.SignUp.ViewModel
 
             return;
         }
+        #endregion
 
-        private async void StudentSignUp()
+        #region 학교 목록 조회 Command
+        private bool CanSearchSchool()
         {
-            phoneNumHyphen(InputPhone);
-
-            TResponse<Nothing> signUpArgs = null;
-            try
-            {
-                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                signUpService.SettingHttpRequest(ServerAddress);
-
-                signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e.StackTrace);
-                signUpArgs = null;
-            }
-
-            OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
+            return (InputSchool_Name != null) && (InputSchool_Name != "") && (InputSchool_Name != string.Empty);
         }
 
-        private async void WorkerSignUp()
+        private void OnSearchSchool()
         {
-            TResponse<Nothing> signUpArgs = null;
-            try
-            {
-                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                signUpService.SettingHttpRequest(ServerAddress);
-
-                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.StackTrace);
-                signUpArgs = null;
-            }
-
-            OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
+            SearchSchool();
         }
 
         private async void SearchSchool()
@@ -271,13 +297,13 @@ namespace Every.Core.SignUp.ViewModel
 
             var resp = await signUpService.GetSchoolList(InputSchool_Name);
 
-            if(resp != null && resp.Status == 200 && resp.Data != null)
+            if (resp != null && resp.Status == 200 && resp.Data != null)
             {
                 try
                 {
                     Model.School schoolInfo = new Model.School();
 
-                    foreach(var item in resp.Data.Schools)
+                    foreach (var item in resp.Data.Schools)
                     {
                         schoolInfo.School_Id = item.School_Id;
                         schoolInfo.Office_Id = item.Office_Id;
@@ -287,11 +313,50 @@ namespace Every.Core.SignUp.ViewModel
                         SchoolItems.Add((Model.School)item.Clone());
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.WriteLine(e.StackTrace);
                 }
             }
         }
+        #endregion
+
+        #region 이메일 중복 확인 Command
+        private bool CanCheckEmailOverLap()
+        {
+            return (InputEmail != null) && (InputEmail != "") && (InputEmail != string.Empty);
+        }
+
+        private void OnCheckEmailOverLap()
+        {
+            CheckEmailOverLap();
+        }
+
+        private async void CheckEmailOverLap()
+        {
+            try
+            {
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
+
+                var resp = await signUpService.Check_EmailOverLap(InputEmail);
+
+                if(resp.Status == (int)HttpStatusCode.Conflict)
+                {
+                    Email_Desc = "중복된 이메일 주소 입니다.";
+                    Desc_Foreground = Brushes.Red;
+                }
+                else
+                {
+                    Email_Desc = "사용가능한 이메일 주소 입니다.";
+                    Desc_Foreground = Brushes.LightGreen;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
+        }
+        #endregion
     }
 }

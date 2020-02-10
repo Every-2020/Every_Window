@@ -24,6 +24,8 @@ namespace Every.Core.SignUp.Service
 
         public readonly string SEARCH_SCHOOL_URL = "/school?query="; // 학교 목록 조회
 
+        public readonly string CHECK_EMAIL_OVERLAP_URL = "/auth/check/email?email="; // 이메일 중복 확인
+
         public NetworkManager networkManager = new NetworkManager();
 
         /// <summary>
@@ -81,6 +83,12 @@ namespace Every.Core.SignUp.Service
         {
             string requestUrl = SEARCH_SCHOOL_URL + schoolName;
             return await networkManager.GetResponse<GetSchoolListResponse>(requestUrl, Method.GET, null);
+        }
+
+        public async Task<TResponse<Nothing>> Check_EmailOverLap(string email)
+        {
+            string requestUrl = CHECK_EMAIL_OVERLAP_URL + email;
+            return await networkManager.GetResponse<Nothing>(requestUrl, Method.GET, null);
         }
 
         public void SettingHttpRequest(string serverUrl)

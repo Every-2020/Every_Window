@@ -32,7 +32,7 @@ namespace Every_AdminWin
             App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
             App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;
             CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived;
-        }        
+        }
 
         // 학생 회원가입
         private void SignUpViewModel_OnSignUpResultRecieved(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)

@@ -16,6 +16,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\TNetwork\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll</HintPath>
+    </Reference>
     <Reference Include="Prism">
       <HintPath>..\..\TNetwork\bin\Debug\Prism.dll</HintPath>
     </Reference>
