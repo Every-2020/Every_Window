@@ -1,2 +1,1 @@
-# Every
-협업 프로젝트 Every
+# This is the Window platform development space for Every project. @김경훈
