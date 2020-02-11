@@ -25,8 +25,8 @@ namespace Every.Core.SignUp.ViewModel
         public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
-        private bool Check_Result;
-        private int Distinguish_Identity; // 0 : 학생, 1 : 직장인(대학생 포함)
+        private bool Check_Result; // 정규식 검증 결과 여부 확인
+        private bool Check_Email_OverLap = false; // 이메일 중복 확인 버튼 클릭 여부 확인
 
         #region Properties
         #region 학생 & 직장인 공통 Properties
@@ -47,6 +47,17 @@ namespace Every.Core.SignUp.ViewModel
             set
             {
                 SetProperty(ref _inputPw, value);
+
+                if (value.Length >= 8 && value.Length <= 20)
+                {
+                    Pw_Desc = "사용가능한 비밀번호 입니다.";
+                    Pw_Desc_Foreground = Brushes.LightGreen;
+                }
+                else
+                {
+                    Pw_Desc = "비밀번호 자릿수를 다시 확인해 주세요.";
+                    Pw_Desc_Foreground = Brushes.Red;
+                }
             }
         }
 
@@ -90,13 +101,33 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
-        private System.Windows.Media.Brush _desc_Foreground;
-        public System.Windows.Media.Brush Desc_Foreground
+        private System.Windows.Media.Brush _email_Desc_Foreground;
+        public System.Windows.Media.Brush Email_Desc_Foreground
         {
-            get => _desc_Foreground;
+            get => _email_Desc_Foreground;
             set
             {
-                SetProperty(ref _desc_Foreground, value);
+                SetProperty(ref _email_Desc_Foreground, value);
+            }
+        }
+
+        private string _pw_Desc;
+        public string Pw_Desc
+        {
+            get => _pw_Desc;
+            set
+            {
+                SetProperty(ref _pw_Desc, value);
+            }
+        }
+
+        private System.Windows.Media.Brush _pw_Desc_Foreground;
+        public System.Windows.Media.Brush Pw_Desc_Foreground
+        {
+            get => _pw_Desc_Foreground;
+            set
+            {
+                SetProperty(ref _pw_Desc_Foreground, value);
             }
         }
 
@@ -203,12 +234,23 @@ namespace Every.Core.SignUp.ViewModel
 
         private void OnStudentSignUp()
         {
-            CheckRegularExpression(0);
+            if(Check_Email_OverLap == true)
+            { 
+                CheckRegularExpression(0);
+            }
+            else
+            {
+                Email_Desc = "이메일 중복 확인을 해주세요.";
+                Email_Desc_Foreground = Brushes.Black;
+            }
         }
 
         private void OnWorkerSignUp()
         {
-            CheckRegularExpression(1);
+            if(Check_Email_OverLap == true)
+            { 
+                CheckRegularExpression(1);
+            }
         }
 
         private void CheckRegularExpression(int Distinguish_Identity)
@@ -267,20 +309,31 @@ namespace Every.Core.SignUp.ViewModel
 
         private async void WorkerSignUp()
         {
-            TResponse<Nothing> signUpArgs = null;
-            try
+            if(InputPw.Length >= 8 && InputPw.Length <= 20)
             {
-                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                signUpService.SettingHttpRequest(ServerAddress);
+                Pw_Desc = "사용가능한 비밀번호 입니다.";
+                Pw_Desc_Foreground = Brushes.LightGreen;
 
-                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
+                TResponse<Nothing> signUpArgs = null;
+                try
+                {
+                    ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                    signUpService.SettingHttpRequest(ServerAddress);
+
+                    signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                    signUpArgs = null;
+                }
+                OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
             }
-            catch (Exception e)
+            else
             {
-                Debug.WriteLine(e.StackTrace);
-                signUpArgs = null;
+                Pw_Desc = "비밀번호 자리수를 확인해 주세요.";
+                Pw_Desc_Foreground = Brushes.Red;
             }
-            OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
         }
 
         #region 휴대전화번호 관련 검증 메소드들
@@ -433,12 +486,14 @@ namespace Every.Core.SignUp.ViewModel
                 if(resp.Status == (int)HttpStatusCode.Conflict)
                 {
                     Email_Desc = "중복된 이메일 주소 입니다.";
-                    Desc_Foreground = Brushes.Red;
+                    Email_Desc_Foreground = Brushes.Red;
+                    Check_Email_OverLap = false;
                 }
                 else
                 {
                     Email_Desc = "사용가능한 이메일 주소 입니다.";
-                    Desc_Foreground = Brushes.LightGreen;
+                    Email_Desc_Foreground = Brushes.LightGreen;
+                    Check_Email_OverLap = true;
                 }
             }
             catch (Exception e)

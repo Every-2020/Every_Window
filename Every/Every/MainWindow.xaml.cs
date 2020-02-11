@@ -42,6 +42,19 @@ namespace Every_AdminWin
                 CtrlStudentSignUp.Visibility = Visibility.Collapsed;
                 MessageBox.Show("학생 회원가입에 성공하였습니다.");
                 CtrlLogin.Visibility = Visibility.Visible;
+
+                #region 학생 계정 생성 후 초기화
+                CtrlStudentSignUp.tbInputSchoolName.Text = string.Empty;
+                App.signUpData.signUpViewModel.SchoolItems.Clear();
+                CtrlStudentSignUp.tbInputEmail.Text = string.Empty;
+                CtrlStudentSignUp.tbInputPw.Text = string.Empty;
+                CtrlStudentSignUp.tbInputName.Text = string.Empty;
+                CtrlStudentSignUp.tbInputPhone.Text = string.Empty;
+                CtrlStudentSignUp.tbInputBirth_Year.Text = string.Empty;
+                CtrlStudentSignUp.tbInputSchool_Id.Text = string.Empty;
+                CtrlStudentSignUp.tbEmailDesc.Text = string.Empty;
+                CtrlStudentSignUp.tbPwDesc.Text = string.Empty;
+                #endregion
             }
         }
 
@@ -53,6 +66,16 @@ namespace Every_AdminWin
                 CtrlWorkerSignUp.Visibility = Visibility.Collapsed;
                 MessageBox.Show("직장인 회원가입에 성공하였습니다.");
                 CtrlLogin.Visibility = Visibility.Visible;
+
+                #region 직장인 계정 생성 후 초기화 
+                CtrlWorkerSignUp.tbInputEmail.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputEmail.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputName.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputPhone.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputBirth_Year.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputWork_Place.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputWork_Category.Text = string.Empty;
+                #endregion
             }
         }
 
