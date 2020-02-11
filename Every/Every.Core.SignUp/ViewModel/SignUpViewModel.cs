@@ -25,8 +25,10 @@ namespace Every.Core.SignUp.ViewModel
         public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
-        private bool Check_Result; // 정규식 검증 결과 여부 확인
+        private bool Check_Phone_Regular_Expression_Result; // 정규식 검증 결과 여부 확인
+
         private bool Check_Email_OverLap = false; // 이메일 중복 확인 버튼 클릭 여부 확인
+        private bool Check_Email_Regular_Expression_Result = false; // 이메일 정규식 검증 결과 여부 확인
 
         #region Properties
         #region 학생 & 직장인 공통 Properties
@@ -251,6 +253,11 @@ namespace Every.Core.SignUp.ViewModel
             { 
                 CheckRegularExpression(1);
             }
+            else
+            {
+                Email_Desc = "이메일 중복 확인을 해주세요.";
+                Email_Desc_Foreground = Brushes.Black;
+            }
         }
 
         private void CheckRegularExpression(int Distinguish_Identity)
@@ -259,13 +266,13 @@ namespace Every.Core.SignUp.ViewModel
             if (InputPhone.Contains("-"))
             {
                 // 하이픈이 있는 휴대전화 번호의 정규식 확인
-                HypenPhoneNumRegularExpressionCheck(InputPhone);
+                IsValidHypenPhoneNum(InputPhone);
 
-                if (Check_Result == true && Distinguish_Identity == 0)
+                if (Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 0)
                 {
                     StudentSignUp();
                 }
-                else if(Check_Result == true && Distinguish_Identity == 1)
+                else if(Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 1)
                 {
                     WorkerSignUp();
                 }
@@ -273,16 +280,16 @@ namespace Every.Core.SignUp.ViewModel
             else // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
             {
                 // 하이픈이 없는 휴대전화 번호의 정규식 확인
-                PhoneNumRegularExpressionCheck(InputPhone);
+                IsValidPhoneNum(InputPhone);
 
                 // 정규식 확인 후 자동으로 하이픈 입력
                 AutoInput_Hyphen(InputPhone);
 
-                if (Check_Result == true && Distinguish_Identity == 0)
+                if (Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 0)
                 {
                     StudentSignUp();
                 }
-                else if(Check_Result == true && Distinguish_Identity == 1)
+                else if(Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 1)
                 {
                     WorkerSignUp();
                 }
@@ -309,31 +316,20 @@ namespace Every.Core.SignUp.ViewModel
 
         private async void WorkerSignUp()
         {
-            if(InputPw.Length >= 8 && InputPw.Length <= 20)
+            TResponse<Nothing> signUpArgs = null;
+            try
             {
-                Pw_Desc = "사용가능한 비밀번호 입니다.";
-                Pw_Desc_Foreground = Brushes.LightGreen;
+                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                signUpService.SettingHttpRequest(ServerAddress);
 
-                TResponse<Nothing> signUpArgs = null;
-                try
-                {
-                    ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                    signUpService.SettingHttpRequest(ServerAddress);
-
-                    signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.StackTrace);
-                    signUpArgs = null;
-                }
-                OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
+                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
             }
-            else
+            catch (Exception e)
             {
-                Pw_Desc = "비밀번호 자리수를 확인해 주세요.";
-                Pw_Desc_Foreground = Brushes.Red;
+                Debug.WriteLine(e.StackTrace);
+                signUpArgs = null;
             }
+            OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
         }
 
         #region 휴대전화번호 관련 검증 메소드들
@@ -366,7 +362,7 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         // 하이픈 없이 입력할 경우 휴대전화 번호 정규식
-        private void PhoneNumRegularExpressionCheck(string phoneNumber)
+        private void IsValidPhoneNum(string phoneNumber)
         {
             string phone = phoneNumber;
             if(phone.Length == 10 || phone.Length == 11)
@@ -376,7 +372,7 @@ namespace Every.Core.SignUp.ViewModel
                 Match match = regex.Match(phone);
                 if(match.Success)
                 {
-                    Check_Result = true;
+                    Check_Phone_Regular_Expression_Result = true;
                 }
                 else
                 {
@@ -392,7 +388,7 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         // 하이픈 있게 입력할 경우 휴대전화 번호 정규식
-        private void HypenPhoneNumRegularExpressionCheck(string phoneNumber)
+        private void IsValidHypenPhoneNum(string phoneNumber)
         {
             string phone = phoneNumber;
             if (phone.Length == 12 || phone.Length == 13)
@@ -402,7 +398,7 @@ namespace Every.Core.SignUp.ViewModel
                 Match match = regex.Match(phone);
                 if (match.Success)
                 {
-                    Check_Result = true;
+                    Check_Phone_Regular_Expression_Result = true;
                 }
                 else
                 {
@@ -474,31 +470,57 @@ namespace Every.Core.SignUp.ViewModel
             CheckEmailOverLap();
         }
 
+        // 이메일 정규식 
+        private void IsValidEmailAddress(string emailAddress)
+        {
+            string email = emailAddress;
+
+            Regex regex = new Regex(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", RegexOptions.IgnoreCase);
+            Match match = regex.Match(email);
+
+            if (match.Success)
+            {
+                Check_Email_Regular_Expression_Result = true;
+            }
+            else
+            {
+                Email_Desc = "올바른 이메일 형식인지 확인해 주세요.";
+                Email_Desc_Foreground = Brushes.Red;
+                Check_Email_Regular_Expression_Result = false;
+            }
+        }
+
         private async void CheckEmailOverLap()
         {
-            try
-            {
-                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
-                signUpService.SettingHttpRequest(ServerAddress);
+            IsValidEmailAddress(InputEmail);
 
-                var resp = await signUpService.Check_EmailOverLap(InputEmail);
+            if(Check_Email_Regular_Expression_Result == true)
+            { 
+                try
+                {
+                    ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                    signUpService.SettingHttpRequest(ServerAddress);
 
-                if(resp.Status == (int)HttpStatusCode.Conflict)
-                {
-                    Email_Desc = "중복된 이메일 주소 입니다.";
-                    Email_Desc_Foreground = Brushes.Red;
-                    Check_Email_OverLap = false;
+                    var resp = await signUpService.Check_EmailOverLap(InputEmail);
+
+                    if(resp.Status == (int)HttpStatusCode.Conflict)
+                    {
+                        Email_Desc = "중복된 이메일 주소 입니다.";
+                        Email_Desc_Foreground = Brushes.Red;
+                        Check_Email_OverLap = false;
+                    }
+                    else
+                    {
+                        Email_Desc = "사용가능한 이메일 주소 입니다.";
+                        Email_Desc_Foreground = Brushes.LightGreen;
+                        Check_Email_OverLap = true;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    Email_Desc = "사용가능한 이메일 주소 입니다.";
-                    Email_Desc_Foreground = Brushes.LightGreen;
-                    Check_Email_OverLap = true;
+                    Debug.WriteLine(e.StackTrace);
                 }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.StackTrace);
             }
         }
         #endregion
