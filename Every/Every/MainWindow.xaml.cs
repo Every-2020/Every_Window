@@ -69,12 +69,14 @@ namespace Every_AdminWin
 
                 #region 직장인 계정 생성 후 초기화 
                 CtrlWorkerSignUp.tbInputEmail.Text = string.Empty;
-                CtrlWorkerSignUp.tbInputEmail.Text = string.Empty;
+                CtrlWorkerSignUp.tbInputPw.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputName.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputPhone.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputBirth_Year.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputWork_Place.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputWork_Category.Text = string.Empty;
+                CtrlWorkerSignUp.tbEmailDesc.Text = string.Empty;
+                CtrlWorkerSignUp.tbPwDesc.Text = string.Empty;
                 #endregion
             }
         }
@@ -102,6 +104,7 @@ namespace Every_AdminWin
             CtrlWorkerSignUp.Visibility = Visibility.Visible;
         }
         #endregion
+
         private async void LoginCtrl_OnLoginResultRecieved(object sender, bool success)
         {
             if (success)

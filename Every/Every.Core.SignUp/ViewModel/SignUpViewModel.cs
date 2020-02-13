@@ -25,7 +25,7 @@ namespace Every.Core.SignUp.ViewModel
         public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
-        private bool Check_Phone_Regular_Expression_Result; // 정규식 검증 결과 여부 확인
+        private bool Check_Phone_Regular_Expression_Result; // 휴대전화 번호 정규식 검증 결과 여부 확인
 
         private bool Check_Email_OverLap = false; // 이메일 중복 확인 버튼 클릭 여부 확인
         private bool Check_Email_Regular_Expression_Result = false; // 이메일 정규식 검증 결과 여부 확인
@@ -190,6 +190,8 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _inputwork_Category, value);
             }
         }
+
+        public ObservableCollection<Model.Duty> DutyItems { get; set; }
         #endregion
 
         // SettingHttpRequest
@@ -211,6 +213,8 @@ namespace Every.Core.SignUp.ViewModel
         // 생성자
         public SignUpViewModel()
         {
+            LoadDuties();
+
             StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp)/*.ObservesProperty(() => InputEmail)
                                                                                   .ObservesProperty(() => InputPw)
                                                                                   .ObservesProperty(() => InputName)
@@ -226,6 +230,84 @@ namespace Every.Core.SignUp.ViewModel
                                                                                 .ObservesProperty(() => InputWork_Category);
             SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
             CheckEmailOverLapCommand = new DelegateCommand(OnCheckEmailOverLap, CanCheckEmailOverLap).ObservesProperty(() => InputEmail);
+        }
+
+        private void LoadDuties()
+        {
+            ObservableCollection<Model.Duty> duties = new ObservableCollection<Model.Duty>();
+            #region 직무 분야
+            duties.Add(new Model.Duty 
+            { 
+                Duty_Name = "1. IT·인터넷" 
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "2. 영업·고객상담"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "3. 생산·제조"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "4. 의료"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "5. 경영·사무"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "6. 디자인"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "7. 연구개발·설계"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "8. 교육"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "9. 미디어"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "10. 마케팅·광고·홍보"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "11. 무역·유통"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "12. 서비스"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "13. 건설"
+            });
+
+            duties.Add(new Model.Duty
+            {
+                Duty_Name = "14. 전문·특수직"
+            });
+#endregion
+            DutyItems = duties;
+
         }
 
         #region 회원 가입 Command
@@ -490,6 +572,8 @@ namespace Every.Core.SignUp.ViewModel
                 Check_Email_Regular_Expression_Result = false;
             }
         }
+
+        //RegexOptions.IgnoreCase : 대 / 소문자를 구분하지 않고 일치 항목을 찾도록 지정.
 
         private async void CheckEmailOverLap()
         {

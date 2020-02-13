@@ -8,11 +8,32 @@
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid>
-        <StackPanel Margin="50, 0, 50, 100" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0"
+                  Margin="10 5"
+                  ItemsSource="{Binding DutyItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Duty_Name}"
+                                       FontSize="20"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <StackPanel Grid.Column="1"
+                    Margin="50, 0, 50, 100" 
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Height="500"
-                    Width="500">
+                    Height="600"
+                    Width="600">
 
             <TextBlock FontSize="12" 
                        Text="이메일을 입력해 주세요."
@@ -40,6 +61,7 @@
 
                 <TextBlock Margin="10 5"
                            Height="30"
+                           x:Name="tbEmailDesc"
                            Text="{Binding Email_Desc}"
                            Foreground="{Binding Desc_Foreground}"
                            HorizontalAlignment="Center"
@@ -49,10 +71,20 @@
             <TextBlock FontSize="12" 
                        Text="비밀번호를 입력해 주세요."
                        Margin="10 5"/>
-            <TextBox x:Name="tbInputPw"
-                     Height="30" 
-                     Text="{Binding InputPw, Mode=TwoWay}"
-                     Margin="10 0"/>
+            <StackPanel>
+                <TextBox x:Name="tbInputPw"
+                         Height="30" 
+                         Text="{Binding InputPw, Mode=TwoWay}"
+                         Margin="10 0"/>
+
+                <TextBlock Margin="10 0"
+                           Height="30"
+                           x:Name="tbPwDesc"
+                           Text="{Binding Pw_Desc}"
+                           Foreground="{Binding Pw_Desc_Foreground}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
 
             <TextBlock FontSize="12" 
                        Text="이름을 입력해 주세요."
@@ -87,7 +119,7 @@
                      Margin="10 0"/>
 
             <TextBlock FontSize="12" 
-                       Text="근무 직종의 종류를 입력해 주세요.(대학생이라면 학과를 입력해 주세요.)"
+                       Text="근무 직종의 분류 번호를 입력해 주세요.(대학생이라면 학과와 관련된 분류번호 입력해 주세요.)"
                        Margin="10 5"/>
             <TextBox x:Name="tbInputWork_Category"
                      Height="30" 
