@@ -73,7 +73,7 @@ namespace Every.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://54.180.109.187:8080")]
         public string ServerURL {
             get {
                 return ((string)(this["ServerURL"]));

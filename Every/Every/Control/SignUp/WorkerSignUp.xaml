@@ -63,7 +63,7 @@
                            Height="30"
                            x:Name="tbEmailDesc"
                            Text="{Binding Email_Desc}"
-                           Foreground="{Binding Desc_Foreground}"
+                           Foreground="{Binding Email_Desc_Foreground}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
             </StackPanel>

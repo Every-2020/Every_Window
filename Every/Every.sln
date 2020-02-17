@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNetwork", "..\TNetwork\TNe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Every.Core.SignUp", "Every.Core.SignUp\Every.Core.SignUp.csproj", "{AFAE4130-57A5-494D-B86A-A40257A82E5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Every.Core.Bamboo", "Every.Core.Bamboo\Every.Core.Bamboo.csproj", "{7580DB5A-26A6-4CFA-A894-97FDE4858512}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AFAE4130-57A5-494D-B86A-A40257A82E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFAE4130-57A5-494D-B86A-A40257A82E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFAE4130-57A5-494D-B86A-A40257A82E5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7580DB5A-26A6-4CFA-A894-97FDE4858512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7580DB5A-26A6-4CFA-A894-97FDE4858512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7580DB5A-26A6-4CFA-A894-97FDE4858512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7580DB5A-26A6-4CFA-A894-97FDE4858512}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

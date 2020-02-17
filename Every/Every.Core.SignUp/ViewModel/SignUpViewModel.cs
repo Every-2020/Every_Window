@@ -383,7 +383,7 @@ namespace Every.Core.SignUp.ViewModel
             TResponse<Nothing> signUpArgs = null;
             try
             {
-                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                ServerAddress = "http://54.180.109.187:8080";
                 signUpService.SettingHttpRequest(ServerAddress);
 
                 signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
@@ -401,7 +401,7 @@ namespace Every.Core.SignUp.ViewModel
             TResponse<Nothing> signUpArgs = null;
             try
             {
-                ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                ServerAddress = "http://54.180.109.187:8080";
                 signUpService.SettingHttpRequest(ServerAddress);
 
                 signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
@@ -512,7 +512,7 @@ namespace Every.Core.SignUp.ViewModel
         {
             SchoolItems.Clear();
 
-            ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+            ServerAddress = "http://54.180.109.187:8080";
             signUpService.SettingHttpRequest(ServerAddress);
 
             var resp = await signUpService.GetSchoolList(InputSchool_Name);
@@ -583,7 +583,7 @@ namespace Every.Core.SignUp.ViewModel
             { 
                 try
                 {
-                    ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+                    ServerAddress = "http://54.180.109.187:8080";
                     signUpService.SettingHttpRequest(ServerAddress);
 
                     var resp = await signUpService.Check_EmailOverLap(InputEmail);

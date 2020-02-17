@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Every.Control"
              xmlns:control="clr-namespace:Every.Control"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920">
+             d:DesignHeight="1080" d:DesignWidth="1920"
+             KeyDown="Usercontrol_KeyDown">
     <UserControl.Resources>
         <Style x:Key="LoginBox" TargetType="{x:Type TextBox}">
             <Setter Property="Template">
