@@ -138,7 +138,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\로고.png" />
+    <Resource Include="Assets\LoginControl\ColorLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\LoginControl\BlackLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\LoginControl\BehindWave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\LoginControl\FrontWave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\ico_mail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\ico_password.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

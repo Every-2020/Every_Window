@@ -15,7 +15,7 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border x:Name="Border"
                                 Padding="20 0 0 0"
-                                Background="#f5f8fe"
+                                Background="#E8E8E8"
                                 CornerRadius="3"
                                 BorderBrush="#dce3f2"
                                 BorderThickness="1" >
@@ -26,8 +26,8 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!--<Image Source="/Assets/Icons/ico_mail.png"
-                                           Width="30"></Image>-->
+                                    <Image Source="/Assets/Icons/ico_mail.png"
+                                           Width="30"></Image>
                                     <Grid Grid.Column="1" Margin="7 0 20 0">
                                         <ScrollViewer x:Name="PART_ContentHost"
                                                       VerticalAlignment="Center"
@@ -60,7 +60,7 @@
                     <ControlTemplate TargetType="{x:Type PasswordBox}">
                         <Border x:Name="Border"
                                 Padding="20 0 0 0"
-                                Background="#f5f8fe"
+                                Background="#E8E8E8"
                                 CornerRadius="3"
                                 BorderBrush="#dce3f2"
                                 BorderThickness="1" >
@@ -71,8 +71,8 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!--<Image Source="/Assets/Icons/ico_password.png" 
-                                           Width="25" HorizontalAlignment="Center"></Image>-->
+                                    <Image Source="/Assets/Icons/ico_password.png" 
+                                           Width="25" HorizontalAlignment="Center"></Image>
                                     <Grid Grid.Column="1" Margin="7 0 20 0">
                                         <ScrollViewer x:Name="PART_ContentHost"
                                                   VerticalAlignment="Center"
@@ -115,79 +115,184 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!--Label UnderLine 스타일-->
+        <Style x:Key="labelStyle" TargetType="Label">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" TextDecorations="Underline"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid MaxWidth="450">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.45*"/>
-                <RowDefinition Height="0.55*"/>
-            </Grid.RowDefinitions>
+        <Rectangle Grid.Column="0"
+                   Width="661"
+                   Height="678"
+                   HorizontalAlignment="Right"
+                   Fill="#7E40FF"/>
 
-            <Image Source="/Assets/로고.png"
+        <Image Source="/Assets/LoginControl/BlackLogo.png"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Margin="0,0,300,620"
+               Height="51"
+               Width="51"/>
+
+        <Grid Grid.Column="0">
+
+            <Label Content="What is Every?"
+                   Margin="360,0,0,420"
+                   FontSize="42"
+                   FontWeight="ExtraBold"
+                   FontFamily="나눔스퀘어_ac"
+                   Foreground="White"
+                   HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Height="250"
-                   Width="250"/>
+                   Style="{DynamicResource labelStyle}">
+            </Label>
 
-            <Label Grid.Row="0" 
-                   Margin="0,0,0,50"
-                   Content="Every"
-                   FontWeight="Medium"
-                   FontSize="40"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Bottom"/>
+            <TextBlock FontFamily="나눔스퀘어_ac"
+                       Margin="360,0,0,100"
+                       FontSize="29"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       LineStackingStrategy="BlockLineHeight"
+                       LineHeight="40">
+                        Every는 당신을 위해 다양하고 편리한
+            <LineBreak/>
+                        기능을 제공하고 새로운 사람들과
+            <LineBreak/>
+                        소통을 할 수 있도록 도와줍니다.
+            <LineBreak/>
+                        이제 당신의 일상에 Every를 함께하세요!
+            </TextBlock>
 
-            <StackPanel  Grid.Row="1"
-                         x:Name="Login" 
-                         Margin="50, 0, 50, 100">
+            <Border CornerRadius="20" 
+                    Margin="355,140,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    BorderBrush="White" 
+                    BorderThickness="3"
+                    Height="50"
+                    Width="120"/>
+
+            <Button Content="회원가입" 
+                    x:Name="tbSign"
+                    Margin="374,140,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    FontFamily="나눔스퀘어_ac"
+                    FontSize="24"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Background="#7E40FF"
+                    Style="{DynamicResource ButtonStyle}"
+                    Click="tbSign_Click">
+            </Button>
+
+            <!--Style="{StaticResource ButtonStyle}"-->
+
+            <Image Source="/Assets/LoginControl/BehindWave.png"
+                   Margin="0, 421, 0, 0"
+                   Height="342.11"
+                   Width="661"
+                   HorizontalAlignment="Right"/>
+
+            <Image Source="/Assets/LoginControl/FrontWave.png"
+                   Margin="0, 483, 0, 0"
+                   Height="342.11"
+                   Width="661"
+                   HorizontalAlignment="Right"/>
+        </Grid>
+
+
+        <Rectangle Grid.Column="1"
+                   Width="661"
+                   Height="678"
+                   HorizontalAlignment="Left"
+                   Fill="#FFFFFFFF"/>
+
+        <Grid Grid.Column="1">
+            <StackPanel VerticalAlignment="Center"
+                        Margin="62, 0, 0, 400">
+
+                <Label Content="환영합니다!"
+                       Foreground="#2D008A"
+                       FontSize="46"
+                       FontFamily="나눔스퀘어_ac"/>
+
+                <Label Content="로그인 후 서비스 이용이 가능합니다."
+                       Foreground="#260074"
+                       FontSize="26"
+                       FontFamily="나눔스퀘어_ac"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1"
+              VerticalAlignment="Center"
+              MaxHeight="678"
+              MaxWidth="621"
+              Margin="0, 200, 300, 0">
+
+            <StackPanel x:Name="Login" 
+                        Margin="50, 0, 50, 100">
 
                 <TextBox x:Name="tbId"
                          Tag="이메일을 입력해 주세요."
                          Text="{Binding Id}"
                          Style="{StaticResource LoginBox}"
+                         Margin="0,0,0,30"
+                         FontFamily="나눔스퀘어_ac"
+                         FontSize="15"
                          TextChanged="Tb_TextChanged"/>
+
                 <PasswordBox x:Name="pbPw"
                              Tag="비밀번호를 입력해 주세요."
                              Margin="0, 15, 0, 0"
                              PasswordChanged="Tb_TextChanged"
+                             FontFamily="나눔스퀘어_ac"
+                             FontSize="15"
                              local:PasswordHelper.Attach="True"
                              local:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
 
-                <Grid Margin="0 15 0 0">
+                <!--<Grid Margin="0 15 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="175"/>
+                        <ColumnDefinition Width="375"/>
                     </Grid.ColumnDefinitions>
-                    <Button Content="회원가입" x:Name="tbSign" Grid.Column="0"
-                            VerticalAlignment="Center"
-                            Foreground="#778aa0"
-                            FontWeight="Bold"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            Style="{StaticResource ButtonStyle}"
-                            Click="tbSign_Click">
-                    </Button>
+
                     <TextBlock Text="자동로그인"
-                               Grid.Column="1"
+                               Grid.Column="0"
                                VerticalAlignment="Center"
-                               Foreground="#778aa0"
-                               FontWeight="Bold"></TextBlock>
+                               FontFamily="나눔스퀘어_ac"
+                               FontSize="13"/>
+
                     <CheckBox x:Name="cbAutoLogin"
-                              Grid.Column="2"
+                              Grid.Column="0"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Right"
                               Checked="CbAutologin_Checked"
                               Unchecked="CbAutologin_Checked"/>
-                </Grid>
+                </Grid>-->
+
                 <Button x:Name="BtnLogin"
-                        Background="MediumPurple"
-                        Foreground="#fff"
+                        Background="#8A51FF"
+                        Foreground="#FFFFFF"
+                        FontFamily="나눔스퀘어_ac"
                         Height="50"
                         Content="로그인" 
-                        Margin="0,15,0,0"
+                        Margin="0,80,0,0"
                         FontSize="15"
                         Command="{Binding LoginCommand, Mode=TwoWay}"
                         IsEnabled="{Binding BtnLoginEnabled, Mode=TwoWay}" FontWeight="Normal">
