@@ -21,10 +21,18 @@ namespace Every.Control.SignUp
     /// </summary>
     public partial class WorkerSignUp : UserControl
     {
+        public delegate void BackWardLoginPage_Handler(object sender, RoutedEventArgs e);
+        public event BackWardLoginPage_Handler WorkerSignUpBackWardLoginPage;
+
         public WorkerSignUp()
         {
             InitializeComponent();
             this.DataContext = App.signUpData.signUpViewModel;
+        }
+
+        private void btnBackWardLoginPage_Click(object sender, RoutedEventArgs e)
+        {
+            WorkerSignUpBackWardLoginPage?.Invoke(this, e);
         }
     }
 }

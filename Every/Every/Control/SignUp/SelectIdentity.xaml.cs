@@ -21,7 +21,7 @@ namespace Every.Control.SignUp
     public partial class SelectIdentity : UserControl
     {
         public delegate void BackWardLoginPage_Handler(object sender, RoutedEventArgs e);
-        public event BackWardLoginPage_Handler BackWardLoginPage;
+        public event BackWardLoginPage_Handler SelectIdentityBackWardLoginPage;
 
         public delegate void OnCreateStudentAccount_Received_Handler(object sender, RoutedEventArgs e);
         public event OnCreateStudentAccount_Received_Handler OnCreateStudentAccount;
@@ -46,7 +46,7 @@ namespace Every.Control.SignUp
 
         private void btnBackWardLoginPage_Click(object sender, RoutedEventArgs e)
         {
-            BackWardLoginPage?.Invoke(this, e);
+            SelectIdentityBackWardLoginPage?.Invoke(this, e);
         }
     }
 }

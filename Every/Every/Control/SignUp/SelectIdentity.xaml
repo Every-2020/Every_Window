@@ -33,6 +33,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <BitmapImage x:Key="masterImage" UriSource="/Assets/Signup/SelectButtonStyle.png"/>
+        <CroppedBitmap x:Key="croppedImage"
+                       Source="{StaticResource masterImage}" SourceRect="30 20 105 50"/>
     </UserControl.Resources>
     
     
@@ -161,7 +165,7 @@
                     <!--투명 막-->
                     <!--<Image Source="/Assets/SignUp/SelectButtonStyle.png"
                            Height="300"
-                           Width="580"/>-->
+                           Width="580" Margin="190,70"/>-->
                 </Grid>
 
                 <Grid Grid.Column="1">

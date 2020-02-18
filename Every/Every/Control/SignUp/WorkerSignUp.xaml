@@ -7,133 +7,206 @@
              xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <!--Button Highlight 효과 제거, 가져다 대면 블럭지정되는 현상 제거 스타일-->
+        <Style x:Key="RemoveButtonHighLightStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
 
-        <ListView Grid.Column="0"
-                  Margin="10 5"
-                  ItemsSource="{Binding DutyItems}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Duty_Name}"
-                                       FontSize="20"/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        <StackPanel Grid.Column="1"
-                    Margin="50, 0, 50, 100" 
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Height="600"
-                    Width="600">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="12" 
-                       Text="이메일을 입력해 주세요."
-                       Margin="10 5"/>
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    BorderBrush="Transparent"
+                    Height="83"
+                    Width="80"
+                    Background="Transparent"
+                    Style="{DynamicResource RemoveButtonHighLightStyle}"
+                    Click="btnBackWardLoginPage_Click">
 
-                    <TextBox Grid.Column="0"
-                             x:Name="tbInputEmail"
-                             Height="30" 
-                             Text="{Binding InputEmail, Mode=TwoWay, 
-                                    UpdateSourceTrigger=PropertyChanged}"
-                             Margin="10 0"/>
-                    <Button Grid.Column="1"
-                            Content="중복 확인"
-                            Height="30"
-                            Margin="10 0"
-                            Background="Transparent"
-                            Command="{Binding CheckEmailOverLapCommand}"/>
-                </Grid>
+                <ContentControl>
+                    <Image Source="/Assets/SignUp/purplereturn.png"/>
+                </ContentControl>
+            </Button>
 
-                <TextBlock Margin="10 5"
-                           Height="30"
-                           x:Name="tbEmailDesc"
-                           Text="{Binding Email_Desc}"
-                           Foreground="{Binding Email_Desc_Foreground}"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center">
+
+                <Label Content="회원가입 - 대학생 / 직장인"
+                           Foreground="#2D008A"
+                           FontSize="48"
+                           FontFamily="나눔스퀘어_ac"/>
+
+                <Label Content="각각 정보를 입력해주세요!"
+                           Foreground="#260074"
+                           FontSize="28"
+                           FontFamily="나눔스퀘어_ac"/>
             </StackPanel>
+        </Grid>
 
-            <TextBlock FontSize="12" 
-                       Text="비밀번호를 입력해 주세요."
-                       Margin="10 5"/>
-            <StackPanel>
-                <TextBox x:Name="tbInputPw"
+        
+        
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Column="0"
+                      Margin="10 5"
+                      ItemsSource="{Binding DutyItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Duty_Name}"
+                                           FontSize="20"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        
+            <StackPanel Grid.Column="1"
+                        Margin="50, 0, 50, 100" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Height="600"
+                        Width="600">
+
+                <TextBlock FontSize="12" 
+                           Text="이메일을 입력해 주세요."
+                           Margin="10 5"/>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0"
+                                 x:Name="tbInputEmail"
+                                 Height="30" 
+                                 Text="{Binding InputEmail, Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                 Margin="10 0"/>
+                        <Button Grid.Column="1"
+                                Content="중복 확인"
+                                Height="30"
+                                Margin="10 0"
+                                Background="Transparent"
+                                Command="{Binding CheckEmailOverLapCommand}"/>
+                    </Grid>
+
+                    <TextBlock Margin="10 5"
+                               Height="30"
+                               x:Name="tbEmailDesc"
+                               Text="{Binding Email_Desc}"
+                               Foreground="{Binding Email_Desc_Foreground}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock FontSize="12" 
+                           Text="비밀번호를 입력해 주세요."
+                           Margin="10 5"/>
+                <StackPanel>
+                    <TextBox x:Name="tbInputPw"
+                             Height="30" 
+                             Text="{Binding InputPw, Mode=TwoWay}"
+                             Margin="10 0"/>
+
+                    <TextBlock Margin="10 0"
+                               Height="30"
+                               x:Name="tbPwDesc"
+                               Text="{Binding Pw_Desc}"
+                               Foreground="{Binding Pw_Desc_Foreground}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock FontSize="12" 
+                           Text="이름을 입력해 주세요."
+                           Margin="10 5"/>
+                <TextBox x:Name="tbInputName"
                          Height="30" 
-                         Text="{Binding InputPw, Mode=TwoWay}"
+                         Text="{Binding InputName, Mode=TwoWay}"
                          Margin="10 0"/>
 
-                <TextBlock Margin="10 0"
-                           Height="30"
-                           x:Name="tbPwDesc"
-                           Text="{Binding Pw_Desc}"
-                           Foreground="{Binding Pw_Desc_Foreground}"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+                <TextBlock FontSize="12" 
+                           Text="전화번호를 입력해 주세요."
+                           Margin="10 5"/>
+                <TextBox x:Name="tbInputPhone"
+                         Height="30" 
+                         Text="{Binding InputPhone, Mode=TwoWay}"
+                         Margin="10 0"/>
+
+                <TextBlock FontSize="12" 
+                           Text="태어난 년도를 입력해 주세요."
+                           Margin="10 5"/>
+                <TextBox x:Name="tbInputBirth_Year"
+                         Height="30" 
+                         Text="{Binding InputBirth_Year, Mode=TwoWay}"
+                         Margin="10 0"/>
+
+                <TextBlock FontSize="12" 
+                           Text="근무 직장 또는 대학교 정보를 입력해 주세요."
+                           Margin="10 5"/>
+                <TextBox x:Name="tbInputWork_Place"
+                         Height="30" 
+                         Text="{Binding InputWork_Place, Mode=TwoWay}"
+                         Margin="10 0"/>
+
+                <TextBlock FontSize="12" 
+                           Text="근무 직종의 분류 번호를 입력해 주세요.(대학생이라면 학과와 관련된 분류번호 입력해 주세요.)"
+                           Margin="10 5"/>
+                <TextBox x:Name="tbInputWork_Category"
+                         Height="30" 
+                         Text="{Binding InputWork_Category, Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged}"
+                         Margin="10 0"/>
+
+                <Button x:Name="btnSignUp"
+                        Command="{Binding WorkerSignUpCommand}"
+                        Margin="10 20"
+                        Background="Transparent"
+                        Height="30"
+                        Content="회원 가입하기"
+                        Foreground="Black"/>
             </StackPanel>
+        </Grid>
 
-            <TextBlock FontSize="12" 
-                       Text="이름을 입력해 주세요."
-                       Margin="10 5"/>
-            <TextBox x:Name="tbInputName"
-                     Height="30" 
-                     Text="{Binding InputName, Mode=TwoWay}"
-                     Margin="10 0"/>
+        <Grid Grid.Row="2">
+            <Image Source="/Assets/SignUp/SelectWave2.png"
+                   VerticalAlignment="Bottom"/>
 
-            <TextBlock FontSize="12" 
-                       Text="전화번호를 입력해 주세요."
-                       Margin="10 5"/>
-            <TextBox x:Name="tbInputPhone"
-                     Height="30" 
-                     Text="{Binding InputPhone, Mode=TwoWay}"
-                     Margin="10 0"/>
-
-            <TextBlock FontSize="12" 
-                       Text="태어난 년도를 입력해 주세요."
-                       Margin="10 5"/>
-            <TextBox x:Name="tbInputBirth_Year"
-                     Height="30" 
-                     Text="{Binding InputBirth_Year, Mode=TwoWay}"
-                     Margin="10 0"/>
-
-            <TextBlock FontSize="12" 
-                       Text="근무 직장 또는 대학교 정보를 입력해 주세요."
-                       Margin="10 5"/>
-            <TextBox x:Name="tbInputWork_Place"
-                     Height="30" 
-                     Text="{Binding InputWork_Place, Mode=TwoWay}"
-                     Margin="10 0"/>
-
-            <TextBlock FontSize="12" 
-                       Text="근무 직종의 분류 번호를 입력해 주세요.(대학생이라면 학과와 관련된 분류번호 입력해 주세요.)"
-                       Margin="10 5"/>
-            <TextBox x:Name="tbInputWork_Category"
-                     Height="30" 
-                     Text="{Binding InputWork_Category, Mode=TwoWay, 
-                                    UpdateSourceTrigger=PropertyChanged}"
-                     Margin="10 0"/>
-
-            <Button x:Name="btnSignUp"
-                    Command="{Binding WorkerSignUpCommand}"
-                    Margin="10 20"
-                    Background="Transparent"
-                    Height="30"
-                    Content="회원 가입하기"
-                    Foreground="Black"/>
-        </StackPanel>
+            <Image Source="/Assets/SignUp/SelectWave.png"
+                   VerticalAlignment="Bottom"/>
+        </Grid>
     </Grid>
 </UserControl>

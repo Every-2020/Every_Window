@@ -165,9 +165,6 @@
     <Resource Include="Assets\SignUp\SelectButtonStyle.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\SignUp\return.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\SignUp\purplereturn.png" />
   </ItemGroup>
   <ItemGroup>

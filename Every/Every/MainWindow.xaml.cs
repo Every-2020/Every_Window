@@ -29,17 +29,35 @@ namespace Every_AdminWin
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            CtrlSelectIdentity.BackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage;
+            CtrlSelectIdentity.SelectIdentityBackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage; 
+            CtrlStudentSignUp.StudentSignUpBackWardLoginPage += CtrlStudentSignUp_StudentSignUpBackWardLoginPage;
+            CtrlWorkerSignUp.WorkerSignUpBackWardLoginPage += CtrlWorkerSignUp_WorkerSignUpBackWardLoginPage;
+
             App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
             App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;
+
             CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived;
         }
 
+        #region 페이지 전환
         private void CtrlSelectIdentity_BackWardLoginPage(object sender, RoutedEventArgs e)
         {
             CtrlSelectIdentity.Visibility = Visibility.Collapsed;
             CtrlLogin.Visibility = Visibility.Visible;
         }
+
+        private void CtrlStudentSignUp_StudentSignUpBackWardLoginPage(object sender, RoutedEventArgs e)
+        {
+            CtrlStudentSignUp.Visibility = Visibility.Collapsed;
+            CtrlSelectIdentity.Visibility = Visibility.Visible;
+        }
+
+        private void CtrlWorkerSignUp_WorkerSignUpBackWardLoginPage(object sender, RoutedEventArgs e)
+        {
+            CtrlWorkerSignUp.Visibility = Visibility.Collapsed;
+            CtrlSelectIdentity.Visibility = Visibility.Visible;
+        }
+        #endregion
 
         // 학생 회원가입
         private void SignUpViewModel_OnSignUpResultRecieved(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)
