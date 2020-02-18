@@ -29,9 +29,16 @@ namespace Every_AdminWin
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            CtrlSelectIdentity.BackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage;
             App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
             App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;
             CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived;
+        }
+
+        private void CtrlSelectIdentity_BackWardLoginPage(object sender, RoutedEventArgs e)
+        {
+            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
+            CtrlLogin.Visibility = Visibility.Visible;
         }
 
         // 학생 회원가입

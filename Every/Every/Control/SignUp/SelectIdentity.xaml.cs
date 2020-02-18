@@ -20,8 +20,11 @@ namespace Every.Control.SignUp
     /// </summary>
     public partial class SelectIdentity : UserControl
     {
-        public delegate void OnCreateStudentAccount_Received_Handelr(object sender, RoutedEventArgs e);
-        public event OnCreateStudentAccount_Received_Handelr OnCreateStudentAccount;
+        public delegate void BackWardLoginPage_Handler(object sender, RoutedEventArgs e);
+        public event BackWardLoginPage_Handler BackWardLoginPage;
+
+        public delegate void OnCreateStudentAccount_Received_Handler(object sender, RoutedEventArgs e);
+        public event OnCreateStudentAccount_Received_Handler OnCreateStudentAccount;
 
         public delegate void OnCreateWorkerAccount_Received_Handler(object sender, RoutedEventArgs e);
         public event OnCreateWorkerAccount_Received_Handler OnCreateWorkerAccount;
@@ -39,6 +42,11 @@ namespace Every.Control.SignUp
         private void btnCreateWorkerAccount_Click(object sender, RoutedEventArgs e)
         {
             OnCreateWorkerAccount?.Invoke(this, e);
+        }
+
+        private void btnBackWardLoginPage_Click(object sender, RoutedEventArgs e)
+        {
+            BackWardLoginPage?.Invoke(this, e);
         }
     }
 }

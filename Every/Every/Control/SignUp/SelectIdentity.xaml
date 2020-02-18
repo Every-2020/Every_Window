@@ -10,34 +10,255 @@
 
     <UserControl.Resources>
         <Style TargetType="Button" x:Key="btnStyle">
-            <Setter Property="Background" Value="MediumPurple"/>
+            <Setter Property="Width" Value="580"/>
+            <Setter Property="Height" Value="300"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Width" Value="800"/>
-            <Setter Property="Height" Value="200"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!--Button Highlight 효과 제거, 가져다 대면 블럭지정되는 현상 제거 스타일-->
+        <Style x:Key="RemoveButtonHighLightStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     
-    <Grid>
-        <StackPanel VerticalAlignment="Center">
-            <Grid>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    BorderBrush="Transparent"
+                    Height="83"
+                    Width="80"
+                    Background="Transparent"
+                    Style="{DynamicResource RemoveButtonHighLightStyle}"
+                    Click="btnBackWardLoginPage_Click">
+
+                <ContentControl>
+                    <Image Source="/Assets/SignUp/purplereturn.png"/>
+                </ContentControl>
+            </Button>
+
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center">
+
+                <Label Content="회원가입에 앞서"
+                       Foreground="#2D008A"
+                       FontSize="48"
+                       FontFamily="나눔스퀘어_ac"/>
+
+                <Label Content="본인에 맞는 신분을 선택해주세요!"
+                       Foreground="#260074"
+                       FontSize="28"
+                       FontFamily="나눔스퀘어_ac"/>
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid Margin="0,0,0,100">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnCreateStudentAccount"
-                        Grid.Column="0"
-                        Content="학생"
-                        Click="btnCreateStudentAccount_Click"
-                        Style="{StaticResource btnStyle}"/>
+                <Grid Grid.Column="0">
+                    <Button x:Name="btnCreateStudentAccount"
+                            Grid.Column="0"
+                            Click="btnCreateStudentAccount_Click"
+                            Style="{StaticResource btnStyle}">
 
-                <Button x:Name="btnCreateWorkerAccount"
-                        Grid.Column="1"
-                        Content="직장인"
-                        Click="btnCreateWorkerAccount_Click"
-                        Style="{StaticResource btnStyle}"/>
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#B954FF" Offset="0" />
+                                <GradientStop Color="#5400FF" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+
+                        <Grid>
+                            <StackPanel Margin="0, 0, 350, 150">
+                                <TextBlock Text="학생"
+                                           FontFamily="나눔스퀘어_ac"
+                                           Foreground="White"
+                                           FontSize="43"
+                                           FontWeight="ExtraBold"/>
+
+                                <TextBlock Text="만7세 ~ 만18세"
+                                           FontFamily="나눔스퀘어_ac"
+                                           Foreground="White"
+                                           FontSize="23"
+                                           FontWeight="Regular"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+
+                    <!--동그라미-->
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="400,0,0,100"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,0,300,100"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,150,400,0"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="350,150,100,0"/>
+
+                    <!--세모-->
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="100,150,200,0"/>
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,0,0,180">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="15"/>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="250,0,0,20">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="330"/>
+                        </Image.RenderTransform>
+                    </Image>
+
+
+                    <!--투명 막-->
+                    <!--<Image Source="/Assets/SignUp/SelectButtonStyle.png"
+                           Height="300"
+                           Width="580"/>-->
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Button x:Name="btnCreateWorkerAccount"
+                            Click="btnCreateWorkerAccount_Click"
+                            Style="{StaticResource btnStyle}">
+
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#B954FF" Offset="0" />
+                                <GradientStop Color="#5400FF" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+
+                        <Grid>
+                            <StackPanel Margin="0, 0, 200, 150">
+                                <TextBlock Text="대학생 or 직장인"
+                                           FontFamily="나눔스퀘어_ac"
+                                           Foreground="White"
+                                           FontSize="43"
+                                           FontWeight="ExtraBold"/>
+
+                                <TextBlock Text="만19세 이상"
+                                           FontFamily="나눔스퀘어_ac"
+                                           Foreground="White"
+                                           FontSize="23"
+                                           FontWeight="Regular"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+
+                    <!--동그라미-->
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,180,200,0"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,100,400,0"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="400,0,0,150"/>
+                    <Image Source="/Assets/SignUp/SelectCircle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="350,150,0,0"/>
+
+                    <!--세모-->
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="100,200,0,0">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="10"/>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,0,240,240">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="10"/>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="280,0,0,50">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="20"/>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Source="/Assets/SignUp/SelectTriangle.png"
+                           Height="30"
+                           Width="30"
+                           Margin="0,0,500,155"/>
+
+                    <!--투명 막-->
+                    <!--<Image Source="/Assets/SignUp/SelectButtonStyle.png"
+                           Height="300"
+                           Width="580"/>-->
+                </Grid>
             </Grid>
-        </StackPanel>  
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Image Source="/Assets/SignUp/SelectWave2.png"
+                   VerticalAlignment="Bottom"/>
+
+            <Image Source="/Assets/SignUp/SelectWave.png"
+                   VerticalAlignment="Bottom"/>
+        </Grid>
+        
     </Grid>
 </UserControl>

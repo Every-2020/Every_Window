@@ -39,7 +39,7 @@ namespace Every.Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            App.loginData.loginViewModel.ServerAddress = "http://ec2-13-209-17-179.ap-northeast-2.compute.amazonaws.com:8080";
+            App.loginData.loginViewModel.ServerAddress = "http://54.180.109.187:8080";
             CheckAutoLoginAsync();
             //loginData = new LoginData();
             App.loginData.loginViewModel.OnLoginResultRecieved += LoginViewModel_OnLoginResultRecieved;
@@ -76,7 +76,7 @@ namespace Every.Control
             //Setting.Load(); //chris - app에서 호출
             string id = Setting.GetUserId();
             isAutoLogin = Setting.IsAutoLogin;
-            cbAutoLogin.IsChecked = isAutoLogin;
+            //cbAutoLogin.IsChecked = isAutoLogin;
             App.loginData.loginViewModel.Id = id;
             string pw = Setting.GetUserPw();
 

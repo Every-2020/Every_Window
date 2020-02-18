@@ -8,7 +8,8 @@
         xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
         mc:Ignorable="d"
         Title="Every" Height="1080" Width="1920"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
         <control:LoginControl x:Name="CtrlLogin" Visibility="Visible"
                               OnLoginResultRecieved="LoginCtrl_OnLoginResultRecieved"/>

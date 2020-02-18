@@ -138,22 +138,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\LoginControl\ColorLogo.png" />
+    <Resource Include="Assets\Login\ColorLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\LoginControl\BlackLogo.png" />
+    <Resource Include="Assets\Login\BlackLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\LoginControl\BehindWave.png" />
+    <Resource Include="Assets\Login\BehindWave.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\LoginControl\FrontWave.png" />
+    <Resource Include="Assets\Login\FrontWave.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Icons\ico_mail.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Icons\ico_password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\SelectWave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\SelectWave2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\SelectButtonStyle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\return.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\purplereturn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\SelectCircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\SelectTriangle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

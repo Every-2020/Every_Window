@@ -140,7 +140,7 @@
                    HorizontalAlignment="Right"
                    Fill="#7E40FF"/>
 
-        <Image Source="/Assets/LoginControl/BlackLogo.png"
+        <Image Source="/Assets/Login/BlackLogo.png"
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                Margin="0,0,300,620"
@@ -202,13 +202,13 @@
 
             <!--Style="{StaticResource ButtonStyle}"-->
 
-            <Image Source="/Assets/LoginControl/BehindWave.png"
+            <Image Source="/Assets/Login/BehindWave.png"
                    Margin="0, 421, 0, 0"
                    Height="342.11"
                    Width="661"
                    HorizontalAlignment="Right"/>
 
-            <Image Source="/Assets/LoginControl/FrontWave.png"
+            <Image Source="/Assets/Login/FrontWave.png"
                    Margin="0, 483, 0, 0"
                    Height="342.11"
                    Width="661"
