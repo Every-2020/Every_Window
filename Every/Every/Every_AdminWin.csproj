@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SearchSchoolWindow.xaml.cs">
+      <DependentUpon>SearchSchoolWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Control\LoginControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SearchSchoolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -172,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\SignUp\SelectTriangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\SearchIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

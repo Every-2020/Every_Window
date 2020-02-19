@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Every_AdminWin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,11 +37,13 @@ namespace Every.Control.SignUp
 
         private void btnCreateStudentAccount_Click(object sender, RoutedEventArgs e)
         {
+            App.signUpData.signUpViewModel.Distinguish_Identity = 0;
             OnCreateStudentAccount?.Invoke(this, e);
         }
 
         private void btnCreateWorkerAccount_Click(object sender, RoutedEventArgs e)
         {
+            App.signUpData.signUpViewModel.Distinguish_Identity = 1;
             OnCreateWorkerAccount?.Invoke(this, e);
         }
 

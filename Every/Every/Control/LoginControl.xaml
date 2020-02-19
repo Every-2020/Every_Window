@@ -18,9 +18,10 @@
                                 Background="#E8E8E8"
                                 CornerRadius="3"
                                 BorderBrush="#dce3f2"
-                                BorderThickness="1" >
+                                BorderThickness="1">
+                            
                             <Grid Height="50">
-                                <Grid Margin="0 0 0 0">
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition/>
@@ -31,7 +32,7 @@
                                     <Grid Grid.Column="1" Margin="7 0 20 0">
                                         <ScrollViewer x:Name="PART_ContentHost"
                                                       VerticalAlignment="Center"
-                                                       Margin="0" Cursor="IBeam"/>
+                                                      Cursor="IBeam"/>
                                         <TextBlock x:Name="WaterMark" Foreground="#a6b9ce"
                                                    Margin="2 0 0 0"
                                                    VerticalAlignment="Center"

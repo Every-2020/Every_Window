@@ -19,18 +19,26 @@ namespace Every.Core.SignUp.ViewModel
     {
         SignUpService signUpService = new SignUpService();
 
+        #region Properties
+        // 학생 회원가입 후 연결되는 델리게이트 & 이벤트
         public delegate void OnStudentSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnStudentSignUpResultReceivedHandler OnStudentSignUpResultRecieved;
 
+        // 직장인 or 대학생 회원가입 후 연결되는 델리게이트 & 이벤트
         public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
-        private bool Check_Phone_Regular_Expression_Result; // 휴대전화 번호 정규식 검증 결과 여부 확인
+        // 휴대전화 번호 정규식 검증 결과 여부 확인을 위한 변수
+        private bool CheckPhone_RegularExpression_Result;
 
-        private bool Check_Email_OverLap = false; // 이메일 중복 확인 버튼 클릭 여부 확인
-        private bool Check_Email_Regular_Expression_Result = false; // 이메일 정규식 검증 결과 여부 확인
+        // 이메일 중복 확인 버튼 클릭 여부 확인을 위한 변수
+        private bool CheckEmail_OverLap = false;
+        // 이메일 정규식 검증 결과 여부 확인을 위한 변수
+        private bool CheckEmail_RegularExpression_Result = false;
 
-        #region Properties
+        // 회원가입전 신분 선택시 학생, 직장인 or 대학생을 구분하기 위한 변수(0 : 학생, 1 : 직장인 or 대학생)
+        public int Distinguish_Identity; 
+
         #region 학생 & 직장인 공통 Properties
         private string _inputEmail;
         public string InputEmail
@@ -39,6 +47,9 @@ namespace Every.Core.SignUp.ViewModel
             set
             {
                 SetProperty(ref _inputEmail, value);
+                
+                // 이메일 입력시 자동으로 정규식 검사
+                CheckEmailOverLap();
             }
         }
 
@@ -50,6 +61,7 @@ namespace Every.Core.SignUp.ViewModel
             {
                 SetProperty(ref _inputPw, value);
 
+                // 비밀번호 입력시 자동으로 자릿수 검사 
                 if (value.Length >= 8 && value.Length <= 20)
                 {
                     Pw_Desc = "사용가능한 비밀번호 입니다.";
@@ -80,6 +92,9 @@ namespace Every.Core.SignUp.ViewModel
             set
             {
                 SetProperty(ref _inputPhone, value);
+
+                // 휴대전화번호 입력시 자동으로 정규식 검사
+                CheckPhoneNumRegularExpression(Distinguish_Identity);
             }
         }
 
@@ -93,6 +108,7 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
+        // 이메일 Validation 정보
         private string _eamil_Desc;
         public string Email_Desc
         {
@@ -102,7 +118,6 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _eamil_Desc, value);
             }
         }
-
         private System.Windows.Media.Brush _email_Desc_Foreground;
         public System.Windows.Media.Brush Email_Desc_Foreground
         {
@@ -113,6 +128,7 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
+        // 비밀번호 Validation 정보
         private string _pw_Desc;
         public string Pw_Desc
         {
@@ -122,7 +138,6 @@ namespace Every.Core.SignUp.ViewModel
                 SetProperty(ref _pw_Desc, value);
             }
         }
-
         private System.Windows.Media.Brush _pw_Desc_Foreground;
         public System.Windows.Media.Brush Pw_Desc_Foreground
         {
@@ -130,6 +145,26 @@ namespace Every.Core.SignUp.ViewModel
             set
             {
                 SetProperty(ref _pw_Desc_Foreground, value);
+            }
+        }
+
+        // 전화번호 Validation 정보
+        private string _phoneNum_Desc;
+        public string PhoneNum_Desc
+        {
+            get => _phoneNum_Desc;
+            set
+            {
+                SetProperty(ref _phoneNum_Desc, value);
+            }
+        }
+        private System.Windows.Media.Brush _phoneNum_Desc_Foreground;
+        public System.Windows.Media.Brush PhoneNum_Desc_Foreground
+        {
+            get => _phoneNum_Desc_Foreground;
+            set
+            {
+                SetProperty(ref _phoneNum_Desc_Foreground, value);
             }
         }
 
@@ -168,6 +203,18 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
+        private Model.School _selectedSchool = new Model.School();
+        public Model.School SelectedSchool
+        {
+            get => _selectedSchool;
+            set
+            {
+                SetProperty(ref _selectedSchool, value);
+
+                // 선택된 학교의 학교코드를 자동으로 넣어줌
+                InputSchool_Id = value.School_Id.ToString();
+            }
+        }
         #endregion
 
         #region 직장인 전용 Properties
@@ -191,6 +238,7 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
+        // 업무 분야
         public ObservableCollection<Model.Duty> DutyItems { get; set; }
         #endregion
 
@@ -203,9 +251,14 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         #region Commands
+        
+        // 학생 회원가입 Command
         public ICommand StudentSignUpCommand { get; set; }
+        // 직장인 or 대학생 회원가입 Command
         public ICommand WorkerSignUpCommand { get; set; }
+        // 학교 검색 Command
         public ICommand SearchSchoolCommand { get; set; }
+        // 이메일 중복확인 Command, 현재 사용 X,  자동 처리
         public ICommand CheckEmailOverLapCommand { get; set; }
         #endregion
         #endregion
@@ -229,7 +282,8 @@ namespace Every.Core.SignUp.ViewModel
                                                                                 .ObservesProperty(() => InputWork_Place)*/
                                                                                 .ObservesProperty(() => InputWork_Category);
             SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
-            CheckEmailOverLapCommand = new DelegateCommand(OnCheckEmailOverLap, CanCheckEmailOverLap).ObservesProperty(() => InputEmail);
+
+            //CheckEmailOverLapCommand = new DelegateCommand(OnCheckEmailOverLap, CanCheckEmailOverLap).ObservesProperty(() => InputEmail);
         }
 
         private void LoadDuties()
@@ -318,9 +372,9 @@ namespace Every.Core.SignUp.ViewModel
 
         private void OnStudentSignUp()
         {
-            if(Check_Email_OverLap == true)
-            { 
-                CheckRegularExpression(0);
+            if(CheckEmail_OverLap == true)
+            {
+                SignUp();
             }
             else
             {
@@ -331,9 +385,9 @@ namespace Every.Core.SignUp.ViewModel
 
         private void OnWorkerSignUp()
         {
-            if(Check_Email_OverLap == true)
-            { 
-                CheckRegularExpression(1);
+            if(CheckEmail_OverLap == true)
+            {
+                SignUp();
             }
             else
             {
@@ -342,39 +396,35 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
-        private void CheckRegularExpression(int Distinguish_Identity)
+        private void CheckPhoneNumRegularExpression(int Distinguish_Identity)
         {
             // 휴대전화 입력시 하이픈("-")을 입력한 경우
             if (InputPhone.Contains("-"))
             {
                 // 하이픈이 있는 휴대전화 번호의 정규식 확인
                 IsValidHypenPhoneNum(InputPhone);
-
-                if (Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 0)
-                {
-                    StudentSignUp();
-                }
-                else if(Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 1)
-                {
-                    WorkerSignUp();
-                }
             }
-            else // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
+
+            // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
+            else
             {
                 // 하이픈이 없는 휴대전화 번호의 정규식 확인
                 IsValidPhoneNum(InputPhone);
 
                 // 정규식 확인 후 자동으로 하이픈 입력
                 AutoInput_Hyphen(InputPhone);
+            }
+        }
 
-                if (Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 0)
-                {
-                    StudentSignUp();
-                }
-                else if(Check_Phone_Regular_Expression_Result == true && Distinguish_Identity == 1)
-                {
-                    WorkerSignUp();
-                }
+        private void SignUp()
+        {
+            if (CheckPhone_RegularExpression_Result == true && Distinguish_Identity == 0)
+            {
+                StudentSignUp();
+            }
+            else if (CheckPhone_RegularExpression_Result == true && Distinguish_Identity == 1)
+            {
+                WorkerSignUp();
             }
         }
 
@@ -454,16 +504,20 @@ namespace Every.Core.SignUp.ViewModel
                 Match match = regex.Match(phone);
                 if(match.Success)
                 {
-                    Check_Phone_Regular_Expression_Result = true;
+                    CheckPhone_RegularExpression_Result = true;
+                    PhoneNum_Desc = "사용가능한 전화번호 입니다.";
+                    PhoneNum_Desc_Foreground = Brushes.LightGreen;
                 }
                 else
                 {
-                    MessageBox.Show("휴대전화 번호를 다시 확인해 주세요.");
+                    PhoneNum_Desc = "휴대전화 번호를 다시 확인해 주세요.";
+                    PhoneNum_Desc_Foreground = Brushes.Red;
                 }
             }
             else
             {
-                MessageBox.Show("휴대전화 자릿수가 맞지 않습니다.");
+                PhoneNum_Desc = "휴대전화 자릿수가 맞지 않습니다.";
+                PhoneNum_Desc_Foreground = Brushes.Red;
             }
 
             return;
@@ -475,21 +529,25 @@ namespace Every.Core.SignUp.ViewModel
             string phone = phoneNumber;
             if (phone.Length == 12 || phone.Length == 13)
             {
-                Regex regex = new Regex(@"01{1}[016789]{1}[0-9]{7,8}");
+                Regex regex = new Regex(@"01{1}[016789]{1}-[0-9]{3,4}-[0-9]{4}");
 
                 Match match = regex.Match(phone);
                 if (match.Success)
                 {
-                    Check_Phone_Regular_Expression_Result = true;
+                    CheckPhone_RegularExpression_Result = true;
+                    PhoneNum_Desc = "사용가능한 전화번호 입니다.";
+                    PhoneNum_Desc_Foreground = Brushes.LightGreen;
                 }
                 else
                 {
-                    MessageBox.Show("휴대전화 번호를 다시 확인해 주세요.");
+                    PhoneNum_Desc = "휴대전화 번호를 다시 확인해 주세요.";
+                    PhoneNum_Desc_Foreground = Brushes.Red;
                 }
             }
             else
             {
-                MessageBox.Show("휴대전화 자릿수가 맞지 않습니다.");
+                PhoneNum_Desc = "휴대전화 자릿수가 맞지 않습니다.";
+                PhoneNum_Desc_Foreground = Brushes.Red;
             }
 
             return;
@@ -552,7 +610,7 @@ namespace Every.Core.SignUp.ViewModel
             CheckEmailOverLap();
         }
 
-        // 이메일 정규식 
+        // 이메일 정규식 검사
         private void IsValidEmailAddress(string emailAddress)
         {
             string email = emailAddress;
@@ -563,13 +621,13 @@ namespace Every.Core.SignUp.ViewModel
 
             if (match.Success)
             {
-                Check_Email_Regular_Expression_Result = true;
+                CheckEmail_RegularExpression_Result = true;
             }
             else
             {
-                Email_Desc = "올바른 이메일 형식인지 확인해 주세요.";
+                Email_Desc = "잘못된 이메일 형식입니다.";
                 Email_Desc_Foreground = Brushes.Red;
-                Check_Email_Regular_Expression_Result = false;
+                CheckEmail_RegularExpression_Result = false;
             }
         }
 
@@ -579,7 +637,7 @@ namespace Every.Core.SignUp.ViewModel
         {
             IsValidEmailAddress(InputEmail);
 
-            if(Check_Email_Regular_Expression_Result == true)
+            if(CheckEmail_RegularExpression_Result == true)
             { 
                 try
                 {
@@ -592,13 +650,13 @@ namespace Every.Core.SignUp.ViewModel
                     {
                         Email_Desc = "중복된 이메일 주소 입니다.";
                         Email_Desc_Foreground = Brushes.Red;
-                        Check_Email_OverLap = false;
+                        CheckEmail_OverLap = false;
                     }
                     else
                     {
                         Email_Desc = "사용가능한 이메일 주소 입니다.";
                         Email_Desc_Foreground = Brushes.LightGreen;
-                        Check_Email_OverLap = true;
+                        CheckEmail_OverLap = true;
                     }
                 }
                 catch (Exception e)

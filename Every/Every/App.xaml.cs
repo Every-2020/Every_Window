@@ -21,6 +21,7 @@ namespace Every_AdminWin
         public static SignUpData signUpData = new SignUpData();
 
         public static SelectIdentity selectIdentity = new SelectIdentity();
+
         public App()
         {
             Setting.Load();

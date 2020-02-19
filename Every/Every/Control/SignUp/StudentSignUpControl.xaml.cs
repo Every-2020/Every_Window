@@ -25,6 +25,9 @@ namespace Every.Control.SignUp
         public delegate void BackWardLoginPage_Handler(object sender, RoutedEventArgs e);
         public event BackWardLoginPage_Handler StudentSignUpBackWardLoginPage;
 
+        public delegate void LoadSearchSchoolWindow_Handler(object sender, RoutedEventArgs e);
+        public event LoadSearchSchoolWindow_Handler LoadSearchSchoolWindow;
+
         public StudentSignUpControl()
         {
             InitializeComponent();
@@ -34,6 +37,11 @@ namespace Every.Control.SignUp
         private void btnBackWardLoginPage_Click(object sender, RoutedEventArgs e)
         {
             StudentSignUpBackWardLoginPage?.Invoke(this, e);
+        }
+
+        private void btnSearchSchool_Click(object sender, RoutedEventArgs e)
+        {
+            LoadSearchSchoolWindow?.Invoke(this, e);
         }
     }
 }

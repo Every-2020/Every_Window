@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Every;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -29,14 +30,16 @@ namespace Every_AdminWin
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            CtrlSelectIdentity.SelectIdentityBackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage; 
-            CtrlStudentSignUp.StudentSignUpBackWardLoginPage += CtrlStudentSignUp_StudentSignUpBackWardLoginPage;
-            CtrlWorkerSignUp.WorkerSignUpBackWardLoginPage += CtrlWorkerSignUp_WorkerSignUpBackWardLoginPage;
+            CtrlSelectIdentity.SelectIdentityBackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage; // 학생 or 직장인 & 대학생 선택
+            CtrlStudentSignUp.StudentSignUpBackWardLoginPage += CtrlStudentSignUp_StudentSignUpBackWardLoginPage; // 학생 회원가입
+            CtrlWorkerSignUp.WorkerSignUpBackWardLoginPage += CtrlWorkerSignUp_WorkerSignUpBackWardLoginPage; // 직장인 or 대학생 회원 가입
 
-            App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved;
-            App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;
+            CtrlStudentSignUp.LoadSearchSchoolWindow += CtrlStudentSignUp_LoadSearchSchoolWindow; // 학교검색 윈도우
 
-            CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived;
+            App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved; // 학생회원가입 결과
+            App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;// 직장인회원가입 결과
+
+            CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived; // 로그인 결과
         }
 
         #region 페이지 전환
@@ -59,17 +62,25 @@ namespace Every_AdminWin
         }
         #endregion
 
+        // 학교검색 윈도우 호출
+        private void CtrlStudentSignUp_LoadSearchSchoolWindow(object sender, RoutedEventArgs e)
+        {
+            // 학교 검색 윈도우
+            SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
+            searchSchoolWindow.ShowDialog();
+        }
+
         // 학생 회원가입
         private void SignUpViewModel_OnSignUpResultRecieved(TNetwork.Data.TResponse<TNetwork.Data.Nothing> signUpArgs)
         {
-            if(signUpArgs.Status == (int)HttpStatusCode.Created)
+            if (signUpArgs.Status == (int)HttpStatusCode.Created)
             {
                 CtrlStudentSignUp.Visibility = Visibility.Collapsed;
                 MessageBox.Show("학생 회원가입에 성공하였습니다.");
                 CtrlLogin.Visibility = Visibility.Visible;
 
                 #region 학생 계정 생성 후 초기화
-                CtrlStudentSignUp.tbInputSchoolName.Text = string.Empty;
+                App.signUpData.signUpViewModel.InputSchool_Name = string.Empty;
                 App.signUpData.signUpViewModel.SchoolItems.Clear();
                 CtrlStudentSignUp.tbInputEmail.Text = string.Empty;
                 CtrlStudentSignUp.tbInputPw.Text = string.Empty;
@@ -79,6 +90,7 @@ namespace Every_AdminWin
                 CtrlStudentSignUp.tbInputSchool_Id.Text = string.Empty;
                 CtrlStudentSignUp.tbEmailDesc.Text = string.Empty;
                 CtrlStudentSignUp.tbPwDesc.Text = string.Empty;
+                CtrlStudentSignUp.tbPhoneNumDesc.Text = string.Empty;
                 #endregion
             }
         }
