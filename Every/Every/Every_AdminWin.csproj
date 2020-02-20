@@ -62,7 +62,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\SignUp\SelectIdentity.xaml">
+    <Page Include="Control\SignUp\SelectIdentityControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -70,7 +70,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\SignUp\WorkerSignUp.xaml">
+    <Page Include="Control\SignUp\WorkerSignUpControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,14 +86,14 @@
     <Compile Include="Control\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\SignUp\SelectIdentity.xaml.cs">
-      <DependentUpon>SelectIdentity.xaml</DependentUpon>
+    <Compile Include="Control\SignUp\SelectIdentityControl.xaml.cs">
+      <DependentUpon>SelectIdentityControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\SignUp\StudentSignUpControl.xaml.cs">
       <DependentUpon>StudentSignUpControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\SignUp\WorkerSignUp.xaml.cs">
-      <DependentUpon>WorkerSignUp.xaml</DependentUpon>
+    <Compile Include="Control\SignUp\WorkerSignUpControl.xaml.cs">
+      <DependentUpon>WorkerSignUpControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -182,6 +182,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\SignUp\SearchIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SignUp\ComboIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

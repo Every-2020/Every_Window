@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Every.Control.SignUp.StudentSignUpControl"
+﻿<UserControl x:Class="Every.Control.SignUp.WorkerSignUp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,8 +7,74 @@
              xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
-
     <UserControl.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Grid>
+                <Border x:Name="Border" 
+                        CornerRadius="15"
+                        Background="#7E40FF"/>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+            <Border x:Name="PART_ContentHost" 
+                    Focusable="False" 
+                    Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton" 
+                                          Template="{StaticResource ComboBoxToggleButton}" 
+                                          Grid.Column="2" 
+                                          Focusable="false"
+                                          IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,
+                                                      RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                            </ToggleButton>
+                            
+                            <ContentPresenter Name="ContentSite"
+                                              IsHitTestVisible="False" 
+                                              Margin="3,3,23,3"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Style="{x:Null}" 
+                                     Template="{StaticResource ComboBoxTextBox}" 
+                                     HorizontalAlignment="Left" 
+                                     VerticalAlignment="Center" 
+                                     Margin="3,3,23,3"
+                                     Focusable="True" 
+                                     Background="Transparent"
+                                     Visibility="Hidden"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True" 
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid Name="DropDown"
+                                      SnapsToDevicePixels="True"                
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="Transparent"
+                                            BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="tbStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -46,6 +112,7 @@
             </Setter>
         </Style>
 
+        
         <Style x:Key="btnRoundCorner" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -64,7 +131,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        
+        
         <!--Button Highlight 효과 제거, 가져다 대면 블럭지정되는 현상 제거 스타일-->
         <Style x:Key="RemoveButtonHighLightStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="White"></Setter>
@@ -83,7 +151,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </UserControl.Resources>
     
     <Grid Background="White">
@@ -111,19 +178,19 @@
                     <Image Source="/Assets/SignUp/purplereturn.png"/>
                 </ContentControl>
             </Button>
-            
+
             <StackPanel Grid.Column="1"
                         VerticalAlignment="Center">
 
-                <Label Content="회원가입 - 학생"
-                       Foreground="#2D008A"
-                       FontSize="48"
-                       FontFamily="나눔스퀘어_ac"/>
+                <Label Content="회원가입 - 대학생 / 직장인"
+                           Foreground="#2D008A"
+                           FontSize="48"
+                           FontFamily="나눔스퀘어_ac"/>
 
                 <Label Content="각각 정보를 입력해주세요!"
-                       Foreground="#260074"
-                       FontSize="28"
-                       FontFamily="나눔스퀘어_ac"/>
+                           Foreground="#260074"
+                           FontSize="28"
+                           FontFamily="나눔스퀘어_ac"/>
             </StackPanel>
         </Grid>
 
@@ -138,27 +205,27 @@
             <Grid Grid.Column="0">
                 <StackPanel Width="500">
                     <StackPanel Margin="10 5">
-                        <TextBox x:Name="tbInputEmail"
-                                 Tag="이메일"
-                                 Text="{Binding InputEmail, Mode=TwoWay, 
-                                                UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{DynamicResource tbStyle}"/>
-                    
-                        <!--<Button Grid.Column="1"
-                                Content="중복 확인"
-                                Height="30"
-                                Margin="10 0"
-                                Background="Transparent"
-                                Command="{Binding CheckEmailOverLapCommand}"/>-->
+                        <Grid>
+                            <TextBox x:Name="tbInputEmail"
+                                     Tag="이메일"
+                                     Text="{Binding InputEmail, Mode=TwoWay, 
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource tbStyle}"/>
+                            
+                            <!--<Button Grid.Column="1"
+                                    Content="중복 확인"
+                                    Height="30"
+                                    Margin="10 0"
+                                    Background="Transparent"
+                                    Command="{Binding CheckEmailOverLapCommand}"/>-->
+                        </Grid>
 
                         <TextBlock Margin="0,10,0,0"
-                                   Height="30"
                                    x:Name="tbEmailDesc"
                                    Text="{Binding Email_Desc}"
                                    Foreground="{Binding Email_Desc_Foreground}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
-                        
                     </StackPanel>
 
                     <StackPanel Margin="10 5">
@@ -168,7 +235,6 @@
                                  Style="{DynamicResource tbStyle}"/>
 
                         <TextBlock Margin="0,10,0,0"
-                                   Height="30"
                                    x:Name="tbPwDesc"
                                    Text="{Binding Pw_Desc}"
                                    Foreground="{Binding Pw_Desc_Foreground}"
@@ -176,31 +242,31 @@
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
+
                     <TextBox x:Name="tbInputName"
                              Tag="이름"
+                             Margin="10 5"
                              Text="{Binding InputName, Mode=TwoWay}"
-                             Style="{DynamicResource tbStyle}"
-                             Margin="10 5"/>
+                             Style="{DynamicResource tbStyle}"/>
 
                     <TextBox x:Name="tbInputBirth_Year"
                              Tag="태어난 년도 ex) 2003"
+                             Margin="10 30"
                              Text="{Binding InputBirth_Year, Mode=TwoWay}"
-                             Margin="10 45"
                              Style="{DynamicResource tbStyle}"
                              PreviewTextInput="tbInputBirth_Year_PreviewTextInput"/>
                 </StackPanel>
             </Grid>
 
 
-            
+
             <Grid Grid.Column="1">
                 <StackPanel Width="500">
                     <StackPanel>
                         <TextBox x:Name="tbInputPhone"
-                                 Text="{Binding InputPhoneNum, Mode=TwoWay}"
-                                 Tag="전화번호"
-                                 Style="{DynamicResource tbStyle}"
-                                 Margin="10 5"/>
+                             Tag="전화번호"
+                             Text="{Binding InputPhoneNum, Mode=TwoWay}"
+                             Style="{DynamicResource tbStyle}"/>
 
                         <TextBlock Margin="0,10,0,0"
                                    Height="30"
@@ -211,6 +277,19 @@
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
+                    <StackPanel>
+                        <Label Content="대학생일 경우 대학교명과 학과를 적어주세요!"
+                           Foreground="#260074"
+                           FontSize="25"
+                           FontFamily="나눔스퀘어_ac"/>
+
+                        <TextBox x:Name="tbInputWork_Place"
+                             Tag="근무 직장 또는 대학교               
+                                                    공백 제외"
+                             Text="{Binding InputWork_Place, Mode=TwoWay}"
+                             Style="{DynamicResource tbStyle}"/>
+                    </StackPanel>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -218,33 +297,39 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
-                            <Button Width="50"
-                                    Height="50"
-                                    Style="{DynamicResource btnRoundCorner}"
-                                    Click="btnSearchSchool_Click">
+                            <ComboBox Height="50"
+                                      Width="50"
+                                      ItemsSource="{Binding DutyItems}"
+                                      SelectedItem="{Binding SelectedDuty}"
+                                      SelectionChanged="ComboBox_SelectionChanged"
+                                      Style="{DynamicResource CustomComboBoxStyle}">
 
-                                <ContentControl>
-                                    <Image Source="/Assets/SignUp/SearchIcon.png"
-                                           Height="30"
-                                           Width="30"/>
-                                </ContentControl>
-                            </Button>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Duty_Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </Grid>
-
-                        <TextBox Grid.Column="1"
-                                 x:Name="tbInputSchool_Id"
-                                 Tag="학교코드"
-                                 Text="{Binding InputSchool_Id, Mode=TwoWay, 
+                        
+                            <TextBox x:Name="tbInputWork_Category"
+                                 Grid.Column="1"
+                                 Tag="근무 직종을 선택해 보세요!"
+                                 Text="{Binding InputWork_Category, Mode=TwoWay,
                                                 UpdateSourceTrigger=PropertyChanged}"
                                  Style="{DynamicResource tbStyle}"
+                                 Margin="0,40"
                                  IsReadOnly="True"/>
                     </Grid>
                 </StackPanel>
+
+                <Image Source="/Assets/SignUp/ComboIcon.png" 
+                       Height="8.32" 
+                       Width="16.43"
+                       Margin="1,0,450,118"/>
             </Grid>
         </Grid>
 
-        
-        
         <Grid Grid.Row="2">
             <Image Source="/Assets/SignUp/SelectWave2.png"
                    VerticalAlignment="Bottom"/>
@@ -252,8 +337,8 @@
             <Image Source="/Assets/SignUp/SelectWave.png"
                    VerticalAlignment="Bottom"/>
 
-            <Button x:Name="btnStudentSignUp"
-                    Command="{Binding StudentSignUpCommand}"
+            <Button x:Name="btnWorkerSignUp"
+                    Command="{Binding WorkerSignUpCommand}"
                     Margin="10 20"
                     Height="40"
                     Width="191"

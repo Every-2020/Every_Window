@@ -1,4 +1,4 @@
-﻿using Every.Common;
+﻿using Every.Core.SignUp.Model;
 using Every_AdminWin;
 using System;
 using System.Collections.Generic;
@@ -19,17 +19,14 @@ using System.Windows.Shapes;
 namespace Every.Control.SignUp
 {
     /// <summary>
-    /// Interaction logic for SignUpControl.xaml
+    /// Interaction logic for WorkerSignUp.xaml
     /// </summary>
-    public partial class StudentSignUpControl : UserControl
+    public partial class WorkerSignUp : UserControl
     {
         public delegate void BackWardLoginPage_Handler(object sender, RoutedEventArgs e);
-        public event BackWardLoginPage_Handler StudentSignUpBackWardLoginPage;
+        public event BackWardLoginPage_Handler WorkerSignUpBackWardLoginPage;
 
-        public delegate void LoadSearchSchoolWindow_Handler(object sender, RoutedEventArgs e);
-        public event LoadSearchSchoolWindow_Handler LoadSearchSchoolWindow;
-
-        public StudentSignUpControl()
+        public WorkerSignUp()
         {
             InitializeComponent();
             this.DataContext = App.signUpData.signUpViewModel;
@@ -37,12 +34,27 @@ namespace Every.Control.SignUp
 
         private void btnBackWardLoginPage_Click(object sender, RoutedEventArgs e)
         {
-            StudentSignUpBackWardLoginPage?.Invoke(this, e);
+            WorkerSignUpBackWardLoginPage?.Invoke(this, e);
         }
 
-        private void btnSearchSchool_Click(object sender, RoutedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadSearchSchoolWindow?.Invoke(this, e);
+            var item = ((Duty)(sender as ComboBox).SelectedItem).Duty_Name;
+
+            var quantity = App.signUpData.signUpViewModel.DutyItems;
+
+            for (int i = 0; i < quantity.Count; i++)
+            {
+                if (item == quantity[i].Duty_Name && i < 9)
+                {
+                    App.signUpData.signUpViewModel.InputWork_Category = Convert.ToInt32(item.Substring(0, 1));
+                }
+
+                if (item == quantity[i].Duty_Name && i >= 9)
+                {
+                    App.signUpData.signUpViewModel.InputWork_Category = Convert.ToInt32(item.Substring(0, 2));
+                }
+            }
         }
 
         // 숫자만 입력 가능, 키패드 사용 가능

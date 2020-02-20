@@ -230,6 +230,7 @@ namespace Every.Core.SignUp.ViewModel
             set
             {
                 SetProperty(ref _inputwork_Place, value);
+                Check_BlankSpace();
             }
         }
 
@@ -245,6 +246,17 @@ namespace Every.Core.SignUp.ViewModel
 
         // 업무 분야
         public ObservableCollection<Model.Duty> DutyItems { get; set; }
+
+        // 선택한 직종
+        private Model.Duty _selectedDuty = new Model.Duty();
+        public Model.Duty SelectedDuty
+        {
+            get => _selectedDuty;
+            set
+            {
+                SetProperty(ref _selectedDuty, value);
+            }
+        }
         #endregion
 
         // SettingHttpRequest
@@ -273,18 +285,18 @@ namespace Every.Core.SignUp.ViewModel
         {
             LoadDuties();
 
-            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanSignUp)/*.ObservesProperty(() => InputEmail)
+            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanStudentSignUp)/*.ObservesProperty(() => InputEmail)
                                                                                   .ObservesProperty(() => InputPw)
                                                                                   .ObservesProperty(() => InputName)
                                                                                   .ObservesProperty(() => InputPhone)
                                                                                   .ObservesProperty(() => InputBirth_Year)*/
                                                                                   .ObservesProperty(() => InputSchool_Id);
-            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanSignUp)/*.ObservesProperty(() => InputEmail)
+            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanWorkerSignUp)/*.ObservesProperty(() => InputEmail)
                                                                                 .ObservesProperty(() => InputPw)
                                                                                 .ObservesProperty(() => InputName)
                                                                                 .ObservesProperty(() => InputPhone)
                                                                                 .ObservesProperty(() => InputBirth_Year)
-                                                                                .ObservesProperty(() => InputWork_Place)*/
+                                                                                .ObservesProperty(() => InputWork_Place);*/
                                                                                 .ObservesProperty(() => InputWork_Category);
             SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
         }
@@ -368,9 +380,14 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         #region 회원 가입 Command
-        private bool CanSignUp()
+        private bool CanStudentSignUp()
         {
             return (InputSchool_Id != null) && (InputSchool_Id != "") && (InputSchool_Id != string.Empty);
+        }
+
+        private bool CanWorkerSignUp()
+        {
+            return (InputWork_Category != null) && (InputWork_Category.ToString() != "") && (InputWork_Category.ToString() != string.Empty);
         }
 
         private void OnStudentSignUp()
@@ -458,8 +475,9 @@ namespace Every.Core.SignUp.ViewModel
             }
             OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
         }
+        #endregion
 
-        #region 휴대전화번호 관련 검증 메소드들
+        #region 전화번호 정규식 검사 & 자동 하이픈 입력
 
         // 전화번호 입력시 자동 하이픈 입력
         private void AutoInput_Hyphen(string phoneNumber)
@@ -493,12 +511,12 @@ namespace Every.Core.SignUp.ViewModel
         private void IsValidPhoneNum(string phoneNumber)
         {
             string phone = phoneNumber;
-            if(phone.Length == 10 || phone.Length == 11)
+            if (phone.Length == 10 || phone.Length == 11)
             {
                 Regex regex = new Regex(@"01{1}[016789]{1}[0-9]{7,8}");
 
                 Match match = regex.Match(phone);
-                if(match.Success)
+                if (match.Success)
                 {
                     CheckPhone_RegularExpression = true;
                     PhoneNum_Desc = "올바른 전화번호입니다.";
@@ -570,7 +588,7 @@ namespace Every.Core.SignUp.ViewModel
                         PhoneNum_Desc_Foreground = Brushes.Red;
                         CheckPhoneNum_OverLap = false;
                     }
-                    else if(resp.Status == (int)HttpStatusCode.OK)
+                    else if (resp.Status == (int)HttpStatusCode.OK)
                     {
                         PhoneNum_Desc = "사용가능한 전화번호 입니다.";
                         PhoneNum_Desc_Foreground = Brushes.LightGreen;
@@ -584,6 +602,63 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
         #endregion
+
+        #region 이메일 중복 확인 
+        // 이메일 정규식 검사
+        private void IsValidEmailAddress(string emailAddress)
+        {
+            string email = emailAddress;
+
+            Regex regex = new Regex(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", RegexOptions.IgnoreCase);
+            Match match = regex.Match(email);
+
+            if (match.Success)
+            {
+                CheckEmail_RegularExpression = true;
+            }
+            else
+            {
+                Email_Desc = "잘못된 이메일 형식입니다.";
+                Email_Desc_Foreground = Brushes.Red;
+                CheckEmail_RegularExpression = false;
+            }
+        }
+
+        //RegexOptions.IgnoreCase : 대 / 소문자를 구분하지 않고 일치 항목을 찾도록 지정.
+
+        private async void CheckEmailOverLap()
+        {
+            IsValidEmailAddress(InputEmail);
+
+            if (CheckEmail_RegularExpression == true)
+            {
+                try
+                {
+                    ServerAddress = "http://54.180.109.187:8080";
+                    signUpService.SettingHttpRequest(ServerAddress);
+
+                    var resp = await signUpService.Check_EmailOverLap(InputEmail);
+
+                    if (resp.Status == (int)HttpStatusCode.Conflict)
+                    {
+                        Email_Desc = "중복된 이메일 주소 입니다.";
+                        Email_Desc_Foreground = Brushes.Red;
+                        CheckEmail_OverLap = false;
+                    }
+                    else
+                    {
+                        Email_Desc = "사용가능한 이메일 주소 입니다.";
+                        Email_Desc_Foreground = Brushes.LightGreen;
+                        CheckEmail_OverLap = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                }
+            }
+        }
         #endregion
 
         #region 학교 목록 조회 Command
@@ -630,61 +705,14 @@ namespace Every.Core.SignUp.ViewModel
         }
         #endregion
 
-        #region 이메일 중복 확인 
-        // 이메일 정규식 검사
-        private void IsValidEmailAddress(string emailAddress)
+        #region InputWork_Place BlankSpace Validate
+        private void Check_BlankSpace()
         {
-            string email = emailAddress;
-
-            Regex regex = new Regex(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", RegexOptions.IgnoreCase);
-            Match match = regex.Match(email);
-
-            if (match.Success)
+            if(InputWork_Place.Contains(" "))
             {
-                CheckEmail_RegularExpression = true;
+                InputWork_Place = InputWork_Place.Replace(" ", "");
             }
-            else
-            {
-                Email_Desc = "잘못된 이메일 형식입니다.";
-                Email_Desc_Foreground = Brushes.Red;
-                CheckEmail_RegularExpression = false;
-            }
-        }
-
-        //RegexOptions.IgnoreCase : 대 / 소문자를 구분하지 않고 일치 항목을 찾도록 지정.
-
-        private async void CheckEmailOverLap()
-        {
-            IsValidEmailAddress(InputEmail);
-
-            if(CheckEmail_RegularExpression == true)
-            { 
-                try
-                {
-                    ServerAddress = "http://54.180.109.187:8080";
-                    signUpService.SettingHttpRequest(ServerAddress);
-
-                    var resp = await signUpService.Check_EmailOverLap(InputEmail);
-
-                    if(resp.Status == (int)HttpStatusCode.Conflict)
-                    {
-                        Email_Desc = "중복된 이메일 주소 입니다.";
-                        Email_Desc_Foreground = Brushes.Red;
-                        CheckEmail_OverLap = false;
-                    }
-                    else
-                    {
-                        Email_Desc = "사용가능한 이메일 주소 입니다.";
-                        Email_Desc_Foreground = Brushes.LightGreen;
-                        CheckEmail_OverLap = true;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.StackTrace);
-                }
-            }
+            return;
         }
         #endregion
     }
