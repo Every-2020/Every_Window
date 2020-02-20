@@ -28,13 +28,15 @@ namespace Every.Core.SignUp.ViewModel
         public delegate void OnWorkerSignUpResultReceivedHandler(TResponse<Nothing> signUpArgs);
         public event OnWorkerSignUpResultReceivedHandler OnWorkerSignUpResultReceived;
 
-        // 휴대전화 번호 정규식 검증 결과 여부 확인을 위한 변수
-        private bool CheckPhone_RegularExpression_Result;
+        // 전화번호 중복 확인 여부를 위한 변수
+        private bool CheckPhoneNum_OverLap = false;
+        // 전화번호 정규식 검증 결과 여부 확인을 위한 변수
+        private bool CheckPhone_RegularExpression;
 
-        // 이메일 중복 확인 버튼 클릭 여부 확인을 위한 변수
+        // 이메일 중복 확인을 위한 변수
         private bool CheckEmail_OverLap = false;
         // 이메일 정규식 검증 결과 여부 확인을 위한 변수
-        private bool CheckEmail_RegularExpression_Result = false;
+        private bool CheckEmail_RegularExpression = false;
 
         // 회원가입전 신분 선택시 학생, 직장인 or 대학생을 구분하기 위한 변수(0 : 학생, 1 : 직장인 or 대학생)
         public int Distinguish_Identity; 
@@ -85,16 +87,19 @@ namespace Every.Core.SignUp.ViewModel
             }
         }
 
-        private string _inputPhone;
-        public string InputPhone
+        private string _inputPhoneNum;
+        public string InputPhoneNum
         {
-            get => _inputPhone;
+            get => _inputPhoneNum;
             set
             {
-                SetProperty(ref _inputPhone, value);
+                SetProperty(ref _inputPhoneNum, value);
 
                 // 휴대전화번호 입력시 자동으로 정규식 검사
                 CheckPhoneNumRegularExpression(Distinguish_Identity);
+
+                // 휴대전화번호 중복 확인
+                CheckPhoneNumOverLap();
             }
         }
 
@@ -282,8 +287,6 @@ namespace Every.Core.SignUp.ViewModel
                                                                                 .ObservesProperty(() => InputWork_Place)*/
                                                                                 .ObservesProperty(() => InputWork_Category);
             SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
-
-            //CheckEmailOverLapCommand = new DelegateCommand(OnCheckEmailOverLap, CanCheckEmailOverLap).ObservesProperty(() => InputEmail);
         }
 
         private void LoadDuties()
@@ -372,57 +375,49 @@ namespace Every.Core.SignUp.ViewModel
 
         private void OnStudentSignUp()
         {
-            if(CheckEmail_OverLap == true)
+            if(CheckEmail_OverLap == true && CheckEmail_RegularExpression == true &&
+               CheckPhoneNum_OverLap == true && CheckPhone_RegularExpression == true)
             {
                 SignUp();
-            }
-            else
-            {
-                Email_Desc = "이메일 중복 확인을 해주세요.";
-                Email_Desc_Foreground = Brushes.Black;
             }
         }
 
         private void OnWorkerSignUp()
         {
-            if(CheckEmail_OverLap == true)
+            if(CheckEmail_OverLap == true && CheckEmail_RegularExpression == true &&
+               CheckPhoneNum_OverLap == true && CheckPhone_RegularExpression == true)
             {
                 SignUp();
-            }
-            else
-            {
-                Email_Desc = "이메일 중복 확인을 해주세요.";
-                Email_Desc_Foreground = Brushes.Black;
             }
         }
 
         private void CheckPhoneNumRegularExpression(int Distinguish_Identity)
         {
             // 휴대전화 입력시 하이픈("-")을 입력한 경우
-            if (InputPhone.Contains("-"))
+            if (InputPhoneNum.Contains("-"))
             {
                 // 하이픈이 있는 휴대전화 번호의 정규식 확인
-                IsValidHypenPhoneNum(InputPhone);
+                IsValidHypenPhoneNum(InputPhoneNum);
             }
 
             // 휴대전화 입력시 하이픈("-")을 입력하지 않은 경우
             else
             {
                 // 하이픈이 없는 휴대전화 번호의 정규식 확인
-                IsValidPhoneNum(InputPhone);
+                IsValidPhoneNum(InputPhoneNum);
 
                 // 정규식 확인 후 자동으로 하이픈 입력
-                AutoInput_Hyphen(InputPhone);
+                AutoInput_Hyphen(InputPhoneNum);
             }
         }
 
         private void SignUp()
         {
-            if (CheckPhone_RegularExpression_Result == true && Distinguish_Identity == 0)
+            if (Distinguish_Identity == 0)
             {
                 StudentSignUp();
             }
-            else if (CheckPhone_RegularExpression_Result == true && Distinguish_Identity == 1)
+            else if (Distinguish_Identity == 1)
             {
                 WorkerSignUp();
             }
@@ -436,7 +431,7 @@ namespace Every.Core.SignUp.ViewModel
                 ServerAddress = "http://54.180.109.187:8080";
                 signUpService.SettingHttpRequest(ServerAddress);
 
-                signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputSchool_Id);
+                signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhoneNum, InputBirth_Year, InputSchool_Id);
             }
             catch (Exception e)
             {
@@ -454,7 +449,7 @@ namespace Every.Core.SignUp.ViewModel
                 ServerAddress = "http://54.180.109.187:8080";
                 signUpService.SettingHttpRequest(ServerAddress);
 
-                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhone, InputBirth_Year, InputWork_Place, InputWork_Category);
+                signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhoneNum, InputBirth_Year, InputWork_Place, InputWork_Category);
             }
             catch (Exception e)
             {
@@ -465,7 +460,8 @@ namespace Every.Core.SignUp.ViewModel
         }
 
         #region 휴대전화번호 관련 검증 메소드들
-        // 전화번호 입력시 자동으로 하이픈 입력
+
+        // 전화번호 입력시 자동 하이픈 입력
         private void AutoInput_Hyphen(string phoneNumber)
         {
             string phone = phoneNumber;
@@ -487,13 +483,13 @@ namespace Every.Core.SignUp.ViewModel
                 str_phoneNumHyphen = phoneNumSplit[0] + "-" + phoneNumSplit[1] + "-" + phoneNumSplit[2];
 
                 phoneNumber = str_phoneNumHyphen;
-                InputPhone = phoneNumber;
+                InputPhoneNum = phoneNumber;
             }
 
             return;
         }
 
-        // 하이픈 없이 입력할 경우 휴대전화 번호 정규식
+        // 하이픈 없이 입력할 경우 휴대전화 번호 정규식 검사
         private void IsValidPhoneNum(string phoneNumber)
         {
             string phone = phoneNumber;
@@ -504,18 +500,20 @@ namespace Every.Core.SignUp.ViewModel
                 Match match = regex.Match(phone);
                 if(match.Success)
                 {
-                    CheckPhone_RegularExpression_Result = true;
-                    PhoneNum_Desc = "사용가능한 전화번호 입니다.";
+                    CheckPhone_RegularExpression = true;
+                    PhoneNum_Desc = "올바른 전화번호입니다.";
                     PhoneNum_Desc_Foreground = Brushes.LightGreen;
                 }
                 else
                 {
+                    CheckPhone_RegularExpression = false;
                     PhoneNum_Desc = "휴대전화 번호를 다시 확인해 주세요.";
                     PhoneNum_Desc_Foreground = Brushes.Red;
                 }
             }
             else
             {
+                CheckPhone_RegularExpression = false;
                 PhoneNum_Desc = "휴대전화 자릿수가 맞지 않습니다.";
                 PhoneNum_Desc_Foreground = Brushes.Red;
             }
@@ -523,7 +521,7 @@ namespace Every.Core.SignUp.ViewModel
             return;
         }
 
-        // 하이픈 있게 입력할 경우 휴대전화 번호 정규식
+        // 하이픈 있게 입력할 경우 휴대전화 번호 정규식 검사
         private void IsValidHypenPhoneNum(string phoneNumber)
         {
             string phone = phoneNumber;
@@ -534,23 +532,56 @@ namespace Every.Core.SignUp.ViewModel
                 Match match = regex.Match(phone);
                 if (match.Success)
                 {
-                    CheckPhone_RegularExpression_Result = true;
-                    PhoneNum_Desc = "사용가능한 전화번호 입니다.";
+                    CheckPhone_RegularExpression = true;
+                    PhoneNum_Desc = "올바른 전화번호입니다.";
                     PhoneNum_Desc_Foreground = Brushes.LightGreen;
                 }
                 else
                 {
+                    CheckPhone_RegularExpression = false;
                     PhoneNum_Desc = "휴대전화 번호를 다시 확인해 주세요.";
                     PhoneNum_Desc_Foreground = Brushes.Red;
                 }
             }
             else
             {
+                CheckPhone_RegularExpression = false;
                 PhoneNum_Desc = "휴대전화 자릿수가 맞지 않습니다.";
                 PhoneNum_Desc_Foreground = Brushes.Red;
             }
 
             return;
+        }
+
+        private async void CheckPhoneNumOverLap()
+        {
+            if (CheckPhone_RegularExpression == true)
+            {
+                try
+                {
+                    ServerAddress = "http://54.180.109.187:8080";
+                    signUpService.SettingHttpRequest(ServerAddress);
+
+                    var resp = await signUpService.Check_PhoneNumOverLap(InputPhoneNum);
+
+                    if (resp.Status == (int)HttpStatusCode.Conflict)
+                    {
+                        PhoneNum_Desc = "중복된 전화번호 입니다.";
+                        PhoneNum_Desc_Foreground = Brushes.Red;
+                        CheckPhoneNum_OverLap = false;
+                    }
+                    else if(resp.Status == (int)HttpStatusCode.OK)
+                    {
+                        PhoneNum_Desc = "사용가능한 전화번호 입니다.";
+                        PhoneNum_Desc_Foreground = Brushes.LightGreen;
+                        CheckPhoneNum_OverLap = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                }
+            }
         }
         #endregion
         #endregion
@@ -599,17 +630,7 @@ namespace Every.Core.SignUp.ViewModel
         }
         #endregion
 
-        #region 이메일 중복 확인 Command
-        private bool CanCheckEmailOverLap()
-        {
-            return (InputEmail != null) && (InputEmail != "") && (InputEmail != string.Empty);
-        }
-
-        private void OnCheckEmailOverLap()
-        {
-            CheckEmailOverLap();
-        }
-
+        #region 이메일 중복 확인 
         // 이메일 정규식 검사
         private void IsValidEmailAddress(string emailAddress)
         {
@@ -621,13 +642,13 @@ namespace Every.Core.SignUp.ViewModel
 
             if (match.Success)
             {
-                CheckEmail_RegularExpression_Result = true;
+                CheckEmail_RegularExpression = true;
             }
             else
             {
                 Email_Desc = "잘못된 이메일 형식입니다.";
                 Email_Desc_Foreground = Brushes.Red;
-                CheckEmail_RegularExpression_Result = false;
+                CheckEmail_RegularExpression = false;
             }
         }
 
@@ -637,7 +658,7 @@ namespace Every.Core.SignUp.ViewModel
         {
             IsValidEmailAddress(InputEmail);
 
-            if(CheckEmail_RegularExpression_Result == true)
+            if(CheckEmail_RegularExpression == true)
             { 
                 try
                 {

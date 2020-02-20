@@ -93,7 +93,7 @@
                 </Grid>
 
                 <TextBox Grid.Column="1"
-                         x:Name="tbInputSchool_Id"
+                         x:Name="tbInputSchool_Name"
                          Tag="학교를 검색해 보세요!"
                          Text="{Binding InputSchool_Name, Mode=TwoWay, 
                                         UpdateSourceTrigger=PropertyChanged}"
@@ -110,8 +110,7 @@
                       Width="800"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ItemsSource="{Binding SchoolItems}"
-                      SelectedItem="{Binding SelectedSchool}"
-                      SelectionChanged="ListView_SelectionChanged">
+                      SelectedItem="{Binding SelectedSchool}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <!--<WrapPanel Orientation="Horizontal"/>-->

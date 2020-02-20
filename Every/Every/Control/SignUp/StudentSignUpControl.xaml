@@ -142,7 +142,7 @@
                         <TextBox x:Name="tbInputEmail"
                                  Tag="이메일을 입력해 주세요."
                                  Text="{Binding InputEmail, Mode=TwoWay, 
-                                        UpdateSourceTrigger=PropertyChanged}"
+                                                UpdateSourceTrigger=PropertyChanged}"
                                  Style="{DynamicResource tbStyle}"/>
                     
                         <!--<Button Grid.Column="1"
@@ -197,7 +197,7 @@
                 <StackPanel Width="500">
                     <StackPanel>
                         <TextBox x:Name="tbInputPhone"
-                                 Text="{Binding InputPhone, Mode=TwoWay}"
+                                 Text="{Binding InputPhoneNum, Mode=TwoWay}"
                                  Tag="전화번호를 입력해 주세요"
                                  Style="{DynamicResource tbStyle}"
                                  Margin="10 5"/>

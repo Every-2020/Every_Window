@@ -67,7 +67,8 @@ namespace Every_AdminWin
         {
             // 학교 검색 윈도우
             SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
-            searchSchoolWindow.ShowDialog();
+            searchSchoolWindow.Show();
+            //searchSchoolWindow.ShowDialog();
         }
 
         // 학생 회원가입
@@ -80,7 +81,7 @@ namespace Every_AdminWin
                 CtrlLogin.Visibility = Visibility.Visible;
 
                 #region 학생 계정 생성 후 초기화
-                App.signUpData.signUpViewModel.InputSchool_Name = string.Empty;
+                App.searchSchoolWindow.tbInputSchool_Name.Text = string.Empty;
                 App.signUpData.signUpViewModel.SchoolItems.Clear();
                 CtrlStudentSignUp.tbInputEmail.Text = string.Empty;
                 CtrlStudentSignUp.tbInputPw.Text = string.Empty;

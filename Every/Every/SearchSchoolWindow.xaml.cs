@@ -32,11 +32,18 @@ namespace Every
             DataContext = App.signUpData.signUpViewModel;
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedItem = sender as ListView;
-            App.signUpData.signUpViewModel.InputSchool_Id = ((School)selectedItem.SelectedItem).School_Id.ToString();
-            
-        }
+        // ListView SelectionChanged Event 
+#if false
+        SelectionChanged="ListView_SelectionChanged"
+#endif
+        //private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var item = ((School)(sender as ListView).SelectedItem).School_Id.ToString();
+        //    if(App.signUpData.signUpViewModel.InputSchool_Id != item)
+        //    {
+        //        App.signUpData.signUpViewModel.InputSchool_Id = item;
+        //        this.Close();
+        //    }
+        //}
     }
 }

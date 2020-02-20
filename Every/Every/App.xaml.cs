@@ -1,4 +1,5 @@
 ﻿using BIND.Core.Login;
+using Every;
 using Every.Common;
 using Every.Control.SignUp;
 using Every.Core.SignUp;
@@ -21,6 +22,7 @@ namespace Every_AdminWin
         public static SignUpData signUpData = new SignUpData();
 
         public static SelectIdentity selectIdentity = new SelectIdentity();
+        public static SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
 
         public App()
         {
