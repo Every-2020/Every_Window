@@ -2,6 +2,7 @@
 using Every;
 using Every.Common;
 using Every.Control.SignUp;
+using Every.Core.Bamboo;
 using Every.Core.SignUp;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Every_AdminWin
     {
         public static LoginData loginData = new LoginData();
         public static SignUpData signUpData = new SignUpData();
+        public static BambooData bambooData = new BambooData();
 
         public static SelectIdentity selectIdentity = new SelectIdentity();
         public static SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();

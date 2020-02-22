@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Every.Control.Home.HomeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Every.Control.Home"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="2*"/>
+
+
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <TextBlock Text="홈 화면이 공개될 예정입니다." 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="100"
+                       FontFamily="나눔고딕_ac"/>
+        </Grid>
+    </Grid>
+</UserControl>

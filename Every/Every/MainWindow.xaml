@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Every_AdminWin"
         xmlns:control="clr-namespace:Every.Control"
         xmlns:control_SignUp="clr-namespace:Every.Control.SignUp"
+        xmlns:navi="clr-namespace:Every.Control"
         mc:Ignorable="d"
         Title="Every" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
@@ -15,8 +16,9 @@
                               OnLoginResultRecieved="LoginCtrl_OnLoginResultRecieved"/>
 
         <control_SignUp:SelectIdentity x:Name="CtrlSelectIdentity" Visibility="Collapsed"/>
-
         <control_SignUp:StudentSignUpControl x:Name="CtrlStudentSignUp" Visibility="Collapsed"/>
         <control_SignUp:WorkerSignUp x:Name="CtrlWorkerSignUp" Visibility="Collapsed"/>
+
+        <navi:NavigationControl Visibility="Collapsed" x:Name="ctrlNavi"/>
     </Grid>
 </Window>
