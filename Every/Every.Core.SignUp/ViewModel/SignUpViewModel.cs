@@ -445,7 +445,7 @@ namespace Every.Core.SignUp.ViewModel
             TResponse<Nothing> signUpArgs = null;
             try
             {
-                ServerAddress = "http://54.180.109.187:8080";
+                ServerAddress = "http://49.50.160.97:8080";
                 signUpService.SettingHttpRequest(ServerAddress);
 
                 signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhoneNum, InputBirth_Year, InputSchool_Id);
@@ -463,7 +463,7 @@ namespace Every.Core.SignUp.ViewModel
             TResponse<Nothing> signUpArgs = null;
             try
             {
-                ServerAddress = "http://54.180.109.187:8080";
+                ServerAddress = "http://49.50.160.97:8080";
                 signUpService.SettingHttpRequest(ServerAddress);
 
                 signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhoneNum, InputBirth_Year, InputWork_Place, InputWork_Category);
@@ -577,7 +577,7 @@ namespace Every.Core.SignUp.ViewModel
             {
                 try
                 {
-                    ServerAddress = "http://54.180.109.187:8080";
+                    ServerAddress = "http://49.50.160.97:8080";
                     signUpService.SettingHttpRequest(ServerAddress);
 
                     var resp = await signUpService.Check_PhoneNumOverLap(InputPhoneNum);
@@ -635,7 +635,7 @@ namespace Every.Core.SignUp.ViewModel
             {
                 try
                 {
-                    ServerAddress = "http://54.180.109.187:8080";
+                    ServerAddress = "http://49.50.160.97:8080";
                     signUpService.SettingHttpRequest(ServerAddress);
 
                     var resp = await signUpService.Check_EmailOverLap(InputEmail);
@@ -676,7 +676,7 @@ namespace Every.Core.SignUp.ViewModel
         {
             SchoolItems.Clear();
 
-            ServerAddress = "http://54.180.109.187:8080";
+            ServerAddress = "http://49.50.160.97:8080";
             signUpService.SettingHttpRequest(ServerAddress);
 
             var resp = await signUpService.GetSchoolList(InputSchool_Name);

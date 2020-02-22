@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Every.Core.Bamboo.ViewModel
 {
-    class BambooViewModel
+    public class BambooViewModel
     {
+
     }
 }

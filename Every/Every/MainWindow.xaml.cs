@@ -115,6 +115,7 @@ namespace Every_AdminWin
                 CtrlWorkerSignUp.tbInputWork_Category.Text = string.Empty;
                 CtrlWorkerSignUp.tbEmailDesc.Text = string.Empty;
                 CtrlWorkerSignUp.tbPwDesc.Text = string.Empty;
+                CtrlWorkerSignUp.tbPhoneNumDesc.Text = string.Empty;
                 #endregion
             }
         }
