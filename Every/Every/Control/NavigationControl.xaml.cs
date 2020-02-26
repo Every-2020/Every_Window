@@ -42,7 +42,7 @@ namespace Every.Control
                 Title = "대나무숲",
                 NaviImagePath = ComDef.Path + "BambooIcon.png",
                 naviMenu = NaviMenu.Bamboo
-            });
+            }) ;
             naviDatas.Add(new NaviData
             {
                 Title = "일정 관리",

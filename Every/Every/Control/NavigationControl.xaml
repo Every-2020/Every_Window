@@ -39,7 +39,7 @@
                 </ListView.ItemTemplate>
             </ListView>-->
 
-            <ListView Grid.Column="2" x:Name="lvNavi" SelectionChanged="lvNavi_SelectionChanged">
+            <ListView Grid.Column="2" x:Name="lvNavi" SelectionChanged="lvNavi_SelectionChanged" Height="50">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), 
@@ -55,7 +55,7 @@
                 <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding NaviImagePath}" Width="40" Height="40" Margin="10,0,10,0"/>
+                                <Image Source="{Binding NaviImagePath}" Width="35.16" Height="33.1" Margin="10,0,10,0"/>
                                 <!--<TextBlock Text="{Binding Title}" FontSize="15"/>-->
                             </StackPanel>
                         </DataTemplate>

@@ -10,7 +10,7 @@ namespace Every.Core.Bamboo
 
         public async Task LoadDataAsync()
         {
-            
+            await bambooViewModel.LoadDataAsync();
         }
     }
 }

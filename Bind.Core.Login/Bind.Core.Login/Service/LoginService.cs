@@ -31,7 +31,7 @@ namespace BIND.Core.Login.Network
         public async Task<TResponse<TokenInfo>> Login(string id, string pw)
         {
             var jObj = new JObject();
-            jObj["device"] = "PC";
+            //jObj["device"] = "PC";
             jObj["email"] = id;
             jObj["pw"] = pw;
             //jObj["pw"] = Sha512Hash(pw);

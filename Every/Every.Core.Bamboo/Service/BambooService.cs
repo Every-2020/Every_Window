@@ -1,4 +1,5 @@
 ﻿using Every.Core.Bamboo.Service.Response;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TNetwork;
+using TNetwork.Common;
 using TNetwork.Data;
 
 namespace Every.Core.Bamboo.Service
@@ -28,7 +30,15 @@ namespace Every.Core.Bamboo.Service
         /// <returns></returns>
         public async Task<TResponse<GetPostsResponse>> GetPosts()
         {
-            return await networkManager.GetResponse<GetPostsResponse>(POSTS_LIST_INQUIRY_URL, Method.GET, null);
+            var client = new RestClient(Options.serverUrl);
+            var restRequest = new RestRequest(POSTS_LIST_INQUIRY_URL, Method.GET);
+            restRequest.AddHeader("token", Options.tokenInfo.Token);
+            var response = await client.ExecuteTaskAsync(restRequest);
+
+            var resp = JsonConvert.DeserializeObject<TResponse<GetPostsResponse>>(response.Content);
+            return resp;
+
+            //return await networkManager.GetResponse<GetPostsResponse>(POSTS_LIST_INQUIRY_URL, Method.GET, null);
         }
 
         /// <summary>

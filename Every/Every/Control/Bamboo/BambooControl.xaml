@@ -25,11 +25,52 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <TextBlock Text="대나무숲이 공개될 예정입니다." 
+            <!--<TextBlock Text="대나무숲이 공개될 예정입니다." 
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="100"
-                       FontFamily="나눔고딕_ac"/>
+                       FontFamily="나눔고딕_ac"/>-->
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <ListView Height="721" Width="900"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ItemsSource="{Binding PostsItems}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border Height="721" 
+                                    Width="835"
+                                    BorderBrush="Black"
+                                    BorderThickness="2"
+                                    Margin="20">
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="{Binding Idx, StringFormat={}#{0}번째 이야기}"
+                                               FontSize="28"
+                                               FontWeight="ExtraBold"
+                                               FontFamily="나눔스퀘어_ac"/>
+                                    <TextBlock Text="{Binding Created_At, StringFormat=yyyy년 MM월 dd일}"
+                                               FontSize="21"
+                                               FontWeight="Regular"
+                                               Margin="0,0,0,20"
+                                               FontFamily="나눔스퀘어_ac"/>
+                                    <TextBlock Text="{Binding Content}"
+                                               FontSize="28"
+                                               FontWeight="Regular"
+                                               TextWrapping="Wrap"
+                                               FontFamily="나눔스퀘어_ac"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 </UserControl>
