@@ -52,6 +52,17 @@ namespace Every.Core.Bamboo.Model
             }
         }
 
+        private int _replyCount;
+        [JsonIgnore]
+        public int ReplyCount
+        {
+            get => _replyCount;
+            set
+            {
+                SetProperty(ref _replyCount, value);
+            }
+        }
+
         public object Clone()
         {
             return new Post
@@ -59,7 +70,8 @@ namespace Every.Core.Bamboo.Model
                 Idx = this.Idx,
                 Title = this.Title,
                 Content = this.Content,
-                Created_At = this.Created_At
+                Created_At = this.Created_At,
+                ReplyCount = this.ReplyCount
             };
         }
     }

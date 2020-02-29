@@ -63,7 +63,16 @@ namespace Every.Core.Bamboo.Service
         public async Task<TResponse<GetRepliesResponse>> GetReplies(int idx)
         {
             string requestUrl = REPLIES_LIST_INQUIRY_URL + idx;
-            return await networkManager.GetResponse<GetRepliesResponse>(requestUrl, Method.GET, null);
+
+            var client = new RestClient(Options.serverUrl);
+            var restRequest = new RestRequest(requestUrl, Method.GET);
+            restRequest.AddHeader("token", Options.tokenInfo.Token);
+            var response = await client.ExecuteTaskAsync(restRequest);
+
+            var resp = JsonConvert.DeserializeObject<TResponse<GetRepliesResponse>>(response.Content);
+            return resp;
+
+            //return await networkManager.GetResponse<GetRepliesResponse>(requestUrl, Method.GET, null);
         }
 
         /// <summary>
