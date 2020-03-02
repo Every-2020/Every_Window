@@ -52,6 +52,17 @@ namespace Every.Core.Bamboo.Model
             }
         }
 
+        private string _dayOfWeek;
+        [JsonIgnore]
+        public string DayOfWeek
+        {
+            get => _dayOfWeek;
+            set
+            {
+                SetProperty(ref _dayOfWeek, value);
+            }
+        }
+
         private int _replyCount;
         [JsonIgnore]
         public int ReplyCount
@@ -71,6 +82,7 @@ namespace Every.Core.Bamboo.Model
                 Title = this.Title,
                 Content = this.Content,
                 Created_At = this.Created_At,
+                DayOfWeek = this.DayOfWeek,
                 ReplyCount = this.ReplyCount
             };
         }

@@ -46,6 +46,8 @@ namespace Every.Core.Bamboo.ViewModel
                 SetProperty(ref _selectedPost, value);
             }
         }
+
+        public string day { get; set; }
         #endregion
         private async Task GetPosts()
         {
@@ -64,6 +66,9 @@ namespace Every.Core.Bamboo.ViewModel
                         postItems.Content = item.Content;
                         postItems.Created_At = item.Created_At;
 
+                        GetDay(postItems.Created_At);
+                        postItems.DayOfWeek = day;
+
                         var res = await bambooService.GetReplies(postItems.Idx);
                         postItems.ReplyCount = res.Data.Replies.Count;
 
@@ -77,7 +82,7 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
-        public async Task GetReplies()
+        private async Task GetReplies()
         {
             var resp = await bambooService.GetReplies(SelectedPost.Idx);
 
@@ -102,6 +107,36 @@ namespace Every.Core.Bamboo.ViewModel
                     Debug.WriteLine(e.StackTrace);
                 }
             }
+        }
+
+        private string GetDay(DateTime date)
+        {
+            switch (date.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    day = "월요일";
+                    break;
+                case DayOfWeek.Tuesday:
+                    day = "화요일";
+                    break;
+                case DayOfWeek.Wednesday:
+                    day = "수요일";
+                    break;
+                case DayOfWeek.Thursday:
+                    day = "목요일";
+                    break;
+                case DayOfWeek.Friday:
+                    day = "금요일";
+                    break;
+                case DayOfWeek.Saturday:
+                    day = "토요일";
+                    break;
+                case DayOfWeek.Sunday:
+                    day = "일요일";
+                    break;
+            }
+
+            return day;
         }
 
         public async Task LoadDataAsync()
