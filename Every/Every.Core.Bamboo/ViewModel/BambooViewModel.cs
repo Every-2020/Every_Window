@@ -1,11 +1,14 @@
 ﻿using Every.Core.Bamboo.Service;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Every.Core.Bamboo.ViewModel
 {
@@ -14,6 +17,9 @@ namespace Every.Core.Bamboo.ViewModel
         BambooService bambooService = new BambooService();
 
         #region Properties
+        public delegate void BambooPostResultReceivedHandler(object sender);
+        public event BambooPostResultReceivedHandler BambooPostResultReceived;
+
         // 게시글 목록 저장
         private ObservableCollection<Model.Post> _postsItems = new ObservableCollection<Model.Post>();
         public ObservableCollection<Model.Post> PostsItems
@@ -47,8 +53,42 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
+        private string _bambooContent;
+        public string BambooContent
+        {
+            get => _bambooContent;
+            set
+            {
+                if(value.Length <= 500)
+                {
+                    SetProperty(ref _bambooContent, value);
+                }
+
+                return;
+            }
+        }
+
         public string day { get; set; }
+
+        public ICommand BambooPostCommand { get; set; }
         #endregion
+
+        public BambooViewModel()
+        {
+            BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooContent);
+        }
+
+        private async void OnBambooPost()
+        {
+            await BambooPost();
+        }
+
+        private bool CanBambooPost()
+        {
+            return (BambooContent != null) && (BambooContent != "") && (BambooContent != string.Empty);
+        }
+
+
         private async Task GetPosts()
         {
             var resp = await bambooService.GetPosts();
@@ -137,6 +177,19 @@ namespace Every.Core.Bamboo.ViewModel
             }
 
             return day;
+        }
+
+        private async Task BambooPost()
+        {
+            var resp = await bambooService.MakePost(BambooContent);
+
+            if(resp.Status == (int)HttpStatusCode.Created)
+            {
+                BambooPostResultReceived?.Invoke(this);
+                BambooContent = string.Empty;
+                PostsItems.Clear();
+                await GetPosts();
+            }
         }
 
         public async Task LoadDataAsync()

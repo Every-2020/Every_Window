@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Every_AdminWin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,18 @@ namespace Every.View
         public BambooPostWindow()
         {
             InitializeComponent();
+            Loaded += BambooPostWindow_Loaded;
+        }
+
+        private void BambooPostWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = App.bambooData.bambooViewModel;
+            App.bambooData.bambooViewModel.BambooPostResultReceived += BambooViewModel_BambooPostResultReceived;
+        }
+
+        private void BambooViewModel_BambooPostResultReceived(object sender)
+        {
+            this.Close();
         }
     }
 }

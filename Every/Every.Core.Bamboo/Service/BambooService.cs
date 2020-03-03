@@ -47,12 +47,20 @@ namespace Every.Core.Bamboo.Service
         /// <param name="title"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public async Task<TResponse<Nothing>> MakePost(string title, string content)
+        public async Task<TResponse<Nothing>> MakePost(string content)
         {
+            var client = new RestClient(Options.serverUrl);
+            var restRequest = new RestRequest(MAKE_POST_URL, Method.POST);
             JObject jObject = new JObject();
-            jObject["title"] = title;
             jObject["content"] = content;
-            return await networkManager.GetResponse<Nothing>(MAKE_POST_URL, Method.POST, jObject.ToString());
+            restRequest.AddHeader("token", Options.tokenInfo.Token);
+            restRequest.AddHeader("Content-Type", "application/json");
+            restRequest.AddParameter("application/json", jObject.ToString(), ParameterType.RequestBody);
+
+            var response = await client.ExecuteTaskAsync(restRequest);
+
+            var resp = JsonConvert.DeserializeObject<TResponse<Nothing>>(response.Content);
+            return resp;
         }
 
         /// <summary>

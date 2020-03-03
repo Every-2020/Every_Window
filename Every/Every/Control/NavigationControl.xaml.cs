@@ -107,7 +107,7 @@ namespace Every.Control
         private void CtrlBamboo_OnLoadedBambooPostWindow(object sender, RoutedEventArgs e)
         {
             BambooPostWindow bambooPostWindow = new BambooPostWindow();
-            bambooPostWindow.Show();
+            bambooPostWindow.ShowDialog();
         }
     }
 

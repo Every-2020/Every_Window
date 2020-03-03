@@ -67,7 +67,9 @@
         <Grid Grid.Row="1" Margin="5">
             <TextBox FontSize="20"
                      FontFamily="나눔고딕_ac"
-                     TextWrapping="Wrap"/>
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     Text="{Binding BambooContent, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <Grid Grid.Row="2" Margin="5">
@@ -103,7 +105,8 @@
                         FontFamily="나눔고딕_ac"
                         FontWeight="Bold"
                         Height="62"
-                        Width="771"/>
+                        Width="771"
+                        Command="{Binding BambooPostCommand}"/>
             </Grid>
         </Grid>
     </Grid>
