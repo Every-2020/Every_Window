@@ -37,7 +37,7 @@ namespace Every.Core.SignUp.ViewModel
         private bool CheckEmail_OverLap = false;
         // 이메일 정규식 검증 결과 여부 확인을 위한 변수
         private bool CheckEmail_RegularExpression = false;
-
+        
         // 회원가입전 신분 선택시 학생, 직장인 or 대학생을 구분하기 위한 변수(0 : 학생, 1 : 직장인 or 대학생)
         public int Distinguish_Identity; 
 

@@ -1,4 +1,6 @@
 ﻿using Every.Common;
+using Every.View;
+using Every_AdminWin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +74,7 @@ namespace Every.Control
                 case NaviMenu.Bamboo:
                      page = ctrlBamboo;
                     ctrlBamboo.LoadData();
+                    ctrlBamboo.OnLoadedBambooPostWindow += CtrlBamboo_OnLoadedBambooPostWindow;
                      break;
                 case NaviMenu.Schedule:
                     page = ctrlSchedule;
@@ -99,6 +102,12 @@ namespace Every.Control
             {
                 element.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void CtrlBamboo_OnLoadedBambooPostWindow(object sender, RoutedEventArgs e)
+        {
+            BambooPostWindow bambooPostWindow = new BambooPostWindow();
+            bambooPostWindow.Show();
         }
     }
 

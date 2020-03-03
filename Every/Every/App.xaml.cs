@@ -4,6 +4,7 @@ using Every.Common;
 using Every.Control.SignUp;
 using Every.Core.Bamboo;
 using Every.Core.SignUp;
+using Every.View;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,6 +26,8 @@ namespace Every_AdminWin
 
         public static SelectIdentity selectIdentity = new SelectIdentity();
         public static SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
+
+        public static BambooPostWindow bambooPostWindow = new BambooPostWindow(); 
 
         public App()
         {

@@ -5,8 +5,106 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Every.View"
         mc:Ignorable="d"
-        Title="BambooPostWindow" Height="450" Width="800">
-    <Grid>
-        
+        WindowStartupLocation="CenterScreen"
+        Height="539" Width="807"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!--Button Highlight 효과 제거, 가져다 대면 블럭지정되는 현상 제거 스타일-->
+        <Style x:Key="RemoveButtonHighLightStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid x:Name="School">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <Button Grid.Column="0"
+                        BorderBrush="Transparent"
+                        Height="50"
+                        Width="51"
+                        Style="{DynamicResource RemoveButtonHighLightStyle}">
+
+                    <ContentControl>
+                        <Image Source="/Assets/Bamboo/BlackReturnIcon.png"/>
+                    </ContentControl>
+                </Button>
+
+                <Image Source="/Assets/Bamboo/ProfileIcon.png" 
+                       Width="79" 
+                       Height="78"
+                       Margin="15,0,0,0"/>
+
+                <TextBlock Text="익명"
+                           FontSize="30"
+                           FontWeight="Regular"
+                           FontFamily="나눔고딕_ac"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="5">
+            <TextBox FontSize="20"
+                     FontFamily="나눔고딕_ac"
+                     TextWrapping="Wrap"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="5">
+                <Border BorderBrush="#8F8F8F" BorderThickness="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Bamboo/PictureIcon.png"
+                               Height="35"
+                               Width="36"
+                               Margin="10,0,0,0"/>
+
+                        <Button Content="사진/동영상 추가"
+                                HorizontalContentAlignment="Left"
+                                Height="62"
+                                Width="730"
+                                Foreground="#8F8F8F"
+                                FontSize="22"
+                                FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="5">
+                <Button Content="공유"
+                        Background="#7E40FF"
+                        Foreground="#FFFFFF"
+                        FontSize="29"
+                        FontFamily="나눔고딕_ac"
+                        FontWeight="Bold"
+                        Height="62"
+                        Width="771"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

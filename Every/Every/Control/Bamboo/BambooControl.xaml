@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Every.Control"
              mc:Ignorable="d" 
+             xmlns:control_Bamboo="clr-namespace:Every.Control.Bamboo"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="1080" d:DesignWidth="1920">
 
@@ -189,7 +190,8 @@
                 <Grid Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,50,30">
                     <Button Style="{DynamicResource MaterialDesignFloatingActionButton}" 
                             Background="#7E40FF" 
-                            Height="70" Width="70">
+                            Height="70" Width="70"
+                            Click="btnBambooPostWindow_Click">
 
 
                         <Button.Content>

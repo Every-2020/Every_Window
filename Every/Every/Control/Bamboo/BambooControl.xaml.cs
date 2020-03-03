@@ -23,6 +23,9 @@ namespace Every.Control.Bamboo
     {
         private const string Title = "대나무숲";
 
+        public delegate void LoadedBambooPostWindow_Handler(object sender, RoutedEventArgs e);
+        public event LoadedBambooPostWindow_Handler OnLoadedBambooPostWindow;
+
         public BambooControl()
         {
             InitializeComponent();
@@ -37,6 +40,11 @@ namespace Every.Control.Bamboo
         public async void LoadData()
         {
             await App.bambooData.LoadDataAsync();
+        }
+
+        private void btnBambooPostWindow_Click(object sender, RoutedEventArgs e)
+        {
+            OnLoadedBambooPostWindow?.Invoke(this, e);
         }
     }
 }

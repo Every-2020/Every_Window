@@ -62,7 +62,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
         </Grid>
-        
+
         <Grid Grid.Row="1" x:Name="gdPage">
             <Home:HomeControl x:Name="ctrlHome"/>
             <Bamboo:BambooControl x:Name="ctrlBamboo"/>
