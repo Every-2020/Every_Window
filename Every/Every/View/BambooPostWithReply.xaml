@@ -1,0 +1,27 @@
+﻿<Window x:Class="Every.View.BambooPostWithReply"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Every.View"
+        xmlns:control_Bamboo="clr-namespace:Every.Control.Bamboo"
+        mc:Ignorable="d"
+        Height="720" Width="1456"
+        ResizeMode="NoResize"
+        Title="게시물">
+    
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="854"/>
+            <ColumnDefinition Width="602"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            
+        </Grid>
+
+        <Grid Grid.Column="1">
+            
+        </Grid>
+    </Grid>
+</Window>

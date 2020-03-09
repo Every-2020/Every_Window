@@ -85,6 +85,9 @@
     <Compile Include="View\BambooPostWindow.xaml.cs">
       <DependentUpon>BambooPostWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\BambooPostWithReply.xaml.cs">
+      <DependentUpon>BambooPostWithReply.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SearchSchoolWindow.xaml.cs">
       <DependentUpon>SearchSchoolWindow.xaml</DependentUpon>
     </Compile>
@@ -124,7 +127,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ResourceDictionaries\HintBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\BambooPostWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BambooPostWithReply.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

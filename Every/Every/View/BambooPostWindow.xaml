@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Height="539" Width="807"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Title="게시물 작성">
 
     <Window.Resources>
         <!--Button Highlight 효과 제거, 가져다 대면 블럭지정되는 현상 제거 스타일-->
@@ -69,7 +70,7 @@
                      FontFamily="나눔고딕_ac"
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
-                     Text="{Binding BambooContent, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding BambooPostContent, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <Grid Grid.Row="2" Margin="5">

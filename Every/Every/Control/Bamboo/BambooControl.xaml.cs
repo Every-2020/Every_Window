@@ -23,12 +23,20 @@ namespace Every.Control.Bamboo
     {
         private const string Title = "대나무숲";
 
-        public delegate void LoadedBambooPostWindow_Handler(object sender, RoutedEventArgs e);
-        public event LoadedBambooPostWindow_Handler OnLoadedBambooPostWindow;
+        public delegate void LoadBambooPostWindow_Handler(object sender, RoutedEventArgs e);
+        public event LoadBambooPostWindow_Handler OnLoadBambooPostWindow;
+
+        public delegate void LoadBambooPostWithReplyWindow_Handler(object sender, RoutedEventArgs e);
+        public event LoadBambooPostWithReplyWindow_Handler OnLoadBambooPostWithReply;
 
         public BambooControl()
         {
             InitializeComponent();
+            Loaded += BambooControl_Loaded;
+        }
+
+        private void BambooControl_Loaded(object sender, RoutedEventArgs e)
+        {
             this.DataContext = App.bambooData.bambooViewModel;
         }
 
@@ -44,7 +52,12 @@ namespace Every.Control.Bamboo
 
         private void btnBambooPostWindow_Click(object sender, RoutedEventArgs e)
         {
-            OnLoadedBambooPostWindow?.Invoke(this, e);
+            OnLoadBambooPostWindow?.Invoke(this, e);
+        }
+
+        private void btnBambooReplyCount_Click(object sender, RoutedEventArgs e)
+        {
+            OnLoadBambooPostWithReply?.Invoke(this, e);
         }
     }
 }

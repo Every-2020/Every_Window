@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Every.Core.Bamboo.Model
 {
-    public class Reply : BindableBase, ICloneable
+    public class Replies : BindableBase, ICloneable
     {
         private int _idx;
         [JsonProperty("idx")]
@@ -54,7 +54,7 @@ namespace Every.Core.Bamboo.Model
 
         public object Clone()
         {
-            return new Reply
+            return new Replies
             {
                 Idx = this.Idx,
                 Content = this.Content,

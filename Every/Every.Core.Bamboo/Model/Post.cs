@@ -19,17 +19,6 @@ namespace Every.Core.Bamboo.Model
             }
         }
 
-        private string _title;
-        [JsonProperty("title")]
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                SetProperty(ref _title, value);
-            }
-        }
-
         private string _content;
         [JsonProperty("content")]
         public string Content
@@ -52,38 +41,13 @@ namespace Every.Core.Bamboo.Model
             }
         }
 
-        private string _dayOfWeek;
-        [JsonIgnore]
-        public string DayOfWeek
-        {
-            get => _dayOfWeek;
-            set
-            {
-                SetProperty(ref _dayOfWeek, value);
-            }
-        }
-
-        private int _replyCount;
-        [JsonIgnore]
-        public int ReplyCount
-        {
-            get => _replyCount;
-            set
-            {
-                SetProperty(ref _replyCount, value);
-            }
-        }
-
         public object Clone()
         {
             return new Post
             {
                 Idx = this.Idx,
-                Title = this.Title,
                 Content = this.Content,
-                Created_At = this.Created_At,
-                DayOfWeek = this.DayOfWeek,
-                ReplyCount = this.ReplyCount
+                Created_At = this.Created_At
             };
         }
     }

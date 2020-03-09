@@ -53,39 +53,61 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
-        private string _bambooContent;
-        public string BambooContent
+        private string _bambooPostContent;
+        public string BambooPostContent
         {
-            get => _bambooContent;
+            get => _bambooPostContent;
             set
             {
                 if(value.Length <= 500)
                 {
-                    SetProperty(ref _bambooContent, value);
+                    SetProperty(ref _bambooPostContent, value);
                 }
 
                 return;
             }
         }
 
-        public string day { get; set; }
+        private string _bambooReplyContent;
+        public string BambooReplyContent
+        {
+            get => _bambooReplyContent;
+            set
+            {
+                SetProperty(ref _bambooReplyContent, value);
+            }
+        }
+
+        public string Day { get; set; }
 
         public ICommand BambooPostCommand { get; set; }
+        public ICommand BambooReplyCommand { get; set; }
         #endregion
 
         public BambooViewModel()
         {
-            BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooContent);
+            BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooPostContent);
+            BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
         }
 
-        private async void OnBambooPost()
+        private async void OnBambooPost()   
         {
             await BambooPost();
         }
 
         private bool CanBambooPost()
         {
-            return (BambooContent != null) && (BambooContent != "") && (BambooContent != string.Empty);
+            return (BambooPostContent != null) && (BambooPostContent != "") && (BambooPostContent != string.Empty);
+        }
+
+        private async void OnBambooReply()
+        {
+            await BambooReply();
+        }
+
+        private bool CanBambooReply()
+        {
+            return (BambooReplyContent != null) && (BambooReplyContent != "") && (BambooReplyContent != string.Empty);
         }
 
 
@@ -107,7 +129,9 @@ namespace Every.Core.Bamboo.ViewModel
                         postItems.Created_At = item.Created_At;
 
                         GetDay(postItems.Created_At);
-                        postItems.DayOfWeek = day;
+                        postItems.DayOfWeek = Day;
+
+                        postItems.PostWrittenTime = (DateTime.Now - postItems.Created_At).Hours;
 
                         var res = await bambooService.GetReplies(postItems.Idx);
                         postItems.ReplyCount = res.Data.Replies.Count;
@@ -154,39 +178,51 @@ namespace Every.Core.Bamboo.ViewModel
             switch (date.DayOfWeek)
             {
                 case DayOfWeek.Monday:
-                    day = "월요일";
+                    Day = "월요일";
                     break;
                 case DayOfWeek.Tuesday:
-                    day = "화요일";
+                    Day = "화요일";
                     break;
                 case DayOfWeek.Wednesday:
-                    day = "수요일";
+                    Day = "수요일";
                     break;
                 case DayOfWeek.Thursday:
-                    day = "목요일";
+                    Day = "목요일";
                     break;
                 case DayOfWeek.Friday:
-                    day = "금요일";
+                    Day = "금요일";
                     break;
                 case DayOfWeek.Saturday:
-                    day = "토요일";
+                    Day = "토요일";
                     break;
                 case DayOfWeek.Sunday:
-                    day = "일요일";
+                    Day = "일요일";
                     break;
             }
 
-            return day;
+            return Day;
         }
 
         private async Task BambooPost()
         {
-            var resp = await bambooService.MakePost(BambooContent);
+            var resp = await bambooService.MakePost(BambooPostContent);
 
             if(resp.Status == (int)HttpStatusCode.Created)
             {
                 BambooPostResultReceived?.Invoke(this);
-                BambooContent = string.Empty;
+                BambooPostContent = string.Empty;
+                PostsItems.Clear();
+                await GetPosts();
+            }
+        }
+
+        private async Task BambooReply()
+        {
+            var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
+
+            if(resp.Status == (int)HttpStatusCode.Created)
+            {
+                BambooReplyContent = string.Empty;
                 PostsItems.Clear();
                 await GetPosts();
             }

@@ -74,7 +74,8 @@ namespace Every.Control
                 case NaviMenu.Bamboo:
                      page = ctrlBamboo;
                     ctrlBamboo.LoadData();
-                    ctrlBamboo.OnLoadedBambooPostWindow += CtrlBamboo_OnLoadedBambooPostWindow;
+                    ctrlBamboo.OnLoadBambooPostWithReply += CtrlBamboo_OnLoadBambooPostWithReply;
+                    ctrlBamboo.OnLoadBambooPostWindow += CtrlBamboo_OnLoadedBambooPostWindow;
                      break;
                 case NaviMenu.Schedule:
                     page = ctrlSchedule;
@@ -87,12 +88,26 @@ namespace Every.Control
             ShowPage(page);
         }
 
+        public void InitView()
+        {
+            ShowPage(ctrlHome);
+        }
+
         private void ShowPage(IPage page)
         {
             if (page != null && page is FrameworkElement element)
             {
                 CollapsePages();
                 element.Visibility = Visibility.Visible;
+            }
+
+            if (page == ctrlBamboo)
+            {
+                tbBambooSearchPost.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                tbBambooSearchPost.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -104,11 +119,15 @@ namespace Every.Control
             }
         }
 
+        private void CtrlBamboo_OnLoadBambooPostWithReply(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void CtrlBamboo_OnLoadedBambooPostWindow(object sender, RoutedEventArgs e)
         {
             BambooPostWindow bambooPostWindow = new BambooPostWindow();
             bambooPostWindow.Show();
-            //bambooPostWindow.ShowDialog();
         }
     }
 

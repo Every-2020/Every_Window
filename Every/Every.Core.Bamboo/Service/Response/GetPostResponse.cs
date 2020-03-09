@@ -6,16 +6,16 @@ using System.Text;
 
 namespace Every.Core.Bamboo.Service.Response
 {
-    public class GetPostsResponse : BindableBase
+    public class GetPostResponse : BindableBase
     {
-        private List<Model.Posts> _posts;
-        [JsonProperty("posts")]
-        public List<Model.Posts> Posts
+        private List<Model.Post> _post;
+        [JsonProperty("post")]
+        public List<Model.Post> Post
         {
-            get => _posts;
+            get => _post;
             set
             {
-                SetProperty(ref _posts, value);
+                SetProperty(ref _post, value);
             }
         }
     }
