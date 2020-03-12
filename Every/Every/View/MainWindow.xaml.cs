@@ -113,6 +113,7 @@ namespace Every_AdminWin
                 CtrlWorkerSignUp.tbInputBirth_Year.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputWork_Place.Text = string.Empty;
                 CtrlWorkerSignUp.tbInputWork_Category.Text = string.Empty;
+                CtrlWorkerSignUp.cbSelectDuty.SelectedItem = null;
                 CtrlWorkerSignUp.tbEmailDesc.Text = string.Empty;
                 CtrlWorkerSignUp.tbPwDesc.Text = string.Empty;
                 CtrlWorkerSignUp.tbPhoneNumDesc.Text = string.Empty;

@@ -8,14 +8,14 @@ namespace Every.Core.Bamboo.Service.Response
 {
     public class GetPostResponse : BindableBase
     {
-        private List<Model.Post> _post;
+        private Model.Post _post;
         [JsonProperty("post")]
-        public List<Model.Post> Post
+        public Model.Post Post
         {
             get => _post;
             set
             {
-                SetProperty(ref _post, value);
+                SetProperty(ref _post,   value);
             }
         }
     }

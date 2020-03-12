@@ -21,8 +21,8 @@ namespace Every.Core.Bamboo.ViewModel
         public event BambooPostResultReceivedHandler BambooPostResultReceived;
 
         // 게시글 목록 저장
-        private ObservableCollection<Model.Post> _postsItems = new ObservableCollection<Model.Post>();
-        public ObservableCollection<Model.Post> PostsItems
+        private ObservableCollection<Model.Posts> _postsItems = new ObservableCollection<Model.Posts>();
+        public ObservableCollection<Model.Posts> PostsItems
         {
             get => _postsItems;
             set
@@ -32,8 +32,8 @@ namespace Every.Core.Bamboo.ViewModel
         }
 
         // 댓글 목록 저장
-        private ObservableCollection<Model.Reply> _repliesItems = new ObservableCollection<Model.Reply>();
-        public ObservableCollection<Model.Reply> RepliesItems
+        private ObservableCollection<Model.Replies> _repliesItems = new ObservableCollection<Model.Replies>();
+        public ObservableCollection<Model.Replies> RepliesItems
         {
             get => _repliesItems;
             set
@@ -42,9 +42,31 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
+        // 게시글 저장
+        private ObservableCollection<Model.Post> _postItems = new ObservableCollection<Model.Post>();
+        public ObservableCollection<Model.Post> PostItems
+        {
+            get => _postItems;
+            set
+            {
+                SetProperty(ref _postItems, value);
+            }
+        }
+
+        // 댓글 저장
+        private ObservableCollection<Model.Post> _replyItems = new ObservableCollection<Model.Post>();
+        public ObservableCollection<Model.Post> ReplyItems
+        {
+            get => _replyItems;
+            set
+            {
+                SetProperty(ref _replyItems, value);
+            }
+        }
+
         // 선택한 게시물
-        private Model.Post _selectedPost = new Model.Post();
-        public Model.Post SelectedPost
+        private Model.Posts _selectedPost = new Model.Posts();
+        public Model.Posts SelectedPost
         {
             get => _selectedPost;
             set
@@ -53,6 +75,7 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
+        // 게시글 작성 내용
         private string _bambooPostContent;
         public string BambooPostContent
         {
@@ -63,18 +86,22 @@ namespace Every.Core.Bamboo.ViewModel
                 {
                     SetProperty(ref _bambooPostContent, value);
                 }
-
                 return;
             }
         }
 
+        // 댓글 작성 내용
         private string _bambooReplyContent;
         public string BambooReplyContent
         {
             get => _bambooReplyContent;
             set
             {
-                SetProperty(ref _bambooReplyContent, value);
+                if(value.Length <= 250)
+                { 
+                    SetProperty(ref _bambooReplyContent, value);
+                }
+                return;
             }
         }
 
@@ -119,24 +146,24 @@ namespace Every.Core.Bamboo.ViewModel
             {
                 try
                 {
-                    Model.Post postItems = new Model.Post();
+                    Model.Posts postsItems = new Model.Posts();
 
                     foreach (var item in resp.Data.Posts)
                     {
-                        postItems.Idx = item.Idx;
-                        postItems.Title = item.Title;
-                        postItems.Content = item.Content;
-                        postItems.Created_At = item.Created_At;
+                        postsItems.Idx = item.Idx;
+                        postsItems.Title = item.Title;
+                        postsItems.Content = item.Content;
+                        postsItems.Created_At = item.Created_At;
 
-                        GetDay(postItems.Created_At);
-                        postItems.DayOfWeek = Day;
+                        GetDay(postsItems.Created_At);
+                        postsItems.DayOfWeek = Day;
 
-                        postItems.PostWrittenTime = (DateTime.Now - postItems.Created_At).Hours;
+                        postsItems.PostWrittenTime = (DateTime.Now - postsItems.Created_At).Hours;
 
-                        var res = await bambooService.GetReplies(postItems.Idx);
-                        postItems.ReplyCount = res.Data.Replies.Count;
+                        var res = await bambooService.GetReplies(postsItems.Idx);
+                        postsItems.ReplyCount = res.Data.Replies.Count;
 
-                        PostsItems.Add((Model.Post)postItems.Clone());   
+                        PostsItems.Add((Model.Posts)postsItems.Clone());   
                     }
                 }
                 catch(Exception e)
@@ -148,27 +175,30 @@ namespace Every.Core.Bamboo.ViewModel
 
         private async Task GetReplies()
         {
-            var resp = await bambooService.GetReplies(SelectedPost.Idx);
-
-            if(resp != null && resp.Status == 200 && resp.Data != null)
+            if(SelectedPost != null)
             {
-                try
-                {
-                    Model.Reply repliesItems = new Model.Reply();
+                var resp = await bambooService.GetReplies(SelectedPost.Idx);
 
-                    foreach(var item in resp.Data.Replies)
+                if(resp != null && resp.Status == 200 && resp.Data != null)
+                {
+                    try
                     {
-                        repliesItems.Idx = item.Idx;
-                        repliesItems.Content = item.Content;
-                        repliesItems.Created_At = item.Created_At;
-                        repliesItems.Student_Idx = item.Student_Idx;
+                        Model.Replies repliesItems = new Model.Replies();
 
-                        RepliesItems.Add((Model.Reply)repliesItems.Clone());
+                        foreach(var item in resp.Data.Replies)
+                        {
+                            repliesItems.Idx = item.Idx;
+                            repliesItems.Content = item.Content;
+                            repliesItems.Created_At = item.Created_At;
+                            repliesItems.Student_Idx = item.Student_Idx;
+
+                            RepliesItems.Add((Model.Replies)repliesItems.Clone());
+                        }
                     }
-                }
-                catch(Exception e)
-                {
-                    Debug.WriteLine(e.StackTrace);
+                    catch(Exception e)
+                    {
+                        Debug.WriteLine(e.StackTrace);
+                    }
                 }
             }
         }
@@ -205,27 +235,62 @@ namespace Every.Core.Bamboo.ViewModel
 
         private async Task BambooPost()
         {
-            var resp = await bambooService.MakePost(BambooPostContent);
-
-            if(resp.Status == (int)HttpStatusCode.Created)
+            if(BambooPostContent != null)
             {
-                BambooPostResultReceived?.Invoke(this);
-                BambooPostContent = string.Empty;
-                PostsItems.Clear();
-                await GetPosts();
+                var resp = await bambooService.MakePost(BambooPostContent);
+
+                if (resp.Status == (int)HttpStatusCode.Created)
+                {
+                    BambooPostResultReceived?.Invoke(this);
+                    BambooPostContent = string.Empty;
+                    PostsItems.Clear();
+                    await GetPosts();
+                }
             }
+            return;
         }
 
         private async Task BambooReply()
         {
-            var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
-
-            if(resp.Status == (int)HttpStatusCode.Created)
+            if (BambooReplyContent != null && SelectedPost != null)
             {
-                BambooReplyContent = string.Empty;
-                PostsItems.Clear();
-                await GetPosts();
+                var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
+
+                if (resp.Status == (int)HttpStatusCode.Created)
+                {
+                    BambooReplyContent = string.Empty;
+                    PostsItems.Clear();
+                    await GetPosts();
+                }
             }
+            return;
+        }
+
+        public async Task GetPost()
+        {
+            if(SelectedPost != null)
+            {
+                var resp = await bambooService.GetPost(SelectedPost.Idx);
+
+                if(resp != null && resp.Data != null && resp.Status == 200)
+                {
+                    try
+                    {
+                        Model.Post postItems = new Model.Post();
+                        
+                        postItems.Idx = resp.Data.Post.Idx;
+                        postItems.Content = resp.Data.Post.Content;
+                        postItems.Created_At = resp.Data.Post.Created_At;
+
+                        PostItems.Add((Model.Post)postItems.Clone());
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.WriteLine(e.StackTrace);
+                    }
+                }
+            }
+            return;
         }
 
         public async Task LoadDataAsync()

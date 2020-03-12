@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Every_AdminWin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,10 @@ namespace Every.View
         public BambooPostWithReply()
         {
             InitializeComponent();
+            Loaded += (sender, e) =>
+            {
+                this.DataContext = App.bambooData.bambooViewModel;
+            };
         }
     }
 }

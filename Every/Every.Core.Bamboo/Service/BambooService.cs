@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using TNetwork;
@@ -73,7 +74,7 @@ namespace Every.Core.Bamboo.Service
             string requestUrl = POSTS_INQUIRY_URL + idx;
 
             var client = new RestClient(Options.serverUrl);
-            var restRequest = new RestRequest(POSTS_INQUIRY_URL, Method.GET);
+            var restRequest = new RestRequest(requestUrl, Method.GET);
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             var response = await client.ExecuteTaskAsync(restRequest);
 
@@ -94,7 +95,7 @@ namespace Every.Core.Bamboo.Service
             var restRequest = new RestRequest(requestUrl, Method.GET);
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             var response = await client.ExecuteTaskAsync(restRequest);
-
+            
             var resp = JsonConvert.DeserializeObject<TResponse<GetRepliesResponse>>(response.Content);
             return resp;    
         }

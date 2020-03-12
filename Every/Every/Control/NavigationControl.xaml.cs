@@ -119,9 +119,11 @@ namespace Every.Control
             }
         }
 
-        private void CtrlBamboo_OnLoadBambooPostWithReply(object sender, RoutedEventArgs e)
+        private async void CtrlBamboo_OnLoadBambooPostWithReply(object sender, RoutedEventArgs e)
         {
-            
+            await App.bambooData.bambooViewModel.GetPost();
+            BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
+            bambooPostWithReply.Show();
         }
 
         private void CtrlBamboo_OnLoadedBambooPostWindow(object sender, RoutedEventArgs e)

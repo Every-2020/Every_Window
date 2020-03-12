@@ -299,6 +299,7 @@
                         <Grid Grid.Column="0">
                             <ComboBox Height="50"
                                       Width="50"
+                                      x:Name="cbSelectDuty"
                                       ItemsSource="{Binding DutyItems}"
                                       SelectedItem="{Binding SelectedDuty}"
                                       SelectionChanged="ComboBox_SelectionChanged"

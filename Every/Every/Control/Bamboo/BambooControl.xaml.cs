@@ -50,11 +50,13 @@ namespace Every.Control.Bamboo
             await App.bambooData.LoadDataAsync();
         }
 
+        // 게시물 작성 클릭
         private void btnBambooPostWindow_Click(object sender, RoutedEventArgs e)
         {
             OnLoadBambooPostWindow?.Invoke(this, e);
         }
 
+        // 댓글 개수 클릭
         private void btnBambooReplyCount_Click(object sender, RoutedEventArgs e)
         {
             OnLoadBambooPostWithReply?.Invoke(this, e);
