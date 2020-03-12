@@ -33,5 +33,12 @@ namespace Every_AdminWin
         {
             Setting.Load();
         }
+
+        // WPF 전역 예외처리, 어플리케이션 강제 종료 방지
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("An unhandled exception just occured: " + e.Exception, "예외 발생", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true; // 이 속성은 예외 처리 완료, 이와 관련해 더이상 아무것도 하지 않아도 된다는 것을 WPF에 전달.
+        }
     }
 }
