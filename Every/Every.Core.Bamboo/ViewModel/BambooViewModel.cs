@@ -140,6 +140,11 @@ namespace Every.Core.Bamboo.ViewModel
 
         private async Task GetPosts()
         {
+            if(PostsItems != null)
+            {
+                PostsItems.Clear();
+            }
+
             var resp = await bambooService.GetPosts();
 
             if(resp != null && resp.Status == 200 && resp.Data != null)
@@ -175,6 +180,11 @@ namespace Every.Core.Bamboo.ViewModel
 
         private async Task GetReplies()
         {
+            if(RepliesItems != null)
+            {
+                RepliesItems.Clear();
+            }
+
             if(SelectedPost != null)
             {
                 var resp = await bambooService.GetReplies(SelectedPost.Idx);
@@ -266,11 +276,16 @@ namespace Every.Core.Bamboo.ViewModel
             return;
         }
 
-        public async Task GetPost()
+        public async Task GetPost(int idx)
         {
+            if(PostItems != null)
+            {
+                PostItems.Clear();
+            }
+
             if(SelectedPost != null)
             {
-                var resp = await bambooService.GetPost(SelectedPost.Idx);
+                var resp = await bambooService.GetPost(idx);
 
                 if(resp != null && resp.Data != null && resp.Status == 200)
                 {

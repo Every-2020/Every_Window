@@ -121,8 +121,9 @@ namespace Every.Control
 
         private async void CtrlBamboo_OnLoadBambooPostWithReply(object sender, RoutedEventArgs e)
         {
-            await App.bambooData.bambooViewModel.GetPost();
+            await App.bambooData.bambooViewModel.GetPost(Convert.ToInt32(sender));
             BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
+            bambooPostWithReply.DataContext = App.bambooData.bambooViewModel;
             bambooPostWithReply.Show();
         }
 

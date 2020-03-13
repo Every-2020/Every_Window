@@ -132,13 +132,15 @@
                                         </Grid.RowDefinitions>
 
                                         <Grid Grid.Row="0" Margin="10,0,0,0">
-                                            <Button HorizontalAlignment="Left" Click="btnBambooReplyCount_Click">
-                                                <TextBlock Text="{Binding ReplyCount, StringFormat={}댓글 {0}개}"
-                                                           FontSize="18"
-                                                           FontWeight="Bold"
-                                                           Foreground="#878787"
-                                                           TextWrapping="Wrap"
-                                                           FontFamily="나눔스퀘어_ac"/>
+                                            <Button HorizontalAlignment="Left" Click="btnBambooReplyCount_Click" Tag="{Binding Idx}">
+                                                <Button.Content>
+                                                    <TextBlock Text="{Binding ReplyCount, StringFormat={}댓글 {0}개}"
+                                                               FontSize="18"
+                                                               FontWeight="Bold"
+                                                               Foreground="#878787"
+                                                               TextWrapping="Wrap"
+                                                               FontFamily="나눔스퀘어_ac"/>
+                                                </Button.Content>
                                             </Button>
                                         </Grid>
                                         

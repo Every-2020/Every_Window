@@ -11,15 +11,93 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="게시물"
         WindowStartupLocation="CenterScreen">
-    
+
     <Grid Background="White">
+        <Grid.Effect>
+            <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+        </Grid.Effect>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="854"/>
             <ColumnDefinition Width="602"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            
+        <Grid Grid.Column="0" Background="White" Margin="5">
+            <ListView ItemsSource="{Binding PostItems}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+
+                        <!--ListViewItem HighLight 제거-->
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5">
+                            <StackPanel Margin="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="0"
+                                               Source="/Assets/Bamboo/ProfileIcon.png"
+                                               Height="90"
+                                               Width="90"/>
+
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="5">
+                                            <TextBlock Text="{Binding Idx, StringFormat={}#{0}번째 이야기}"
+                                                       FontSize="28"
+                                                       FontWeight="ExtraBold"
+                                                       FontFamily="나눔스퀘어_ac"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Created_At, StringFormat=yyyy년 MM월 dd일}"
+                                                           FontSize="21"
+                                                           Margin="5"
+                                                           FontWeight="Regular"
+                                                           FontFamily="나눔스퀘어_ac"/>
+                                                <TextBlock Text="{Binding DayOfWeek}"
+                                                           FontSize="21"
+                                                           Margin="5"
+                                                           FontWeight="Regular"
+                                                           FontFamily="나눔스퀘어_ac"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding PostWrittenTime, StringFormat={}{0}시간 전}"
+                                                       FontSize="21"
+                                                       Margin="5"
+                                                       FontWeight="Regular"
+                                                       FontFamily="나눔스퀘어_ac"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1"
+                                               Text="{Binding Content}"
+                                               FontSize="28"
+                                               FontWeight="Regular"
+                                               TextWrapping="Wrap"
+                                               FontFamily="나눔스퀘어_ac"
+                                               Margin="5"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
 
         <Grid Grid.Column="1">
