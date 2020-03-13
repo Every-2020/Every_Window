@@ -9,6 +9,12 @@ namespace TNetwork.Data
 {
     public class TokenInfo
     {
+        [JsonProperty("student_idx")]
+        public int? Student_Idx { get; set; }
+
+        [JsonProperty("worker_idx")]
+        public int? Worker_Idx { get; set; }
+
         [JsonProperty("x-access-token")]
         public string Token { get; set; }
         public string RefreshToken { get; set; }

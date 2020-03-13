@@ -178,7 +178,7 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
-        private async Task GetReplies()
+        public async Task GetReplies(int idx)
         {
             if(RepliesItems != null)
             {
@@ -187,7 +187,7 @@ namespace Every.Core.Bamboo.ViewModel
 
             if(SelectedPost != null)
             {
-                var resp = await bambooService.GetReplies(SelectedPost.Idx);
+                var resp = await bambooService.GetReplies(idx);
 
                 if(resp != null && resp.Status == 200 && resp.Data != null)
                 {

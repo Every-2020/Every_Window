@@ -119,14 +119,18 @@ namespace Every.Control
             }
         }
 
+        // Post with Reply
         private async void CtrlBamboo_OnLoadBambooPostWithReply(object sender, RoutedEventArgs e)
         {
-            await App.bambooData.bambooViewModel.GetPost(Convert.ToInt32(sender));
+            int idx = Convert.ToInt32(sender);
+            await App.bambooData.bambooViewModel.GetPost(idx);
+            await App.bambooData.bambooViewModel.GetReplies(idx);
             BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
             bambooPostWithReply.DataContext = App.bambooData.bambooViewModel;
             bambooPostWithReply.Show();
         }
 
+        // Create Post
         private void CtrlBamboo_OnLoadedBambooPostWindow(object sender, RoutedEventArgs e)
         {
             BambooPostWindow bambooPostWindow = new BambooPostWindow();

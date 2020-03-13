@@ -101,7 +101,98 @@
         </Grid>
 
         <Grid Grid.Column="1">
-            
+            <ListView ItemsSource="{Binding RepliesItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Image Source="/Assets/Bamboo/ProfileIcon.png"
+                                           Height="56" Width="56"/>
+                                </Grid>
+                                
+                                <Grid Grid.Column="1" MaxWidth="404">
+                                    <TextBlock Text="{Binding Content}"/>
+                                </Grid>
+                                
+                                <Grid Grid.Column="2">
+
+                                </Grid>
+                            </Grid>
+
+                            
+                            
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Margin="10,0,0,0">
+                                    <Button HorizontalAlignment="Left">
+                                        <Button.Content>
+                                            <TextBlock Text="{Binding ReplyCount, StringFormat={}댓글 {0}개}"
+                                                       FontSize="18"
+                                                       FontWeight="Bold"
+                                                       Foreground="#878787"
+                                                       TextWrapping="Wrap"
+                                                       FontFamily="나눔스퀘어_ac"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+
+                                <!--<Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0" CornerRadius="20" Background="#F1F1F1"
+                                                        Width="719"
+                                                        Height="65">
+                                        <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
+                                                 Path=DataContext.BambooReplyContent, 
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource HintBox}"
+                                                 Tag="댓글 달기..." 
+                                                 Foreground="#C2C2C2"
+                                                 Width="700"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Center"
+                                                 FontWeight="Bold"
+                                                 FontFamily="나눔스퀘어_ac"
+                                                 FontSize="22"
+                                                 Margin="10,0,0,0"
+                                                 TextWrapping="Wrap"/>
+                                    </Border> 
+
+                                    <Button Grid.Column="1" 
+                                            Height="45" 
+                                            Margin="5" 
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                                                Path=DataContext.BambooReplyCommand}">
+                                        <ContentControl>
+                                            <Image Source="/Assets/Bamboo/papsr-plane.png"
+                                                   Height="42" Width="43"/>
+                                        </ContentControl>
+                                    </Button>
+                                </Grid>-->
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 </Window>
