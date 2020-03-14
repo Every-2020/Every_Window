@@ -10,7 +10,6 @@
              d:DesignHeight="1080" d:DesignWidth="1920">
 
     <Grid Background="White">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
@@ -56,13 +55,17 @@
 
                 <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black"
+                        <Grid>
+                            <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Color="#E2E2E2" BlurRadius="20"/>
+                                </Border.Effect>
+                            </Border>
+
+                            <Border BorderBrush="Transparent"
                                     BorderThickness="1"
                                     Margin="20">
-    
-                            <!--<Border.Effect>
-                                <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
-                            </Border.Effect>-->
+   
                                 
                                 <Grid Height="721" Width="835">
                                     <Grid.RowDefinitions>
@@ -183,7 +186,8 @@
                                         </Grid>
                                     </Grid>
                                 </Border>
-                            </DataTemplate>
+                        </Grid>
+                    </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
