@@ -41,13 +41,37 @@ namespace Every.Core.Bamboo.Model
             }
         }
 
+        private string _dayOfWeek;
+        [JsonIgnore]
+        public string DayOfWeek
+        {
+            get => _dayOfWeek;
+            set
+            {
+                SetProperty(ref _dayOfWeek, value);
+            }
+        }
+
+        private int _postWrittenTime;
+        [JsonIgnore]
+        public int PostWrittenTime
+        {
+            get => _postWrittenTime;
+            set
+            {
+                SetProperty(ref _postWrittenTime, value);
+            }
+        }
+
         public object Clone()
         {
             return new Post
             {
                 Idx = this.Idx,
                 Content = this.Content,
-                Created_At = this.Created_At
+                Created_At = this.Created_At,
+                DayOfWeek = this.DayOfWeek,
+                PostWrittenTime = this.PostWrittenTime
             };
         }
     }

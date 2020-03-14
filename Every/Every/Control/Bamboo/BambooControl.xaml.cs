@@ -59,7 +59,7 @@ namespace Every.Control.Bamboo
         // 댓글 개수 클릭
         private void btnBambooReplyCount_Click(object sender, RoutedEventArgs e)
         {
-            var item = (sender as Button).Tag;            
+            var item = (sender as Button).Tag;
             OnLoadBambooPostWithReply?.Invoke(item, e);
         }
     }

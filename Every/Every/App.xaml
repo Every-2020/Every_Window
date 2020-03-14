@@ -18,6 +18,9 @@
                 
                 <!--HintBox Style-->
                 <ResourceDictionary Source="ResourceDictionaries/HintBoxStyle.xaml"/>
+
+                <!--RemoveButtonHighlightStyle-->
+                <ResourceDictionary Source="ResourceDictionaries/RemoveButtonHighlightStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

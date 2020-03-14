@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TNetwork\TNetwork.csproj" />
+    <ProjectReference Include="..\Every.Core.Member\Every.Core.Member.csproj" />
   </ItemGroup>
 
   <ItemGroup>

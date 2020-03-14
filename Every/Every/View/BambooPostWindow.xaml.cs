@@ -36,5 +36,10 @@ namespace Every.View
         {
             this.Close();
         }
+
+        private void btn_CloseBambooPostWindow_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

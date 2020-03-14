@@ -19,5 +19,8 @@ namespace TNetwork.Common
         public static string password { get; set; } = null;
 
         public static TokenInfo tokenInfo { get; set; } = null;
+
+        public static TokenInfo student_idx { get; set; } = null;
+        public static TokenInfo worker_idx { get; set; } = null;
     }
 }

@@ -53,6 +53,10 @@ namespace BIND.Core.Login.Network
             {
                 Options.tokenInfo.Token = resp.Data.Token;
                 Options.tokenInfo.RefreshToken = resp.Data.RefreshToken;
+                
+                //
+                Options.tokenInfo.Student_Idx = resp.Data.Student_Idx;
+                Options.tokenInfo.Worker_Idx = resp.Data.Worker_Idx;
             }
             return resp;
         }

@@ -52,6 +52,28 @@ namespace Every.Core.Bamboo.Model
             }
         }
 
+        private string _writerName;
+        [JsonIgnore]
+        public string WriterName
+        {
+            get => _writerName;
+            set
+            {
+                SetProperty(ref _writerName, value);
+            }
+        }
+
+        private int _repplytWrittenTime;
+        [JsonIgnore]
+        public int ReplyWrittenTime
+        {
+            get => _repplytWrittenTime;
+            set
+            {
+                SetProperty(ref _repplytWrittenTime, value);
+            }
+        }
+
         public object Clone()
         {
             return new Replies
@@ -59,7 +81,8 @@ namespace Every.Core.Bamboo.Model
                 Idx = this.Idx,
                 Content = this.Content,
                 Created_At = this.Created_At,
-                Student_Idx = this.Student_Idx
+                Student_Idx = this.Student_Idx,
+                WriterName = this.WriterName
             };
         }
     }

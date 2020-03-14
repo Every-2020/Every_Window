@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TNetwork.Common;
 
 namespace Every.Control
 {
@@ -36,25 +37,25 @@ namespace Every.Control
             naviDatas.Add(new NaviData
             {
                 Title = "Home",
-                NaviImagePath = ComDef.Path + "HomeIcon.png",
+                NaviImagePath = Common.ComDef.Path + "HomeIcon.png",
                 naviMenu = NaviMenu.Home
             });
             naviDatas.Add(new NaviData
             {
                 Title = "대나무숲",
-                NaviImagePath = ComDef.Path + "BambooIcon.png",
+                NaviImagePath = Common.ComDef.Path + "BambooIcon.png",
                 naviMenu = NaviMenu.Bamboo
             }) ;
             naviDatas.Add(new NaviData
             {
                 Title = "일정 관리",
-                NaviImagePath = ComDef.Path + "ScheduleIcon.png",
+                NaviImagePath = Common.ComDef.Path + "ScheduleIcon.png",
                 naviMenu = NaviMenu.Schedule
             });
             naviDatas.Add(new NaviData
             {
                 Title = "설정",
-                NaviImagePath = ComDef.Path + "OptionIcon.png",
+                NaviImagePath = Common.ComDef.Path + "OptionIcon.png",
                 naviMenu = NaviMenu.Option
             });
 
@@ -125,6 +126,7 @@ namespace Every.Control
             int idx = Convert.ToInt32(sender);
             await App.bambooData.bambooViewModel.GetPost(idx);
             await App.bambooData.bambooViewModel.GetReplies(idx);
+            await App.bambooData.bambooViewModel.GetStudentMemberInfo(Convert.ToInt32(Options.tokenInfo.Student_Idx));
             BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
             bambooPostWithReply.DataContext = App.bambooData.bambooViewModel;
             bambooPostWithReply.Show();

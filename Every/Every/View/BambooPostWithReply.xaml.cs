@@ -28,5 +28,10 @@ namespace Every.View
                 this.DataContext = App.bambooData.bambooViewModel;
             };
         }
+
+        private void btn_CloseBambooPostWithReply_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

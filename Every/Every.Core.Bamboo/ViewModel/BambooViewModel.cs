@@ -1,4 +1,6 @@
 ﻿using Every.Core.Bamboo.Service;
+using Every.Core.Member.Model;
+using Every.Core.Member.Service;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -15,6 +17,7 @@ namespace Every.Core.Bamboo.ViewModel
     public class BambooViewModel : BindableBase
     {
         BambooService bambooService = new BambooService();
+        MemberService memberService = new MemberService();
 
         #region Properties
         public delegate void BambooPostResultReceivedHandler(object sender);
@@ -53,14 +56,14 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
-        // 댓글 저장
-        private ObservableCollection<Model.Post> _replyItems = new ObservableCollection<Model.Post>();
-        public ObservableCollection<Model.Post> ReplyItems
+        // 학생 IDX로 회원조회 정보 저장
+        private ObservableCollection<MemberInformation> _studentMemberInfoItems = new ObservableCollection<MemberInformation>();
+        public ObservableCollection<MemberInformation> StudentMemberInfoItems
         {
-            get => _replyItems;
+            get => _studentMemberInfoItems;
             set
             {
-                SetProperty(ref _replyItems, value);
+                SetProperty(ref _studentMemberInfoItems, value);
             }
         }
 
@@ -202,6 +205,11 @@ namespace Every.Core.Bamboo.ViewModel
                             repliesItems.Created_At = item.Created_At;
                             repliesItems.Student_Idx = item.Student_Idx;
 
+                            repliesItems.ReplyWrittenTime = (DateTime.Now - repliesItems.Created_At).Hours;
+
+                            var res = await memberService.GetStudentMemberInformation(item.Student_Idx);
+                            repliesItems.WriterName = res.Data.MemberInformations.Name;
+
                             RepliesItems.Add((Model.Replies)repliesItems.Clone());
                         }
                     }
@@ -297,6 +305,11 @@ namespace Every.Core.Bamboo.ViewModel
                         postItems.Content = resp.Data.Post.Content;
                         postItems.Created_At = resp.Data.Post.Created_At;
 
+                        GetDay(postItems.Created_At);
+                        postItems.DayOfWeek = Day;
+
+                        postItems.PostWrittenTime = (DateTime.Now - postItems.Created_At).Hours;
+
                         PostItems.Add((Model.Post)postItems.Clone());
                     }
                     catch(Exception e)
@@ -306,6 +319,37 @@ namespace Every.Core.Bamboo.ViewModel
                 }
             }
             return;
+        }
+
+        public async Task GetStudentMemberInfo(int idx)
+        {
+            if(StudentMemberInfoItems != null)
+            {
+                StudentMemberInfoItems.Clear();
+            }
+
+            var resp = await memberService.GetStudentMemberInformation(idx);
+
+            if(resp != null && resp.Data != null && resp.Status == 200)
+            {
+                try
+                {
+                    MemberInformation memberInfo = new MemberInformation();
+
+                    memberInfo.Idx = resp.Data.MemberInformations.Idx;
+                    memberInfo.Email = resp.Data.MemberInformations.Email;
+                    memberInfo.Name = resp.Data.MemberInformations.Name;
+                    memberInfo.Phone = resp.Data.MemberInformations.Phone;
+                    memberInfo.Birth_Year = resp.Data.MemberInformations.Birth_Year;
+                    memberInfo.School_Id = resp.Data.MemberInformations.School_Id;
+
+                    StudentMemberInfoItems.Add((MemberInformation)memberInfo.Clone());
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                }
+            }
         }
 
         public async Task LoadDataAsync()

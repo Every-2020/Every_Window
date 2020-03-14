@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Every.Core.Member
 {
-    public class Class1
+    public class MemberData
     {
     }
 }
