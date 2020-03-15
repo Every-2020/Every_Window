@@ -20,8 +20,16 @@ namespace Every.Core.Bamboo.ViewModel
         MemberService memberService = new MemberService();
 
         #region Properties
+        #region Delegate & Event
+        // 게시물 작성 성공 여부
         public delegate void BambooPostResultReceivedHandler(object sender);
         public event BambooPostResultReceivedHandler BambooPostResultReceived;
+        #endregion
+
+        #region Commands
+        public ICommand BambooPostCommand { get; set; }
+        public ICommand BambooReplyCommand { get; set; }
+        #endregion
 
         // 게시글 목록 저장
         private ObservableCollection<Model.Posts> _postsItems = new ObservableCollection<Model.Posts>();
@@ -108,16 +116,23 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
-        public string Day { get; set; }
+        // Command 연속클릭 방지
+        private bool _isEnable = true;
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set => SetProperty(ref _isEnable, value);
+        }
 
-        public ICommand BambooPostCommand { get; set; }
-        public ICommand BambooReplyCommand { get; set; }
+        // 요일 저장
+        public string Day { get; set; }
         #endregion
 
+        // 생성자
         public BambooViewModel()
         {
             BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooPostContent);
-            BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
+            //BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
         }
 
         private async void OnBambooPost()   
@@ -130,17 +145,17 @@ namespace Every.Core.Bamboo.ViewModel
             return (BambooPostContent != null) && (BambooPostContent != "") && (BambooPostContent != string.Empty);
         }
 
-        private async void OnBambooReply()
-        {
-            await BambooReply();
-        }
+        //private async void OnBambooReply()
+        //{
+        //    await BambooReply();
+        //}
 
-        private bool CanBambooReply()
-        {
-            return (BambooReplyContent != null) && (BambooReplyContent != "") && (BambooReplyContent != string.Empty);
-        }
+        //private bool CanBambooReply()
+        //{
+        //    return (BambooReplyContent != null) && (BambooReplyContent != "") && (BambooReplyContent != string.Empty);
+        //}
 
-
+        // 전체 게시물 조회
         private async Task GetPosts()
         {
             if(PostsItems != null)
@@ -181,6 +196,7 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
+        // 댓글 목록 조회
         public async Task GetReplies(int idx)
         {
             if(RepliesItems != null)
@@ -221,6 +237,7 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
+        // 요일 
         private string GetDay(DateTime date)
         {
             switch (date.DayOfWeek)
@@ -251,9 +268,12 @@ namespace Every.Core.Bamboo.ViewModel
             return Day;
         }
 
+        // 게시물 작성
         private async Task BambooPost()
         {
-            if(BambooPostContent != null)
+            IsEnable = false;
+
+            if (BambooPostContent != null)
             {
                 var resp = await bambooService.MakePost(BambooPostContent);
 
@@ -261,29 +281,33 @@ namespace Every.Core.Bamboo.ViewModel
                 {
                     BambooPostResultReceived?.Invoke(this);
                     BambooPostContent = string.Empty;
-                    PostsItems.Clear();
                     await GetPosts();
                 }
             }
-            return;
+
+            IsEnable = true;
         }
 
-        private async Task BambooReply()
+        // 댓글 작성
+        public async Task BambooReply(string replycontent, int? idx)
         {
-            if (BambooReplyContent != null && SelectedPost != null)
+            if (BambooReplyContent != null && idx != null)
             {
-                var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
+                //var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
+                var resp = await bambooService.MakeReply(replycontent, (int)idx);
 
                 if (resp.Status == (int)HttpStatusCode.Created)
                 {
                     BambooReplyContent = string.Empty;
-                    PostsItems.Clear();
-                    await GetPosts();
+                    PostItems.Clear();
+                    // TODO : 게시물 작성하고는 동기화할 때는 await 있어도 잘 되는데, 왜 댓글 작성하고는 await을 붙이면 제대로 동기화가 안될까?
+                    GetPosts();
                 }
             }
             return;
         }
 
+        // 특정 게시물 조회
         public async Task GetPost(int idx)
         {
             if(PostItems != null)

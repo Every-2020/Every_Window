@@ -346,7 +346,8 @@
                     Content="회원 가입하기"
                     Foreground="White"
                     FontSize="18"
-                    FontFamily="나눔고딕_ac">
+                    FontFamily="나눔고딕_ac"
+                    IsEnabled="{Binding IsEnable}">
 
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

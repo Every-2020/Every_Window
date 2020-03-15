@@ -95,6 +95,7 @@
                     <Button Width="50"
                             Height="50"
                             Style="{DynamicResource btnRoundCorner}"
+                            IsEnabled="{Binding IsEnable}"
                             Command="{Binding SearchSchoolCommand}">
 
                         <ContentControl>
@@ -115,8 +116,6 @@
                          Style="{DynamicResource tbStyle}"/>
             </Grid>
         </Grid>
-
-
 
 
         <Grid Grid.Row="1">

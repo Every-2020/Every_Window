@@ -56,6 +56,18 @@ namespace Every.Control.Bamboo
             OnLoadBambooPostWindow?.Invoke(this, e);
         }
 
+        // 댓글 작성 클릭, TODO : 커맨드로 바꿔야함, 현재는 마땅히 떠오르지 않아서 임시로 나둠.
+        private void btnMakeReply_Click(object sender, RoutedEventArgs e)
+        {
+            string replycontent = App.bambooData.bambooViewModel.BambooReplyContent;
+            int? idx = Convert.ToInt32((sender as Button).Tag);
+            
+            if (idx != null && replycontent != null)
+            {
+                App.bambooData.bambooViewModel.BambooReply(replycontent, idx);
+            }
+        }
+
         // 댓글 개수 클릭
         private void btnBambooReplyCount_Click(object sender, RoutedEventArgs e)
         {

@@ -13,208 +13,214 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
-    <Border >
-        <Grid Background="White">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="854"/>
-                <ColumnDefinition Width="602"/>
-            </Grid.ColumnDefinitions>
+    <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="2" Color="#E2E2E2" BlurRadius="20"/>
+        </Border.Effect>
 
-            <!--게시글-->
-            <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#E2E2E2">
-                <Grid Background="White" Margin="5">
-                    <ListView ItemsSource="{Binding PostItems}">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
+        <Border BorderBrush="Transparent" BorderThickness="1">
+            <Grid Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="854"/>
+                    <ColumnDefinition Width="602"/>
+                </Grid.ColumnDefinitions>
 
-                                <!--ListViewItem HighLight 제거-->
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                            <ContentPresenter />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
+                <!--게시글-->
+                <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#E2E2E2">
+                    <Grid Background="White" Margin="5">
+                        <ListView ItemsSource="{Binding PostItems}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
 
+                                    <!--ListViewItem HighLight 제거-->
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="5">
+                                        <StackPanel Margin="10">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Grid Grid.Row="0" Margin="5">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <StackPanel.Resources>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                                            </Style>
+                                                        </StackPanel.Resources>
+
+                                                        <Button BorderBrush="Transparent"
+                                                                Height="50" Width="51"
+                                                                Style="{DynamicResource RemoveButtonHighLightStyle}"
+                                                                Click="btn_CloseBambooPostWithReply_Click">
+                                                            <ContentControl>
+                                                                <Image Source="/Assets/Bamboo/BlackReturnIcon.png"/>
+                                                            </ContentControl>
+                                                        </Button>
+
+                                                        <Image Source="/Assets/Bamboo/ProfileIcon.png"
+                                                               Height="90" Width="90"/>
+
+                                                        <StackPanel>
+                                                            <TextBlock Text="{Binding Idx, StringFormat={}#{0}번째 이야기}"
+                                                                       FontSize="28"
+                                                                       FontWeight="ExtraBold"/>
+
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding Created_At, StringFormat=yyyy년 MM월 dd일}"
+                                                                           FontSize="21"
+                                                                           Margin="5"
+                                                                           FontWeight="Regular"/>
+                                                                <TextBlock Text="{Binding DayOfWeek}"
+                                                                           FontSize="21"
+                                                                           Margin="5"
+                                                                           FontWeight="Regular"/>
+                                                            </StackPanel>
+
+                                                            <TextBlock Text="{Binding PostWrittenTime, StringFormat={}{0}시간 전}"
+                                                                       FontSize="21"
+                                                                       Margin="5"
+                                                                       FontWeight="Regular"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <TextBlock Grid.Row="1"
+                                                           Text="{Binding Content}"
+                                                           FontSize="28"
+                                                           FontWeight="Regular"
+                                                           TextWrapping="Wrap"
+                                                           FontFamily="나눔스퀘어_ac"
+                                                           Margin="5"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Border>
+
+                <!--댓글-->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <ListView ItemsSource="{Binding RepliesItems}" Margin="5">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="5">
-                                    <StackPanel Margin="10">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="1*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                            <Grid Grid.Row="0" Margin="5">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <StackPanel.Resources>
-                                                        <Style TargetType="TextBlock">
-                                                            <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
-                                                            <Setter Property="TextWrapping" Value="Wrap"/>
-                                                        </Style>
-                                                    </StackPanel.Resources>
-
-                                                    <Button BorderBrush="Transparent"
-                                                            Height="50" Width="51"
-                                                            Style="{DynamicResource RemoveButtonHighLightStyle}"
-                                                            Click="btn_CloseBambooPostWithReply_Click">
-                                                        <ContentControl>
-                                                            <Image Source="/Assets/Bamboo/BlackReturnIcon.png"/>
-                                                        </ContentControl>
-                                                    </Button>
-
-                                                    <Image Source="/Assets/Bamboo/ProfileIcon.png"
-                                                           Height="90" Width="90"/>
-
-                                                    <StackPanel>
-                                                        <TextBlock Text="{Binding Idx, StringFormat={}#{0}번째 이야기}"
-                                                               FontSize="28"
-                                                               FontWeight="ExtraBold"/>
-
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Created_At, StringFormat=yyyy년 MM월 dd일}"
-                                                                   FontSize="21"
-                                                                   Margin="5"
-                                                                   FontWeight="Regular"/>
-                                                            <TextBlock Text="{Binding DayOfWeek}"
-                                                                   FontSize="21"
-                                                                   Margin="5"
-                                                                   FontWeight="Regular"/>
-                                                        </StackPanel>
-
-                                                        <TextBlock Text="{Binding PostWrittenTime, StringFormat={}{0}시간 전}"
-                                                               FontSize="21"
-                                                               Margin="5"
-                                                               FontWeight="Regular"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Grid>
-
-                                            <TextBlock Grid.Row="1"
-                                                       Text="{Binding Content}"
-                                                       FontSize="28"
-                                                       FontWeight="Regular"
-                                                       TextWrapping="Wrap"
-                                                       FontFamily="나눔스퀘어_ac"
-                                                       Margin="5"/>
+                                        <!--프로필 이미지-->
+                                        <Grid Grid.Column="0">
+                                            <Image Source="/Assets/Bamboo/ProfileIcon.png"
+                                                       Height="56" Width="56"/>
                                         </Grid>
-                                    </StackPanel>
+
+                                        <!--작성자 & 댓글 내용-->
+                                        <Grid Grid.Column="1" MaxWidth="404">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="FontFamily" Value="나눔고딕_ac"/>
+                                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                                    </Style>
+                                                </StackPanel.Resources>
+
+                                                <TextBlock Text="{Binding WriterName}"
+                                                               FontSize="18"
+                                                               FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding Content}"
+                                                               FontSize="16"
+                                                               FontWeight="Regular"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!--댓글 수정 & 삭제-->
+                                        <Grid Grid.Column="2">
+
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                </Grid>
-            </Border>
 
-            <!--댓글-->
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <ListView ItemsSource="{Binding RepliesItems}" Margin="5">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid>
+                    <!--댓글 개수 & 댓글 작성-->
+                    <Grid Grid.Row="1" Margin="5">
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <Grid Margin="10,0,0,0">
+                                <TextBlock Text="{Binding ReplyCount, StringFormat={}댓글 {0}개}"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Foreground="#878787"/>
+                            </Grid>
+
+                            <Border BorderBrush="#E2E2E2" BorderThickness="0,1,0,0">
+                                <Grid HorizontalAlignment="Center" Margin="10,10,0,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="485"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!--프로필 이미지-->
-                                    <Grid Grid.Column="0">
-                                        <Image Source="/Assets/Bamboo/ProfileIcon.png"
-                                                   Height="56" Width="56"/>
-                                    </Grid>
+                                    <Border Grid.Column="0" CornerRadius="20" Background="#F1F1F1"
+                                            Width="485" Height="53">
+                                        <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
+                                                                Path=DataContext.BambooReplyContent, 
+                                                                UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{StaticResource HintBox}"
+                                                 Margin="10,0,0,0"
+                                                 Tag="댓글 달기..." 
+                                                 Foreground="#C2C2C2"
+                                                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                 FontSize="22"/>
+                                    </Border>
 
-                                    <!--작성자 & 댓글 내용-->
-                                    <Grid Grid.Column="1" MaxWidth="404">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <StackPanel.Resources>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="FontFamily" Value="나눔고딕_ac"/>
-                                                    <Setter Property="TextWrapping" Value="Wrap"/>
-                                                </Style>
-                                            </StackPanel.Resources>
-
-                                            <TextBlock Text="{Binding WriterName}"
-                                                           FontSize="18"
-                                                           FontWeight="Bold"/>
-                                            <TextBlock Text="{Binding Content}"
-                                                           FontSize="16"
-                                                           FontWeight="Regular"/>
-                                        </StackPanel>
-                                    </Grid>
-
-                                    <!--댓글 수정 & 삭제-->
-                                    <Grid Grid.Column="2">
-
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-
-                <!--댓글 개수 & 댓글 작성-->
-                <Grid Grid.Row="1" Margin="5">
-                    <StackPanel>
-                        <StackPanel.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
-                                <Setter Property="TextWrapping" Value="Wrap"/>
-                            </Style>
-                        </StackPanel.Resources>
-
-                        <Grid Margin="10,0,0,0">
-                            <TextBlock Text="{Binding ReplyCount, StringFormat={}댓글 {0}개}"
-                                       HorizontalAlignment="Left"
-                                       FontSize="18"
-                                       FontWeight="Bold"
-                                       Foreground="#878787"/>
-                        </Grid>
-
-                        <Border BorderBrush="#E2E2E2" BorderThickness="0,1,0,0">
-                            <Grid HorizontalAlignment="Center" Margin="10,10,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="485"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Border Grid.Column="0" CornerRadius="20" Background="#F1F1F1"
-                                        Width="485" Height="53">
-                                    <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
-                                                            Path=DataContext.BambooReplyContent, 
-                                                            UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource HintBox}"
-                                            Margin="10,0,0,0"
-                                            Tag="댓글 달기..." 
-                                            Foreground="#C2C2C2"
-                                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                                            FontSize="22"/>
-                                </Border>
-
-                                <Button Grid.Column="1" Margin="5" Height="45" Background="Transparent" BorderBrush="Transparent"
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                    <Button Grid.Column="1" Margin="5" Height="45" Background="Transparent" BorderBrush="Transparent"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                                                               Path=DataContext.BambooReplyCommand}">
-                                    <ContentControl>
-                                        <Image Source="/Assets/Bamboo/papsr-plane.png"
-                                               Height="37" Width="36"/>
-                                    </ContentControl>
-                                </Button>
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                                        <ContentControl>
+                                            <Image Source="/Assets/Bamboo/papsr-plane.png"
+                                                   Height="37" Width="36"/>
+                                        </ContentControl>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Border>
     </Border>
 </Window>

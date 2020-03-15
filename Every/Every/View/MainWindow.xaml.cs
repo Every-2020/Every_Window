@@ -30,17 +30,42 @@ namespace Every_AdminWin
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            CtrlSelectIdentity.SelectIdentityBackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage; // 학생 or 직장인 & 대학생 선택
-            CtrlStudentSignUp.StudentSignUpBackWardLoginPage += CtrlStudentSignUp_StudentSignUpBackWardLoginPage; // 학생 회원가입
-            CtrlWorkerSignUp.WorkerSignUpBackWardLoginPage += CtrlWorkerSignUp_WorkerSignUpBackWardLoginPage; // 직장인 or 대학생 회원 가입
+            CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived; // 회원가입
+
+            CtrlSelectIdentity.SelectIdentityBackWardLoginPage += CtrlSelectIdentity_BackWardLoginPage; // 학생 or 직장인 페이지 뒤로가기
+            CtrlStudentSignUp.StudentSignUpBackWardLoginPage += CtrlStudentSignUp_StudentSignUpBackWardLoginPage; // 학생 회원가입 뒤로가기
+            CtrlWorkerSignUp.WorkerSignUpBackWardLoginPage += CtrlWorkerSignUp_WorkerSignUpBackWardLoginPage; // 직장인 회원가입 뒤로가기
 
             CtrlStudentSignUp.LoadSearchSchoolWindow += CtrlStudentSignUp_LoadSearchSchoolWindow; // 학교검색 윈도우
 
             App.signUpData.signUpViewModel.OnStudentSignUpResultRecieved += SignUpViewModel_OnSignUpResultRecieved; // 학생회원가입 결과
             App.signUpData.signUpViewModel.OnWorkerSignUpResultReceived += SignUpViewModel_OnWorkerSignUpResultReceived;// 직장인회원가입 결과
-
-            CtrlLogin.OnSignUpReceived += CtrlLogin_OnSignUpReceived; // 로그인 결과
         }
+
+        // 회원가입
+        private void CtrlLogin_OnSignUpReceived(object sender, RoutedEventArgs e)
+        {
+            CtrlLogin.Visibility = Visibility.Collapsed;
+            CtrlSelectIdentity.Visibility = Visibility.Visible;
+
+            // 학생 or 직장인 선택 후 각각의 해당 컨트롤 호출
+            CtrlSelectIdentity.OnCreateStudentAccount += SelectIdentity_OnCreateStudentAccount;
+            CtrlSelectIdentity.OnCreateWorkerAccount += SelectIdentity_OnCreateWorkerAccount;
+        }
+
+        #region 회원가입 선택
+        private void SelectIdentity_OnCreateStudentAccount(object Sender, RoutedEventArgs e)
+        {
+            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
+            CtrlStudentSignUp.Visibility = Visibility.Visible;
+        }
+
+        private void SelectIdentity_OnCreateWorkerAccount(object Sender, RoutedEventArgs e)
+        {
+            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
+            CtrlWorkerSignUp.Visibility = Visibility.Visible;
+        }
+        #endregion
 
         #region 페이지 전환
         private void CtrlSelectIdentity_BackWardLoginPage(object sender, RoutedEventArgs e)
@@ -62,13 +87,11 @@ namespace Every_AdminWin
         }
         #endregion
 
-        // 학교검색 윈도우 호출
+        // 학교검색 윈도우
         private void CtrlStudentSignUp_LoadSearchSchoolWindow(object sender, RoutedEventArgs e)
         {
-            // 학교 검색 윈도우
             SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
             searchSchoolWindow.Show();
-            //searchSchoolWindow.ShowDialog();
         }
 
         // 학생 회원가입
@@ -121,30 +144,7 @@ namespace Every_AdminWin
             }
         }
 
-        private void CtrlLogin_OnSignUpReceived(object sender, RoutedEventArgs e)
-        {
-            CtrlLogin.Visibility = Visibility.Collapsed;
-            CtrlSelectIdentity.Visibility = Visibility.Visible;
-
-            // 학생 or 직장인 선택 후 각각의 해당 컨트롤 호출
-            CtrlSelectIdentity.OnCreateStudentAccount += SelectIdentity_OnCreateStudentAccount;
-            CtrlSelectIdentity.OnCreateWorkerAccount += SelectIdentity_OnCreateWorkerAccount;
-        }
-
-        #region 회원가입 선택
-        private void SelectIdentity_OnCreateStudentAccount(object Sender, RoutedEventArgs e)
-        {
-            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
-            CtrlStudentSignUp.Visibility = Visibility.Visible;
-        }
-
-        private void SelectIdentity_OnCreateWorkerAccount(object Sender, RoutedEventArgs e)
-        {
-            CtrlSelectIdentity.Visibility = Visibility.Collapsed;
-            CtrlWorkerSignUp.Visibility = Visibility.Visible;
-        }
-        #endregion
-
+        // 로그인
         private async void LoginCtrl_OnLoginResultRecieved(object sender, bool success)
         {
             if (success)

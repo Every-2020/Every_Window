@@ -267,8 +267,16 @@ namespace Every.Core.SignUp.ViewModel
             set => SetProperty(ref _serverAddress, value.Trim());
         }
 
+        // Command 연속클릭 방지
+        private bool _isEnable = true;
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set => SetProperty(ref _isEnable, value);
+        }
+
         #region Commands
-        
+
         // 학생 회원가입 Command
         public ICommand StudentSignUpCommand { get; set; }
         // 직장인 or 대학생 회원가입 Command
@@ -285,19 +293,8 @@ namespace Every.Core.SignUp.ViewModel
         {
             LoadDuties();
 
-            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanStudentSignUp)/*.ObservesProperty(() => InputEmail)
-                                                                                  .ObservesProperty(() => InputPw)
-                                                                                  .ObservesProperty(() => InputName)
-                                                                                  .ObservesProperty(() => InputPhone)
-                                                                                  .ObservesProperty(() => InputBirth_Year)*/
-                                                                                  .ObservesProperty(() => InputSchool_Id);
-            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanWorkerSignUp)/*.ObservesProperty(() => InputEmail)
-                                                                                .ObservesProperty(() => InputPw)
-                                                                                .ObservesProperty(() => InputName)
-                                                                                .ObservesProperty(() => InputPhone)
-                                                                                .ObservesProperty(() => InputBirth_Year)
-                                                                                .ObservesProperty(() => InputWork_Place);*/
-                                                                                .ObservesProperty(() => InputWork_Category);
+            StudentSignUpCommand = new DelegateCommand(OnStudentSignUp, CanStudentSignUp).ObservesProperty(() => InputSchool_Id);
+            WorkerSignUpCommand = new DelegateCommand(OnWorkerSignUp, CanWorkerSignUp).ObservesProperty(() => InputWork_Category);
             SearchSchoolCommand = new DelegateCommand(OnSearchSchool, CanSearchSchool).ObservesProperty(() => InputSchool_Name);
         }
 
@@ -430,6 +427,8 @@ namespace Every.Core.SignUp.ViewModel
 
         private void SignUp()
         {
+            IsEnable = false;
+
             if (Distinguish_Identity == 0)
             {
                 StudentSignUp();
@@ -438,6 +437,8 @@ namespace Every.Core.SignUp.ViewModel
             {
                 WorkerSignUp();
             }
+
+            IsEnable = true;
         }
 
         private async void StudentSignUp()
@@ -674,6 +675,8 @@ namespace Every.Core.SignUp.ViewModel
 
         private async void SearchSchool()
         {
+            IsEnable = false;
+
             SchoolItems.Clear();
 
             ServerAddress = "http://49.50.160.97:8080";
@@ -702,6 +705,8 @@ namespace Every.Core.SignUp.ViewModel
                     Debug.WriteLine(e.StackTrace);
                 }
             }
+
+            IsEnable = true;
         }
         #endregion
 

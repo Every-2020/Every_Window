@@ -254,6 +254,7 @@
 
             <Button x:Name="btnStudentSignUp"
                     Command="{Binding StudentSignUpCommand}"
+                    IsEnabled="{Binding IsEnable}"
                     Margin="10 20"
                     Height="40"
                     Width="191"
