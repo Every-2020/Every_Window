@@ -29,6 +29,8 @@ namespace Every.Core.Bamboo.ViewModel
         #region Commands
         public ICommand BambooPostCommand { get; set; }
         public ICommand BambooReplyCommand { get; set; }
+        public ICommand BambooReplyDeleteCommand { get; set; }
+        public ICommand BambooReplyModifyCommand { get; set; }
         #endregion
 
         // 게시글 목록 저장
@@ -61,17 +63,6 @@ namespace Every.Core.Bamboo.ViewModel
             set
             {
                 SetProperty(ref _postItems, value);
-            }
-        }
-
-        // 학생 IDX로 회원조회 정보 저장
-        private ObservableCollection<MemberInformation> _studentMemberInfoItems = new ObservableCollection<MemberInformation>();
-        public ObservableCollection<MemberInformation> StudentMemberInfoItems
-        {
-            get => _studentMemberInfoItems;
-            set
-            {
-                SetProperty(ref _studentMemberInfoItems, value);
             }
         }
 
@@ -141,6 +132,8 @@ namespace Every.Core.Bamboo.ViewModel
         {
             BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooPostContent);
             //BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
+            BambooReplyDeleteCommand = new DelegateCommand(OnBambooReplyDelete, CanBambooReplyDelete);
+            BambooReplyModifyCommand = new DelegateCommand(OnBambooReplyModify, CanBambooReplyModify);
         }
 
         private async void OnBambooPost()   
@@ -162,6 +155,27 @@ namespace Every.Core.Bamboo.ViewModel
         //{
         //    return (BambooReplyContent != null) && (BambooReplyContent != "") && (BambooReplyContent != string.Empty);
         //}
+
+        private async void OnBambooReplyDelete()
+        {
+
+        }
+
+        private bool CanBambooReplyDelete()
+        {
+
+        }
+
+        private async void OnBambooReplyModify()
+        {
+
+        }
+
+        private bool CanBambooReplyModify()
+        {
+
+        }
+
 
         // 전체 게시물 조회
         private async Task GetPosts()
@@ -371,37 +385,6 @@ namespace Every.Core.Bamboo.ViewModel
                 }
             }
             return;
-        }
-
-        public async Task GetStudentMemberInfo(int idx)
-        {
-            if(StudentMemberInfoItems != null)
-            {
-                StudentMemberInfoItems.Clear();
-            }
-
-            var resp = await memberService.GetStudentMemberInformation(idx);
-
-            if(resp != null && resp.Data != null && resp.Status == 200)
-            {
-                try
-                {
-                    MemberInformation memberInfo = new MemberInformation();
-
-                    memberInfo.Idx = resp.Data.MemberInformations.Idx;
-                    memberInfo.Email = resp.Data.MemberInformations.Email;
-                    memberInfo.Name = resp.Data.MemberInformations.Name;
-                    memberInfo.Phone = resp.Data.MemberInformations.Phone;
-                    memberInfo.Birth_Year = resp.Data.MemberInformations.Birth_Year;
-                    memberInfo.School_Id = resp.Data.MemberInformations.School_Id;
-
-                    StudentMemberInfoItems.Add((MemberInformation)memberInfo.Clone());
-                }
-                catch(Exception e)
-                {
-                    Debug.WriteLine(e.StackTrace);
-                }
-            }
         }
 
         public async Task LoadDataAsync()

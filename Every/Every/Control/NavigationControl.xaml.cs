@@ -126,7 +126,7 @@ namespace Every.Control
             int idx = Convert.ToInt32(sender);
             await App.bambooData.bambooViewModel.GetPost(idx);
             await App.bambooData.bambooViewModel.GetReplies(idx);
-            await App.bambooData.bambooViewModel.GetStudentMemberInfo(Convert.ToInt32(Options.tokenInfo.Student_Idx));
+            //await App.memberData.memberViewModel.GetStudentMemberInfo(Convert.ToInt32(Options.tokenInfo.Student_Idx));
             BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
             bambooPostWithReply.DataContext = App.bambooData.bambooViewModel;
             bambooPostWithReply.Show();

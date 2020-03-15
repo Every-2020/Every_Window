@@ -3,6 +3,7 @@ using Every;
 using Every.Common;
 using Every.Control.SignUp;
 using Every.Core.Bamboo;
+using Every.Core.Member;
 using Every.Core.SignUp;
 using Every.View;
 using System;
@@ -21,6 +22,7 @@ namespace Every_AdminWin
     public partial class App : Application
     {
         public static LoginData loginData = new LoginData();
+        public static MemberData memberData = new MemberData();
         public static SignUpData signUpData = new SignUpData();
         public static BambooData bambooData = new BambooData();
 

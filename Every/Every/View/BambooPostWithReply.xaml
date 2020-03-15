@@ -177,6 +177,7 @@
                                             <Button Click="btn_BambooReplyContextMenu_Click">
                                                 <Button.ContextMenu>
                                                     <ContextMenu x:Name="cmReplyOptionContextMenu">
+                                                        <!--TODO : 댓글 수정 & 삭제 Command 추가하기-->
                                                         <MenuItem Header="댓글 수정하기"/>
                                                         <MenuItem Header="댓글 삭제하기"/>
                                                     </ContextMenu>

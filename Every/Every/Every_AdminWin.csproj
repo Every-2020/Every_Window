@@ -226,6 +226,10 @@
       <Project>{7580DB5A-26A6-4CFA-A894-97FDE4858512}</Project>
       <Name>Every.Core.Bamboo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Every.Core.Member\Every.Core.Member.csproj">
+      <Project>{6E58E2FD-135A-4E71-A887-2388B13598BE}</Project>
+      <Name>Every.Core.Member</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Every.Core.SignUp\Every.Core.SignUp.csproj">
       <Project>{AFAE4130-57A5-494D-B86A-A40257A82E5C}</Project>
       <Name>Every.Core.SignUp</Name>
