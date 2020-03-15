@@ -31,7 +31,6 @@
                         <ListView ItemsSource="{Binding PostItems}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
-
                                     <!--ListViewItem HighLight 제거-->
                                     <Setter Property="Background" Value="Transparent"/>
                                     <Setter Property="Template">
@@ -122,7 +121,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <ListView ItemsSource="{Binding RepliesItems}" Margin="5">
+                    <ListView ItemsSource="{Binding RepliesItems}" Margin="5" x:Name="lvReplites">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -141,7 +140,7 @@
 
                                         <!--작성자 & 댓글 내용-->
                                         <Grid Grid.Column="1" MaxWidth="404">
-                                            <StackPanel VerticalAlignment="Center">
+                                            <StackPanel>
                                                 <StackPanel.Resources>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="FontFamily" Value="나눔고딕_ac"/>
@@ -150,17 +149,39 @@
                                                 </StackPanel.Resources>
 
                                                 <TextBlock Text="{Binding WriterName}"
-                                                               FontSize="18"
-                                                               FontWeight="Bold"/>
+                                                           FontSize="18"
+                                                           FontWeight="Bold"/>
                                                 <TextBlock Text="{Binding Content}"
-                                                               FontSize="16"
-                                                               FontWeight="Regular"/>
+                                                           FontSize="16"
+                                                           FontWeight="Regular"/>
+
+                                                <!--<Label Content="{Binding Content}"
+                                                       FontSize="18"
+                                                       FontWeight="Bold"
+                                                       Height="90"
+                                                       Margin="30,0,0,0">
+
+                                                    <Label.Background>
+                                                        <ImageBrush ImageSource="/Assets/Bamboo/ReplyBackground.png"/>
+                                                    </Label.Background>
+                                                </Label>-->
+
+                                                <StackPanel.Background>
+                                                    <ImageBrush ImageSource="/Assets/Bamboo/ReplyBackground.png"/>
+                                                </StackPanel.Background>
                                             </StackPanel>
                                         </Grid>
 
                                         <!--댓글 수정 & 삭제-->
-                                        <Grid Grid.Column="2">
-
+                                        <Grid Grid.Column="2" Background="Red">
+                                            <Button Click="btn_BambooReplyContextMenu_Click">
+                                                <Button.ContextMenu>
+                                                    <ContextMenu x:Name="cmReplyOptionContextMenu">
+                                                        <MenuItem Header="댓글 수정하기"/>
+                                                        <MenuItem Header="댓글 삭제하기"/>
+                                                    </ContextMenu>
+                                                </Button.ContextMenu>
+                                            </Button>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -180,7 +201,7 @@
                             </StackPanel.Resources>
 
                             <Grid Margin="10,0,0,0">
-                                <TextBlock Text="{Binding ReplyCount, StringFormat={}댓글 {0}개}"
+                                <TextBlock Text="{Binding Path=DataContext.PostsItems.ReplyCount, StringFormat={}댓글 {0}개}"
                                            HorizontalAlignment="Left"
                                            FontSize="18"
                                            FontWeight="Bold"
@@ -196,9 +217,7 @@
 
                                     <Border Grid.Column="0" CornerRadius="20" Background="#F1F1F1"
                                             Width="485" Height="53">
-                                        <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
-                                                                Path=DataContext.BambooReplyContent, 
-                                                                UpdateSourceTrigger=PropertyChanged}"
+                                        <TextBox Text="{Binding BambooReplyContent}"
                                                  Style="{StaticResource HintBox}"
                                                  Margin="10,0,0,0"
                                                  Tag="댓글 달기..." 
@@ -208,8 +227,9 @@
                                     </Border>
 
                                     <Button Grid.Column="1" Margin="5" Height="45" Background="Transparent" BorderBrush="Transparent"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
-                                                              Path=DataContext.BambooReplyCommand}">
+                                            Click="btnMakeReply_Click" Tag="{Binding SpecificIdx}">
+                                        <!--Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                                              Path=DataContext.BambooReplyCommand}"-->
                                         <ContentControl>
                                             <Image Source="/Assets/Bamboo/papsr-plane.png"
                                                    Height="37" Width="36"/>

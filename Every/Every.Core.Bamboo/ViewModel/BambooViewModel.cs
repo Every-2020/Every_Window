@@ -116,6 +116,14 @@ namespace Every.Core.Bamboo.ViewModel
             }
         }
 
+        // 특정 게시물 Idx 저장
+        private int _specificIdx;
+        public int SpecificIdx
+        {
+            get => _specificIdx;
+            set => SetProperty(ref _specificIdx, value);
+        }
+
         // Command 연속클릭 방지
         private bool _isEnable = true;
         public bool IsEnable
@@ -288,7 +296,7 @@ namespace Every.Core.Bamboo.ViewModel
             IsEnable = true;
         }
 
-        // 댓글 작성
+        // 전체 게시물에서 댓글 작성
         public async Task BambooReply(string replycontent, int? idx)
         {
             if (BambooReplyContent != null && idx != null)
@@ -324,8 +332,10 @@ namespace Every.Core.Bamboo.ViewModel
                     try
                     {
                         Model.Post postItems = new Model.Post();
-                        
+
                         postItems.Idx = resp.Data.Post.Idx;
+                        SpecificIdx = resp.Data.Post.Idx; // 특정 게시물에서 댓글 작성시 IDX를 저장하기 위한 속성
+
                         postItems.Content = resp.Data.Post.Content;
                         postItems.Created_At = resp.Data.Post.Created_At;
 
@@ -340,6 +350,24 @@ namespace Every.Core.Bamboo.ViewModel
                     {
                         Debug.WriteLine(e.StackTrace);
                     }
+                }
+            }
+            return;
+        }
+
+        // 특정 게시물에서 댓글 작성
+        public async Task BambooSpecificPostReply(string replycontent, int? idx)
+        {
+            if (BambooReplyContent != null && idx != null)
+            {
+                //var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
+                var resp = await bambooService.MakeReply(replycontent, (int)idx);
+
+                if (resp.Status == (int)HttpStatusCode.Created)
+                {
+                    BambooReplyContent = string.Empty;
+                    GetReplies((int)idx);                    
+                    GetPosts();
                 }
             }
             return;
