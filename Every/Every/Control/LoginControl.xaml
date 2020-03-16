@@ -129,7 +129,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid Background="#F2F2F2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>

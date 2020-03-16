@@ -1,6 +1,7 @@
 ﻿using BIND.Core.Login;
 using Every;
 using Every.Common;
+using Every.Control;
 using Every.Control.SignUp;
 using Every.Core.Bamboo;
 using Every.Core.Member;
@@ -29,7 +30,7 @@ namespace Every_AdminWin
         public static SelectIdentity selectIdentity = new SelectIdentity();
         public static SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
 
-        public static BambooPostWindow bambooPostWindow = new BambooPostWindow(); 
+        public static BambooPostWindow bambooPostWindow = new BambooPostWindow();
 
         public App()
         {

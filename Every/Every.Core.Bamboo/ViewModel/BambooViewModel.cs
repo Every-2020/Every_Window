@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Every.Core.Bamboo.ViewModel
@@ -123,6 +124,9 @@ namespace Every.Core.Bamboo.ViewModel
             set => SetProperty(ref _isEnable, value);
         }
 
+        // NavigationControl Modal Background
+        public Visibility ModalBackGround { get; set; } = Visibility.Collapsed;
+
         // 요일 저장
         public string Day { get; set; }
         #endregion
@@ -163,7 +167,7 @@ namespace Every.Core.Bamboo.ViewModel
 
         private bool CanBambooReplyDelete()
         {
-
+            return true;
         }
 
         private async void OnBambooReplyModify()
@@ -173,7 +177,7 @@ namespace Every.Core.Bamboo.ViewModel
 
         private bool CanBambooReplyModify()
         {
-
+            return true;
         }
 
 
@@ -307,6 +311,7 @@ namespace Every.Core.Bamboo.ViewModel
                 }
             }
 
+            ModalBackGround = Visibility.Collapsed;
             IsEnable = true;
         }
 

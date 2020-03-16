@@ -34,6 +34,8 @@ namespace Every.Control
 
         private void NavigationControl_Loaded(object sender, RoutedEventArgs e)
         {
+            this.DataContext = App.bambooData.bambooViewModel;
+
             naviDatas.Add(new NaviData
             {
                 Title = "Home",
@@ -129,14 +131,25 @@ namespace Every.Control
             //await App.memberData.memberViewModel.GetStudentMemberInfo(Convert.ToInt32(Options.tokenInfo.Student_Idx));
             BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
             bambooPostWithReply.DataContext = App.bambooData.bambooViewModel;
-            bambooPostWithReply.Show();
+            bambooPostWithReply.ShowDialog(); // MainWindow Focus 이동 불가, 즉 모달 창
+            //bambooPostWithReply.Show(); // MainWindow Focus 이동 가능
         }
 
         // Create Post
         private void CtrlBamboo_OnLoadedBambooPostWindow(object sender, RoutedEventArgs e)
         {
             BambooPostWindow bambooPostWindow = new BambooPostWindow();
-            bambooPostWindow.Show();
+            bambooPostWindow.ModalBackGroundVisibility += BambooPostWindow_ModalBackGroundVisibility; // 게시물 작성 취소
+
+            gdModalBackGround.Visibility = Visibility.Visible; // 부모 윈도우 Modal 창 Visible
+
+            bambooPostWindow.ShowDialog(); // MainWindow Focus 이동 불가, 즉 모달 창
+            //bambooPostWindow.Show(); // MainWindow Focus 이동 가능
+        }
+
+        private void BambooPostWindow_ModalBackGroundVisibility()
+        {
+            gdModalBackGround.Visibility = Visibility.Collapsed;
         }
     }
 
