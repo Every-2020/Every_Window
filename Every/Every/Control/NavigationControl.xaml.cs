@@ -30,6 +30,9 @@ namespace Every.Control
         {
             InitializeComponent();
             Loaded += NavigationControl_Loaded;
+
+            ctrlBamboo.OnLoadBambooPostWithReply += CtrlBamboo_OnLoadBambooPostWithReply;
+            ctrlBamboo.OnLoadBambooPostWindow += CtrlBamboo_OnLoadedBambooPostWindow;
         }
 
         private void NavigationControl_Loaded(object sender, RoutedEventArgs e)
@@ -77,8 +80,6 @@ namespace Every.Control
                 case NaviMenu.Bamboo:
                      page = ctrlBamboo;
                     ctrlBamboo.LoadData();
-                    ctrlBamboo.OnLoadBambooPostWithReply += CtrlBamboo_OnLoadBambooPostWithReply;
-                    ctrlBamboo.OnLoadBambooPostWindow += CtrlBamboo_OnLoadedBambooPostWindow;
                      break;
                 case NaviMenu.Schedule:
                     page = ctrlSchedule;

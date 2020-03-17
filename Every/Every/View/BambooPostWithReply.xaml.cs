@@ -1,4 +1,5 @@
-﻿using Every_AdminWin;
+﻿using Every.Core.Bamboo.ViewModel;
+using Every_AdminWin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +22,8 @@ namespace Every.View
     /// </summary>
     public partial class BambooPostWithReply : Window
     {
+        int imsiIdx = 0;
+
         public BambooPostWithReply()
         {
             InitializeComponent();
@@ -49,6 +52,7 @@ namespace Every.View
 
         private void btn_BambooReplyContextMenu_Click(object sender, RoutedEventArgs e)
         {
+            imsiIdx = Convert.ToInt32((sender as Button).Tag); // ReplyIdx 저장
             (sender as Button).ContextMenu.IsOpen = true;
         }
 
@@ -61,15 +65,36 @@ namespace Every.View
         // ContextMenu(MenuItem) 댓글 삭제하기 
         private void mi_DeleteReply_Click(object sender, RoutedEventArgs e)
         {
-            int? replyIdx = Convert.ToInt32((sender as MenuItem).Tag);
+            int? replyIdx = imsiIdx;
             int? postIdx = 1;
-
-            Debug.WriteLine(postIdx);
 
             if(replyIdx != null && postIdx != null)
             {
                 App.bambooData.bambooViewModel.BambooReplyDelete(replyIdx, postIdx);
             }
         }
+    }
+
+    public class BindingProxy : Freezable
+    {
+        protected override Freezable CreateInstanceCore()
+        {
+            return new BindingProxy();
+        }
+
+        public object Data
+        {
+            get
+            {
+                return (object)GetValue(DataProperty);
+            }
+            set
+            {
+                SetValue(DataProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty DataProperty =
+            DependencyProperty.Register("Data", typeof(BambooViewModel), typeof(BindingProxy), new UIPropertyMetadata(null));
     }
 }

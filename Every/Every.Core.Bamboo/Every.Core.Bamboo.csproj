@@ -9,6 +9,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.6.9" />
+    <PackageReference Include="WindowsBase" Version="4.6.1055" />
   </ItemGroup>
 
   <ItemGroup>

@@ -28,12 +28,17 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       ItemsSource="{Binding PostsItems}"
-                      SelectedItem="{Binding SelectedPost}">
-
+                      SelectedItem="{Binding SelectedPost}"
+                      ScrollViewer.CanContentScroll="False">
+                <!--ScrollViewer.CanContentScroll="False" : 가상화 효과 방지, 아이템이 너무 많아질 경우 느려질 수 있음.-->
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <!--ListViewItem HighLight 제거-->
+                        <!--테두리 나타나는 효과 제거-->
                         <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Focusable" Value="False"/>
+                        
+                        <!--ListViewItem HighLight 제거-->
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -43,12 +48,6 @@
                         </Setter>
                     </Style>
                 </ListView.ItemContainerStyle>
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="1"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
 
                 <ListView.ItemTemplate>
                      <DataTemplate>
@@ -60,10 +59,11 @@
                             </Border>
 
                                 <Border Margin="20" BorderBrush="Transparent" BorderThickness="1">
-                                    <Grid Height="721" Width="835">
+                                    <Grid Width="835">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="6*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="130"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
                                         <Grid Grid.Row="0" Margin="5">
@@ -71,7 +71,6 @@
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="1*"/>
-                                                        <RowDefinition Height="Auto"/>
                                                     </Grid.RowDefinitions>
 
                                                     <Grid Grid.Row="0">
@@ -81,47 +80,47 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <Image Grid.Column="0"
-                                                               Source="/Assets/Bamboo/ProfileIcon.png"
-                                                               Height="90"
-                                                               Width="90"/>
+                                                                   Source="/Assets/Bamboo/ProfileIcon.png"
+                                                                   Height="90"
+                                                                   Width="90"/>
 
                                                         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="5">
                                                             <TextBlock Text="{Binding Idx, StringFormat={}#{0}번째 이야기}"
-                                                                       FontSize="28"
-                                                                       FontWeight="ExtraBold"
-                                                                       FontFamily="나눔스퀘어_ac"/>
+                                                                           FontSize="28"
+                                                                           FontWeight="ExtraBold"
+                                                                           FontFamily="나눔스퀘어_ac"/>
                                                             <StackPanel Orientation="Horizontal">
                                                                 <TextBlock Text="{Binding Created_At, StringFormat=yyyy년 MM월 dd일}"
+                                                                               FontSize="21"
+                                                                               Margin="5"
+                                                                               FontWeight="Regular"
+                                                                               FontFamily="나눔스퀘어_ac"/>
+                                                                <TextBlock Text="{Binding DayOfWeek}"
                                                                            FontSize="21"
                                                                            Margin="5"
                                                                            FontWeight="Regular"
                                                                            FontFamily="나눔스퀘어_ac"/>
-                                                            <TextBlock Text="{Binding DayOfWeek}"
-                                                                       FontSize="21"
-                                                                       Margin="5"
-                                                                       FontWeight="Regular"
-                                                                       FontFamily="나눔스퀘어_ac"/>
                                                             </StackPanel>
                                                             <TextBlock Text="{Binding PostWrittenTime, StringFormat={}{0}시간 전}"
-                                                                       FontSize="21"
-                                                                       Margin="5"
-                                                                       FontWeight="Regular"
-                                                                       FontFamily="나눔스퀘어_ac"/>
+                                                                           FontSize="21"
+                                                                           Margin="5"
+                                                                           FontWeight="Regular"
+                                                                           FontFamily="나눔스퀘어_ac"/>
                                                         </StackPanel>
                                                     </Grid>
-
-                                                    <TextBlock Grid.Row="1"
-                                                               Text="{Binding Content}"
-                                                               FontSize="28"
-                                                               FontWeight="Regular"
-                                                               TextWrapping="Wrap"
-                                                               FontFamily="나눔스퀘어_ac"
-                                                               Margin="5"/>
                                                 </Grid>
                                             </StackPanel>
                                         </Grid>
+                                        
+                                        <TextBlock Grid.Row="1"
+                                            Text="{Binding Content}"
+                                            FontSize="28"
+                                            FontWeight="Regular"
+                                            TextWrapping="Wrap"
+                                            FontFamily="나눔스퀘어_ac"
+                                            Margin="5"/>
 
-                                        <Grid Grid.Row="1">
+                                        <Grid Grid.Row="2">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="30"/>
                                                 <RowDefinition Height="Auto"/>
@@ -136,7 +135,10 @@
                                                                        FontWeight="Bold"
                                                                        Foreground="#878787"
                                                                        TextWrapping="Wrap"
-                                                                       FontFamily="나눔스퀘어_ac"/>
+                                                                       FontFamily="나눔스퀘어_ac"
+                                                                       FocusVisualStyle="{x:Null}"
+                                                                       Focusable="False"
+                                                                       Background="Transparent"/>
                                                         </Button.Content>
                                                     </Button>
                                                 </Border>

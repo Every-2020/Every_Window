@@ -36,14 +36,14 @@ namespace Every.View
 
         private void BambooViewModel_BambooPostResultReceived(object sender)
         {
-            ModalBackGroundVisibility?.Invoke();
             this.Close();
+            ModalBackGroundVisibility?.Invoke();
         }
 
         private void btn_CloseBambooPostWindow_Click(object sender, RoutedEventArgs e)
         {
-            ModalBackGroundVisibility?.Invoke();
             this.Close();
+            ModalBackGroundVisibility?.Invoke();
         }
     }
 }

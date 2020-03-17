@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TNetwork\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\..\Bind.Core.Login\Bind.Core.Login\bin\Debug\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\Bind.Core.Login\Bind.Core.Login\bin\Debug\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,14 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AllSchedules.cs" />
+    <Compile Include="Model\SpecificSchedule.cs" />
     <Compile Include="ScheduleData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Response\GetAllSchedules.cs" />
+    <Compile Include="Service\Response\GetSpecificSchedule.cs" />
     <Compile Include="Service\ScheduleService.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Service\Response\" />
+    <ProjectReference Include="..\..\TNetwork\TNetwork.csproj">
+      <Project>{BBDB688F-DC0D-4881-B367-AA7E34922DE7}</Project>
+      <Name>TNetwork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

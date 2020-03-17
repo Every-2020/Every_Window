@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Every.View"
         xmlns:control_Bamboo="clr-namespace:Every.Control.Bamboo"
+        xmlns:Proxy="clr-namespace:Every.View"
         mc:Ignorable="d"
         Height="720" Width="1456"
         ResizeMode="NoResize"
@@ -27,7 +28,7 @@
 
                 <!--게시글-->
                 <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#E2E2E2">
-                    <Grid Background="White" Margin="5" >
+                    <Grid Background="White" Margin="5">
                         <ListView ItemsSource="{Binding PostItems}" x:Name="lvPostItems" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   ScrollViewer.VerticalScrollBarVisibility="Visible">
@@ -137,6 +138,7 @@
                                 </Setter>
                             </Style>
                         </ListView.ItemContainerStyle>
+
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -191,10 +193,10 @@
 
                                         <!--댓글 수정 & 삭제 옵션-->
                                         <Grid Grid.Column="2" MinHeight="56">
-                                            <Button Click="btn_BambooReplyContextMenu_Click">
+                                            <Button Click="btn_BambooReplyContextMenu_Click" Tag="{Binding Idx}">
                                                 <Button.ContextMenu>
-                                                    <ContextMenu><!--댓글 IDX-->
-                                                        <MenuItem Header="댓글 수정하기" Command="{Binding BambooReplyDeleteCommand}">
+                                                    <ContextMenu> 
+                                                        <MenuItem Header="댓글 수정하기" Click="MenuItem_Click">
                                                             <MenuItem.Icon>
                                                                 <Image Source="/Assets/Bamboo/replyModifyIcon.png" Height="15" Width="15"/>
                                                             </MenuItem.Icon>

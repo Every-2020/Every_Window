@@ -1,5 +1,4 @@
 ﻿using Every.Core.Bamboo.Service;
-using Every.Core.Member.Model;
 using Every.Core.Member.Service;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -162,10 +161,7 @@ namespace Every.Core.Bamboo.ViewModel
         // 전체 게시물 조회
         private async Task GetPosts()
         {
-            if(PostsItems != null)
-            {
-                PostsItems.Clear();
-            }
+            PostsItems.Clear();
 
             var resp = await bambooService.GetPosts();
 
@@ -319,36 +315,34 @@ namespace Every.Core.Bamboo.ViewModel
             {
                 PostItems.Clear();
             }
+            
+            var resp = await bambooService.GetPost(idx);
 
-            if(SelectedPost != null)
+            if(resp != null && resp.Data != null && resp.Status == 200)
             {
-                var resp = await bambooService.GetPost(idx);
-
-                if(resp != null && resp.Data != null && resp.Status == 200)
+                try
                 {
-                    try
-                    {
-                        Model.Post postItems = new Model.Post();
+                    Model.Post postItems = new Model.Post();
 
-                        postItems.Idx = resp.Data.Post.Idx;
-                        SpecificIdx = resp.Data.Post.Idx; // 특정 게시물에서 댓글 작성시 IDX를 저장하기 위한 속성
+                    postItems.Idx = resp.Data.Post.Idx;
+                    SpecificIdx = resp.Data.Post.Idx; // 특정 게시물에서 댓글 작성시 IDX를 저장하기 위한 속성
 
-                        postItems.Content = resp.Data.Post.Content;
-                        postItems.Created_At = resp.Data.Post.Created_At;
+                    postItems.Content = resp.Data.Post.Content;
+                    postItems.Created_At = resp.Data.Post.Created_At;
 
-                        GetDay(postItems.Created_At);
-                        postItems.DayOfWeek = Day;
+                    GetDay(postItems.Created_At);
+                    postItems.DayOfWeek = Day;
 
-                        postItems.PostWrittenTime = (DateTime.Now - postItems.Created_At).Hours;
+                    postItems.PostWrittenTime = (DateTime.Now - postItems.Created_At).Hours;
 
-                        PostItems.Add((Model.Post)postItems.Clone());
-                    }
-                    catch(Exception e)
-                    {
-                        Debug.WriteLine(e.StackTrace);
-                    }
+                    PostItems.Add((Model.Post)postItems.Clone());
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine(e.StackTrace);
                 }
             }
+
             return;
         }
 

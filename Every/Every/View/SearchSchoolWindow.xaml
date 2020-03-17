@@ -125,11 +125,11 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ItemsSource="{Binding SchoolItems}"
                       SelectedItem="{Binding SelectedSchool}">
-                <ListView.ItemsPanel>
+                <!--<ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="1"/>
                     </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                </ListView.ItemsPanel>-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
