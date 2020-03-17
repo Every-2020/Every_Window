@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TNetwork;
@@ -43,7 +44,7 @@ namespace Every.Core.SignUp.Service
         {
             JObject jObject = new JObject();
             jObject["email"] = email;
-            jObject["pw"] = pw;
+            jObject["pw"] = Sha512Hash(pw);
             jObject["name"] = name;
             jObject["phone"] = phone;
             jObject["birth_year"] = birth_year;
@@ -66,7 +67,7 @@ namespace Every.Core.SignUp.Service
         {
             JObject jObject = new JObject();
             jObject["email"] = email;
-            jObject["pw"] = pw;
+            jObject["pw"] = Sha512Hash(pw);
             jObject["name"] = name;
             jObject["phone"] = phone;
             jObject["birth_year"] = birth_year;
@@ -111,6 +112,20 @@ namespace Every.Core.SignUp.Service
         public void SettingHttpRequest(string serverUrl)
         {
             networkManager.SetHTTPRequestURL(serverUrl, LOGIN_URL, LOGOUT_URL, TOKEN_REFRESH_URL);
+        }
+
+        private string Sha512Hash(string str)
+        {
+            var sha512 = new SHA512CryptoServiceProvider();
+            byte[] resultHash = sha512.ComputeHash(Encoding.Default.GetBytes(str));
+            string transPwd = string.Empty;
+
+            foreach (byte x in resultHash)
+            {
+                transPwd += $"{x:x2}";
+            }
+
+            return transPwd;
         }
     }
 }

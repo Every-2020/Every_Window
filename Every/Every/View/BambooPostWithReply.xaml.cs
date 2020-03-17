@@ -55,7 +55,7 @@ namespace Every.View
         }
 
         // ContextMenu(MenuItem) 댓글 수정하기
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e) 
         {
             int? replyIdx = imsiReplyIdx; // ReplyIdx 저장
 

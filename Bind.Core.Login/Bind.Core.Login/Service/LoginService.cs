@@ -33,8 +33,8 @@ namespace BIND.Core.Login.Network
             var jObj = new JObject();
             //jObj["device"] = "PC";
             jObj["email"] = id;
-            jObj["pw"] = pw;
-            //jObj["pw"] = Sha512Hash(pw);
+            //jObj["pw"] = pw;
+            jObj["pw"] = Sha512Hash(pw);
 
             var resp = await networkManager.GetResponse<TokenInfo>(Options.loginUrl, Method.POST, jObj.ToString());
 
