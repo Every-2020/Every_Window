@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
-using TNetwork;
 using TNetwork.Common;
 using TNetwork.Data;
 
@@ -23,8 +22,6 @@ namespace Every.Core.Bamboo.Service
         public readonly string MAKE_REPLY_URL = "/bamboo/reply"; // 댓글 작성
         public readonly string MODIFY_REPLY_URL = "/bamboo/reply/"; // 댓글 수정
         public readonly string DELETE_REPLY_URL = "/bamboo/reply/"; // 댓글 삭제 
-
-        public NetworkManager networkManager = new NetworkManager();
 
         /// <summary>
         /// 게시글 목록 조회 메소드 GetPosts(), 게시글 조회 GetPost()와 구분할 것.
