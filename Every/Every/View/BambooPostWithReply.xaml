@@ -27,8 +27,10 @@
 
                 <!--게시글-->
                 <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#E2E2E2">
-                    <Grid Background="White" Margin="5">
-                        <ListView ItemsSource="{Binding PostItems}">
+                    <Grid Background="White" Margin="5" >
+                        <ListView ItemsSource="{Binding PostItems}" x:Name="lvPostItems" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <!--ListViewItem HighLight 제거-->
@@ -122,6 +124,19 @@
                     </Grid.RowDefinitions>
 
                     <ListView ItemsSource="{Binding RepliesItems}" Margin="5" x:Name="lvReplites">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <!--ListViewItem HighLight 제거-->
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -129,17 +144,17 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="18*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <!--프로필 이미지-->
-                                        <Grid Grid.Column="0">
+                                        <Grid Grid.Column="0" MinHeight="56">
                                             <Image Source="/Assets/Bamboo/ProfileIcon.png"
-                                                       Height="56" Width="56"/>
+                                                   Height="57" Width="57"/>
                                         </Grid>
 
                                         <!--작성자 & 댓글 내용-->
-                                        <Grid Grid.Column="1" MaxWidth="404">
+                                        <Grid Grid.Column="1" MaxWidth="404" MinHeight="56" Margin="5">
                                             <StackPanel>
                                                 <StackPanel.Resources>
                                                     <Style TargetType="TextBlock">
@@ -150,10 +165,12 @@
 
                                                 <TextBlock Text="{Binding WriterName}"
                                                            FontSize="18"
-                                                           FontWeight="Bold"/>
+                                                           FontWeight="Bold"
+                                                           Margin="5"/>
                                                 <TextBlock Text="{Binding Content}"
                                                            FontSize="16"
-                                                           FontWeight="Regular"/>
+                                                           FontWeight="Regular"
+                                                           Margin="5"/>
 
                                                 <!--<Label Content="{Binding Content}"
                                                        FontSize="18"
@@ -172,16 +189,29 @@
                                             </StackPanel>
                                         </Grid>
 
-                                        <!--댓글 수정 & 삭제-->
-                                        <Grid Grid.Column="2" Background="Red">
+                                        <!--댓글 수정 & 삭제 옵션-->
+                                        <Grid Grid.Column="2" MinHeight="56">
                                             <Button Click="btn_BambooReplyContextMenu_Click">
                                                 <Button.ContextMenu>
-                                                    <ContextMenu x:Name="cmReplyOptionContextMenu">
-                                                        <!--TODO : 댓글 수정 & 삭제 Command 추가하기-->
-                                                        <MenuItem Header="댓글 수정하기"/>
-                                                        <MenuItem Header="댓글 삭제하기"/>
+                                                    <ContextMenu><!--댓글 IDX-->
+                                                        <MenuItem Header="댓글 수정하기" Command="{Binding BambooReplyDeleteCommand}">
+                                                            <MenuItem.Icon>
+                                                                <Image Source="/Assets/Bamboo/replyModifyIcon.png" Height="15" Width="15"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                        <MenuItem Height="10" BorderThickness="0,0,0,1" BorderBrush="#D4D4D4"/>
+                                                        <MenuItem Header="댓글 삭제하기" Click="mi_DeleteReply_Click" Margin="0,10,0,0">
+                                                            <MenuItem.Icon>
+                                                                <Image Source="/Assets/Bamboo/replyDeleteIcon.png" Height="15" Width="15"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
                                                     </ContextMenu>
                                                 </Button.ContextMenu>
+
+                                                <ContentControl>
+                                                    <Image Source="/Assets/Bamboo/replyoptionIcon.png"
+                                                           Height="18" Width="18"/>
+                                                </ContentControl>
                                             </Button>
                                         </Grid>
                                     </Grid>

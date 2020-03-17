@@ -26,7 +26,7 @@
         <Grid Grid.Row="1">
             <ListView Height="721" Width="900"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                       ItemsSource="{Binding PostsItems}"
                       SelectedItem="{Binding SelectedPost}">
 
@@ -172,7 +172,7 @@
                                                             Tag="{Binding Idx}"
                                                             Click="btnMakeReply_Click">
                                                 <!--Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
-                                                                              Path=DataContext.BambooReplyCommand}"-->
+                                                                      Path=DataContext.BambooReplyCommand}"-->
                                                         <ContentControl>
                                                             <Image Source="/Assets/Bamboo/papsr-plane.png"
                                                                    Height="42" Width="43"/>

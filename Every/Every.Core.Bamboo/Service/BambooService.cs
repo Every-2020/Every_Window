@@ -36,11 +36,8 @@ namespace Every.Core.Bamboo.Service
             var restRequest = new RestRequest(POSTS_LIST_INQUIRY_URL, Method.GET);
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             var response = await client.ExecuteTaskAsync(restRequest);
-
             var resp = JsonConvert.DeserializeObject<TResponse<GetPostsResponse>>(response.Content);
             return resp;
-
-            //return await networkManager.GetResponse<GetPostsResponse>(POSTS_LIST_INQUIRY_URL, Method.GET, null);
         }
 
         /// <summary>
@@ -57,9 +54,7 @@ namespace Every.Core.Bamboo.Service
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             restRequest.AddHeader("Content-Type", "application/json");
             restRequest.AddParameter("application/json", jObject.ToString(), ParameterType.RequestBody);
-
             var response = await client.ExecuteTaskAsync(restRequest);
-
             var resp = JsonConvert.DeserializeObject<TResponse<Nothing>>(response.Content);
             return resp;
         }
@@ -72,12 +67,10 @@ namespace Every.Core.Bamboo.Service
         public async Task<TResponse<GetPostResponse>> GetPost(int idx)
         {
             string requestUrl = POSTS_INQUIRY_URL + idx;
-
             var client = new RestClient(Options.serverUrl);
             var restRequest = new RestRequest(requestUrl, Method.GET);
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             var response = await client.ExecuteTaskAsync(restRequest);
-
             var resp = JsonConvert.DeserializeObject<TResponse<GetPostResponse>>(response.Content);
             return resp;
         }
@@ -90,12 +83,10 @@ namespace Every.Core.Bamboo.Service
         public async Task<TResponse<GetRepliesResponse>> GetReplies(int idx)
         {
             string requestUrl = REPLIES_LIST_INQUIRY_URL + idx;
-
             var client = new RestClient(Options.serverUrl);
             var restRequest = new RestRequest(requestUrl, Method.GET);
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             var response = await client.ExecuteTaskAsync(restRequest);
-            
             var resp = JsonConvert.DeserializeObject<TResponse<GetRepliesResponse>>(response.Content);
             return resp;    
         }
@@ -115,9 +106,7 @@ namespace Every.Core.Bamboo.Service
             restRequest.AddHeader("token", Options.tokenInfo.Token);
             restRequest.AddHeader("Content-Type", "application/json");
             restRequest.AddParameter("application/json", jObject.ToString(), ParameterType.RequestBody);
-
             var response = await client.ExecuteTaskAsync(restRequest);
-
             var resp = JsonConvert.DeserializeObject<TResponse<Nothing>>(response.Content);
             return resp;
         }
@@ -130,9 +119,16 @@ namespace Every.Core.Bamboo.Service
         public async Task<TResponse<Nothing>> ModifyReply(int idx, string content)
         {
             string requestUrl = MODIFY_REPLY_URL + idx;
+            var client = new RestClient(Options.serverUrl);
+            var restRequest = new RestRequest(requestUrl, Method.PUT);
             JObject jObject = new JObject();
             jObject["content"] = content;
-            return await networkManager.GetResponse<Nothing>(requestUrl, Method.PUT, jObject.ToString());
+            restRequest.AddHeader("token", Options.tokenInfo.Token);
+            restRequest.AddHeader("Content-Type", "application/json");
+            restRequest.AddParameter("application/json", jObject.ToString(), ParameterType.RequestBody);
+            var response = await client.ExecuteTaskAsync(restRequest);
+            var resp = JsonConvert.DeserializeObject<TResponse<Nothing>>(response.Content);
+            return resp;
         }
 
         /// <summary>
@@ -143,7 +139,12 @@ namespace Every.Core.Bamboo.Service
         public async Task<TResponse<Nothing>> DeleteReply(int idx)
         {
             string requestUrl = DELETE_REPLY_URL + idx;
-            return await networkManager.GetResponse<Nothing>(requestUrl, Method.DELETE, null);
+            var client = new RestClient(Options.serverUrl);
+            var restRequest = new RestRequest(requestUrl, Method.DELETE);
+            restRequest.AddHeader("token", Options.tokenInfo.Token);
+            var response = await client.ExecuteTaskAsync(restRequest);
+            var resp = JsonConvert.DeserializeObject<TResponse<Nothing>>(response.Content);
+            return resp;
         }
     }
 }

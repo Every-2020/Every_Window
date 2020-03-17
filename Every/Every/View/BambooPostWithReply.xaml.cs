@@ -51,5 +51,25 @@ namespace Every.View
         {
             (sender as Button).ContextMenu.IsOpen = true;
         }
+
+        // ContextMenu(MenuItem) 댓글 수정하기
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // ContextMenu(MenuItem) 댓글 삭제하기 
+        private void mi_DeleteReply_Click(object sender, RoutedEventArgs e)
+        {
+            int? replyIdx = Convert.ToInt32((sender as MenuItem).Tag);
+            int? postIdx = 1;
+
+            Debug.WriteLine(postIdx);
+
+            if(replyIdx != null && postIdx != null)
+            {
+                App.bambooData.bambooViewModel.BambooReplyDelete(replyIdx, postIdx);
+            }
+        }
     }
 }

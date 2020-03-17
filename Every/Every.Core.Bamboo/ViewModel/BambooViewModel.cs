@@ -136,8 +136,6 @@ namespace Every.Core.Bamboo.ViewModel
         {
             BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooPostContent);
             //BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
-            BambooReplyDeleteCommand = new DelegateCommand(OnBambooReplyDelete, CanBambooReplyDelete);
-            BambooReplyModifyCommand = new DelegateCommand(OnBambooReplyModify, CanBambooReplyModify);
         }
 
         private async void OnBambooPost()   
@@ -159,26 +157,6 @@ namespace Every.Core.Bamboo.ViewModel
         //{
         //    return (BambooReplyContent != null) && (BambooReplyContent != "") && (BambooReplyContent != string.Empty);
         //}
-
-        private async void OnBambooReplyDelete()
-        {
-
-        }
-
-        private bool CanBambooReplyDelete()
-        {
-            return true;
-        }
-
-        private async void OnBambooReplyModify()
-        {
-
-        }
-
-        private bool CanBambooReplyModify()
-        {
-            return true;
-        }
 
 
         // 전체 게시물 조회
@@ -390,6 +368,30 @@ namespace Every.Core.Bamboo.ViewModel
                 }
             }
             return;
+        }
+
+        // 특정 게시물에서 댓글 삭제
+        public async Task BambooReplyDelete(int? replyIdx, int? postIdx)
+        {
+            if (replyIdx != null && postIdx != null)
+            {
+                var resp = await bambooService.DeleteReply((int)replyIdx);
+
+                if (resp.Status == (int)HttpStatusCode.Created)
+                {
+                    RepliesItems.Clear();
+                    PostItems.Clear();
+                    await GetReplies((int)postIdx);
+                    await GetPosts();
+                }
+            }
+            return;
+        }
+
+        // 특정 게시물에서 댓글 수정
+        public async Task BambooReplyModify()
+        {
+
         }
 
         public async Task LoadDataAsync()
