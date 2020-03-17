@@ -38,6 +38,9 @@
     <Reference Include="Prism">
       <HintPath>..\..\Bind.Core.Login\Bind.Core.Login\bin\Debug\Prism.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\Bind.Core.Login\Bind.Core.Login\bin\Debug\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,12 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MealData.cs" />
+    <Compile Include="Model\Meal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\MealService.cs" />
+    <Compile Include="Service\Response\GetMealResponse.cs" />
+    <Compile Include="ViewModel\MealViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Service\Response\" />
-    <Folder Include="ViewModel\" />
+    <ProjectReference Include="..\..\TNetwork\TNetwork.csproj">
+      <Project>{BBDB688F-DC0D-4881-B367-AA7E34922DE7}</Project>
+      <Name>TNetwork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

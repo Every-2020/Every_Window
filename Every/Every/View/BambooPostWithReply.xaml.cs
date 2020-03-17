@@ -1,5 +1,4 @@
-﻿using Every.Core.Bamboo.ViewModel;
-using Every_AdminWin;
+﻿using Every_AdminWin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -22,7 +20,7 @@ namespace Every.View
     /// </summary>
     public partial class BambooPostWithReply : Window
     {
-        int imsiIdx = 0;
+        int imsiReplyIdx;
 
         public BambooPostWithReply()
         {
@@ -52,49 +50,38 @@ namespace Every.View
 
         private void btn_BambooReplyContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            imsiIdx = Convert.ToInt32((sender as Button).Tag); // ReplyIdx 저장
+            imsiReplyIdx = Convert.ToInt32((sender as Button).Tag); // ReplyIdx 저장
             (sender as Button).ContextMenu.IsOpen = true;
         }
 
         // ContextMenu(MenuItem) 댓글 수정하기
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            int? replyIdx = imsiReplyIdx; // ReplyIdx 저장
 
+            string content = "";
+
+            Debug.WriteLine(App.bambooData.bambooViewModel.SpecificIdx);
+            int? postIdx = App.bambooData.bambooViewModel.SpecificIdx;
+
+            if (replyIdx != null && content != null && postIdx != null)
+            {
+                App.bambooData.bambooViewModel.BambooReplyModify(replyIdx, content, postIdx);
+            }
         }
 
         // ContextMenu(MenuItem) 댓글 삭제하기 
         private void mi_DeleteReply_Click(object sender, RoutedEventArgs e)
         {
-            int? replyIdx = imsiIdx;
-            int? postIdx = 1;
+            int? replyIdx = imsiReplyIdx;
+
+            Debug.WriteLine(App.bambooData.bambooViewModel.SpecificIdx);
+            int? postIdx = App.bambooData.bambooViewModel.SpecificIdx;
 
             if(replyIdx != null && postIdx != null)
             {
                 App.bambooData.bambooViewModel.BambooReplyDelete(replyIdx, postIdx);
             }
         }
-    }
-
-    public class BindingProxy : Freezable
-    {
-        protected override Freezable CreateInstanceCore()
-        {
-            return new BindingProxy();
-        }
-
-        public object Data
-        {
-            get
-            {
-                return (object)GetValue(DataProperty);
-            }
-            set
-            {
-                SetValue(DataProperty, value);
-            }
-        }
-
-        public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(BambooViewModel), typeof(BindingProxy), new UIPropertyMetadata(null));
     }
 }

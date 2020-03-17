@@ -371,10 +371,10 @@ namespace Every.Core.Bamboo.ViewModel
             {
                 var resp = await bambooService.DeleteReply((int)replyIdx);
 
-                if (resp.Status == (int)HttpStatusCode.Created)
+                if (resp.Status == (int)HttpStatusCode.OK)
                 {
                     RepliesItems.Clear();
-                    PostItems.Clear();
+                    PostsItems.Clear();
                     await GetReplies((int)postIdx);
                     await GetPosts();
                 }
@@ -383,7 +383,7 @@ namespace Every.Core.Bamboo.ViewModel
         }
 
         // 특정 게시물에서 댓글 수정
-        public async Task BambooReplyModify()
+        public async Task BambooReplyModify(int? replyIdx, string content, int? postIdx)
         {
 
         }
