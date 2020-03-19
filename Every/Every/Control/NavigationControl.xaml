@@ -100,7 +100,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="{Binding NaviImagePath}" Width="35.16" Height="33.1" Margin="10,0,10,0"/>
-                                    <!--<TextBlock Text="{Binding Title}" FontSize="15"/>-->
+                                    <TextBlock Text="{Binding Title}" FontSize="15" Visibility="Collapsed"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

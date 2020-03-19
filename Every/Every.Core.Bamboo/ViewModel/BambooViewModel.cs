@@ -20,11 +20,9 @@ namespace Every.Core.Bamboo.ViewModel
         MemberService memberService = new MemberService();
 
         #region Properties
-        #region Delegate & Event
         // 게시물 작성 성공 여부
         public delegate void BambooPostResultReceivedHandler(object sender);
         public event BambooPostResultReceivedHandler BambooPostResultReceived;
-        #endregion
 
         #region Commands
         public ICommand BambooPostCommand { get; set; }
@@ -134,7 +132,7 @@ namespace Every.Core.Bamboo.ViewModel
         public BambooViewModel()
         {
             BambooPostCommand = new DelegateCommand(OnBambooPost, CanBambooPost).ObservesProperty(() => BambooPostContent);
-            //BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
+            // BambooReplyCommand = new DelegateCommand(OnBambooReply, CanBambooReply).ObservesProperty(() => BambooReplyContent);
         }
 
         private async void OnBambooPost()   

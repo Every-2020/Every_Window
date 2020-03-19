@@ -281,12 +281,12 @@
     <Resource Include="Assets\Bamboo\EveryLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Bamboo\BambooIcon.png" />
-    <Resource Include="Assets\Bamboo\HomeIcon.png" />
-    <Resource Include="Assets\Bamboo\ScheduleIcon.png" />
+    <Resource Include="Assets\NaviIcons\BambooIcon.png" />
+    <Resource Include="Assets\NaviIcons\HomeIcon.png" />
+    <Resource Include="Assets\NaviIcons\ScheduleIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Bamboo\OptionIcon.png" />
+    <Resource Include="Assets\NaviIcons\OptionIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Bamboo\papsr-plane.png" />
@@ -330,6 +330,10 @@
     <Resource Include="Assets\Home\dinnersStyle.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\NaviIcons\ColorBamboo.png" />
+    <Resource Include="Assets\NaviIcons\ColorHome.png" />
+    <Resource Include="Assets\NaviIcons\ColorOption.png" />
+    <Resource Include="Assets\NaviIcons\ColorSchedule.png" />
     <Resource Include="Assets\Home\breakfastIcon.png" />
     <Content Include="Assets\Home\breakfastWave.png" />
   </ItemGroup>

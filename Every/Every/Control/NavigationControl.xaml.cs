@@ -3,6 +3,7 @@ using Every.View;
 using Every_AdminWin;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TNetwork.Common;
 
 namespace Every.Control
 {
@@ -41,26 +41,26 @@ namespace Every.Control
 
             naviDatas.Add(new NaviData
             {
-                Title = "Home",
-                NaviImagePath = Common.ComDef.Path + "HomeIcon.png",
+                Title = "메인",
+                NaviImagePath = ComDef.Path + "HomeIcon.png",
                 naviMenu = NaviMenu.Home
             });
             naviDatas.Add(new NaviData
             {
                 Title = "대나무숲",
-                NaviImagePath = Common.ComDef.Path + "BambooIcon.png",
+                NaviImagePath = ComDef.Path + "BambooIcon.png",
                 naviMenu = NaviMenu.Bamboo
             }) ;
             naviDatas.Add(new NaviData
             {
                 Title = "일정 관리",
-                NaviImagePath = Common.ComDef.Path + "ScheduleIcon.png",
+                NaviImagePath = ComDef.Path + "ScheduleIcon.png",
                 naviMenu = NaviMenu.Schedule
             });
             naviDatas.Add(new NaviData
             {
                 Title = "설정",
-                NaviImagePath = Common.ComDef.Path + "OptionIcon.png",
+                NaviImagePath = ComDef.Path + "OptionIcon.png",
                 naviMenu = NaviMenu.Option
             });
 
@@ -72,23 +72,44 @@ namespace Every.Control
             IPage page = null;
             NaviData selectdata = lvNavi.SelectedItem as NaviData;
 
-            switch(selectdata.naviMenu)
+            ICollectionView view = CollectionViewSource.GetDefaultView(naviDatas); // ListView의 ItemSource Update
+
+            switch (selectdata.naviMenu)
             {
                 case NaviMenu.Home:
                     page = ctrlHome;
+                    naviDatas[0].NaviImagePath = ComDef.Path + "ColorHome.png"; // Icon Update
+                    naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
+                    naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
+                    naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
+                    view.Refresh();
                     break;
                 case NaviMenu.Bamboo:
                      page = ctrlBamboo;
-                    ctrlBamboo.LoadData();
+                     naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
+                     naviDatas[1].NaviImagePath = ComDef.Path + "ColorBamboo.png"; // Icon Update
+                     naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
+                     naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
+                     view.Refresh();
+                     ctrlBamboo.LoadData();
                      break;
                 case NaviMenu.Schedule:
                     page = ctrlSchedule;
+                    naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
+                    naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
+                    naviDatas[2].NaviImagePath = ComDef.Path + "ColorSchedule.png"; // Icon Update
+                    naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
+                    view.Refresh();
                     break;
                 case NaviMenu.Option:
                     page = ctrlOption;
+                    naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
+                    naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
+                    naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
+                    naviDatas[3].NaviImagePath = ComDef.Path + "ColorOptionIcon.png"; // Icon Update
+                    view.Refresh();
                     break;
             }
-
             ShowPage(page);
         }
 
@@ -107,11 +128,11 @@ namespace Every.Control
 
             if (page == ctrlBamboo)
             {
-                tbBambooSearchPost.Visibility = Visibility.Visible;
+                tbBambooSearchPost.Visibility = Visibility.Visible; // 게시글 검색바 Visible
             }
             else
             {
-                tbBambooSearchPost.Visibility = Visibility.Collapsed;
+                tbBambooSearchPost.Visibility = Visibility.Collapsed; // 게시글 검색바 Collapsed
             }
         }
 
@@ -129,7 +150,7 @@ namespace Every.Control
             int idx = Convert.ToInt32(sender);
             await App.bambooData.bambooViewModel.GetPost(idx);
             await App.bambooData.bambooViewModel.GetReplies(idx);
-            //await App.memberData.memberViewModel.GetStudentMemberInfo(Convert.ToInt32(Options.tokenInfo.Student_Idx));
+
             BambooPostWithReply bambooPostWithReply = new BambooPostWithReply();
             bambooPostWithReply.DataContext = App.bambooData.bambooViewModel;
             bambooPostWithReply.ShowDialog(); // MainWindow Focus 이동 불가, 즉 모달 창
