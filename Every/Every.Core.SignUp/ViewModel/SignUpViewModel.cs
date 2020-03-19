@@ -275,6 +275,9 @@ namespace Every.Core.SignUp.ViewModel
             set => SetProperty(ref _isEnable, value);
         }
 
+        // StudentSignUpControl Modal Background
+        public Visibility ModalBackGround { get; set; } = Visibility.Collapsed;
+
         #region Commands
 
         // 학생 회원가입 Command

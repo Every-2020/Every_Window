@@ -117,7 +117,7 @@
         </Grid>
 
         <!--Modal 창 역할-->
-        <Grid x:Name="gdModalBackGround" Background="Gray" Opacity="0.4" Visibility="{Binding ModalBackGround}">
+        <Grid x:Name="ncModalBackGround" Background="Gray" Opacity="0.4" Visibility="{Binding ModalBackGround}">
 
         </Grid>
     </Grid>

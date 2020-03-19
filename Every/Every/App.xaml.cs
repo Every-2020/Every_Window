@@ -22,16 +22,18 @@ namespace Every_AdminWin
     /// </summary>
     public partial class App : Application
     {
+        // Class Library
+        public static BambooData bambooData = new BambooData();
         public static LoginData loginData = new LoginData();
         public static MemberData memberData = new MemberData();
         public static SignUpData signUpData = new SignUpData();
-        public static BambooData bambooData = new BambooData();
 
+        // View/Window
         public static SelectIdentity selectIdentity = new SelectIdentity();
         public static SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
-
         public static BambooPostWindow bambooPostWindow = new BambooPostWindow();
 
+        // Start
         public App()
         {
             Setting.Load();

@@ -163,7 +163,7 @@ namespace Every.Control
             BambooPostWindow bambooPostWindow = new BambooPostWindow();
             bambooPostWindow.ModalBackGroundVisibility += BambooPostWindow_ModalBackGroundVisibility; // 게시물 작성 취소
 
-            gdModalBackGround.Visibility = Visibility.Visible; // 부모 윈도우 Modal 창 Visible
+            ncModalBackGround.Visibility = Visibility.Visible; // 부모 윈도우 Modal 창 Visible
 
             bambooPostWindow.ShowDialog(); // MainWindow Focus 이동 불가, 즉 모달 창
             //bambooPostWindow.Show(); // MainWindow Focus 이동 가능
@@ -171,7 +171,7 @@ namespace Every.Control
 
         private void BambooPostWindow_ModalBackGroundVisibility()
         {
-            gdModalBackGround.Visibility = Visibility.Collapsed;
+            ncModalBackGround.Visibility = Visibility.Collapsed;
         }
     }
 

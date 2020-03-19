@@ -91,7 +91,8 @@ namespace Every_AdminWin
         private void CtrlStudentSignUp_LoadSearchSchoolWindow(object sender, RoutedEventArgs e)
         {
             SearchSchoolWindow searchSchoolWindow = new SearchSchoolWindow();
-            searchSchoolWindow.Show();
+            // CtrlStudentSignUp.ssucModalBackground.Visibility = Visibility.Visible; // StudentSignUpControl Modal 창 Visible, ※ 보류 ※
+            searchSchoolWindow.ShowDialog(); // MainWindow Focus 이동 불가, 즉 모달 창
         }
 
         // 학생 회원가입
