@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Every.Control"
-             xmlns:control="clr-namespace:Every.Control"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920"
              KeyDown="Usercontrol_KeyDown">
@@ -27,8 +27,9 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="/Assets/Icons/ico_mail.png"
-                                           Width="30"></Image>
+                                    <!--<Image Source="/Assets/Icons/ico_mail.png"
+                                           Width="30"></Image>-->
+                                    <materialDesign:PackIcon Kind="Gmail" Width="30" VerticalAlignment="Center"/>
                                     <Grid Grid.Column="1" Margin="7 0 20 0">
                                         <ScrollViewer x:Name="PART_ContentHost"
                                                       VerticalAlignment="Center"
@@ -72,8 +73,9 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="/Assets/Icons/ico_password.png" 
-                                           Width="25" HorizontalAlignment="Center"></Image>
+                                    <!--<Image Source="/Assets/Icons/ico_password.png" 
+                                           Width="25" HorizontalAlignment="Center"/>-->
+                                    <materialDesign:PackIcon Kind="Lock" Width="30" VerticalAlignment="Center"/>
                                     <Grid Grid.Column="1" Margin="7 0 20 0">
                                         <ScrollViewer x:Name="PART_ContentHost"
                                                   VerticalAlignment="Center"
@@ -139,7 +141,12 @@
                    Width="661"
                    Height="678"
                    HorizontalAlignment="Right"
-                   Fill="#7E40FF"/>
+                   Fill="#7E40FF">
+
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Color="#707070"/>
+            </Rectangle.Effect>
+        </Rectangle>
 
         <Image Source="/Assets/Login/BlackLogo.png"
                VerticalAlignment="Center"
@@ -221,7 +228,12 @@
                    Width="661"
                    Height="678"
                    HorizontalAlignment="Left"
-                   Fill="#FFFFFFFF"/>
+                   Fill="#FFFFFFFF">
+
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Color="#707070"/>
+            </Rectangle.Effect>
+        </Rectangle>
 
         <Grid Grid.Column="1">
             <StackPanel VerticalAlignment="Center"

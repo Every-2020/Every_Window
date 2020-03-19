@@ -8,26 +8,102 @@
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="194.73"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="6*"/>
-                <ColumnDefinition Width="2*"/>
-
-
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Image Source="/Assets/Bamboo/ProfileIcon.png"
+                           Width="118" Height="117"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1"  Width="1135" Height="586">
+                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                    </Border.Effect>
+                </Border>
+                <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="10">
+                            <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                        <Setter Property="FontSize" Value="45"/>
+                                        <Setter Property="FontWeight" Value="ExtraBold"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <TextBlock Text="한국인은 밥심."/>
+                                <TextBlock Text="오늘의 급식을 한눈에."/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Image Source="/Assets/Home/breakfastBackground.png"
+                                       Height="309" Width="330"/>
+                                <Image Source="/Assets/Home/breakfastWave.png" 
+                                       Margin="26,26,25,21"/>
+                                <StackPanel Orientation="Horizontal" Margin="50,50,0,0"
+                                            VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Image Source="/Assets/Home/breakfastIcon.png"
+                                           Height="31" Width="31"/>
+                                    <TextBlock Text="아침" Foreground="White"
+                                               FontFamily="나눔스퀘어_ac" FontSize="25"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Image Source="/Assets/Home/lunchBackground.png"
+                                       Height="309" Width="330"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <Image Source="/Assets/Home/dinnerBackground.png"
+                                       Height="309" Width="330"/>
+                                <Image Source="/Assets/Home/dinnersStyle.png" Margin="0,0,0,150"
+                                       Height="85" Width="269" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
-            <TextBlock Text="홈 화면이 공개될 예정입니다." 
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="100"
-                       FontFamily="나눔고딕_ac"/>
+            <Image Source="/Assets/Home/HomeWave.png" VerticalAlignment="Bottom"/>
         </Grid>
     </Grid>
 </UserControl>
