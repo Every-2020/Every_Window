@@ -453,7 +453,7 @@ namespace Every.Core.SignUp.ViewModel
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.StackTrace);
+                Debug.WriteLine("StudentSignUp Error : " + e.Message);
                 signUpArgs = null;
             }
             OnStudentSignUpResultRecieved?.Invoke(signUpArgs);
@@ -471,7 +471,7 @@ namespace Every.Core.SignUp.ViewModel
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.StackTrace);
+                Debug.WriteLine("WorkerSignUp Error : " + e.Message);
                 signUpArgs = null;
             }
             OnWorkerSignUpResultReceived?.Invoke(signUpArgs);
@@ -484,8 +484,8 @@ namespace Every.Core.SignUp.ViewModel
         private void AutoInput_Hyphen(string phoneNumber)
         {
             string phone = phoneNumber;
-            string str_phoneNumHyphen;
             string[] phoneNumSplit = new string[3];
+            string str_phoneNumHyphen;
 
             if (phone.Length == 10)
             {
@@ -677,7 +677,10 @@ namespace Every.Core.SignUp.ViewModel
         {
             IsEnable = false;
 
-            SchoolItems.Clear();
+            if(SchoolItems.Count > 0)
+            {
+                SchoolItems.Clear();
+            }
 
             ServerAddress = "http://49.50.160.97:8080";
             signUpService.SettingHttpRequest(ServerAddress);
@@ -702,7 +705,7 @@ namespace Every.Core.SignUp.ViewModel
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e.StackTrace);
+                    Debug.WriteLine("SearchSchool Error : " + e.Message);
                 }
             }
 

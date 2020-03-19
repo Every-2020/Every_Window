@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -33,8 +32,8 @@ namespace BIND.Core.Login.Network
             var jObj = new JObject();
             //jObj["device"] = "PC";
             jObj["email"] = id;
-            //jObj["pw"] = pw;
             jObj["pw"] = Sha512Hash(pw);
+            //jObj["pw"] = pw;
 
             var resp = await networkManager.GetResponse<TokenInfo>(Options.loginUrl, Method.POST, jObj.ToString());
 
@@ -54,7 +53,6 @@ namespace BIND.Core.Login.Network
                 Options.tokenInfo.Token = resp.Data.Token;
                 Options.tokenInfo.RefreshToken = resp.Data.RefreshToken;
                 
-                //
                 Options.tokenInfo.Student_Idx = resp.Data.Student_Idx;
                 Options.tokenInfo.Worker_Idx = resp.Data.Worker_Idx;
             }

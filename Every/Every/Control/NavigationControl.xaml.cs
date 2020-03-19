@@ -106,7 +106,7 @@ namespace Every.Control
                     naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
                     naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
                     naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
-                    naviDatas[3].NaviImagePath = ComDef.Path + "ColorOptionIcon.png"; // Icon Update
+                    naviDatas[3].NaviImagePath = ComDef.Path + "ColorOption.png"; // Icon Update
                     view.Refresh();
                     break;
             }

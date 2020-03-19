@@ -159,7 +159,10 @@ namespace Every.Core.Bamboo.ViewModel
         // 전체 게시물 조회
         private async Task GetPosts()
         {
-            PostsItems.Clear();
+            if(PostItems.Count > 0)
+            {
+                PostsItems.Clear();
+            }
 
             var resp = await bambooService.GetPosts();
 
@@ -176,11 +179,14 @@ namespace Every.Core.Bamboo.ViewModel
                         postsItems.Content = item.Content;
                         postsItems.Created_At = item.Created_At;
 
+                        // 요일
                         GetDay(postsItems.Created_At);
                         postsItems.DayOfWeek = Day;
 
+                        // 게시물 작성 시간
                         postsItems.PostWrittenTime = (DateTime.Now - postsItems.Created_At).Hours;
 
+                        // 댓글 개수
                         var res = await bambooService.GetReplies(postsItems.Idx);
                         postsItems.ReplyCount = res.Data.Replies.Count;
 
@@ -189,7 +195,7 @@ namespace Every.Core.Bamboo.ViewModel
                 }
                 catch(Exception e)
                 {
-                    Debug.WriteLine(e.StackTrace);
+                    Debug.WriteLine("GetPosts Error : " + e.Message);
                 }
             }
         }
@@ -197,45 +203,42 @@ namespace Every.Core.Bamboo.ViewModel
         // 댓글 목록 조회
         public async Task GetReplies(int idx)
         {
-            if(RepliesItems != null)
+            if(RepliesItems.Count > 0)
             {
                 RepliesItems.Clear();
             }
 
-            if(SelectedPost != null)
+            var resp = await bambooService.GetReplies(idx);
+
+            if(resp != null && resp.Status == 200 && resp.Data != null)
             {
-                var resp = await bambooService.GetReplies(idx);
-
-                if(resp != null && resp.Status == 200 && resp.Data != null)
+                try
                 {
-                    try
+                    Model.Replies repliesItems = new Model.Replies();
+
+                    foreach(var item in resp.Data.Replies)
                     {
-                        Model.Replies repliesItems = new Model.Replies();
+                        repliesItems.Idx = item.Idx;
+                        repliesItems.Content = item.Content;
+                        repliesItems.Created_At = item.Created_At;
+                        repliesItems.Student_Idx = item.Student_Idx;
 
-                        foreach(var item in resp.Data.Replies)
-                        {
-                            repliesItems.Idx = item.Idx;
-                            repliesItems.Content = item.Content;
-                            repliesItems.Created_At = item.Created_At;
-                            repliesItems.Student_Idx = item.Student_Idx;
+                        repliesItems.ReplyWrittenTime = (DateTime.Now - repliesItems.Created_At).Hours;
 
-                            repliesItems.ReplyWrittenTime = (DateTime.Now - repliesItems.Created_At).Hours;
+                        var res = await memberService.GetStudentMemberInformation(item.Student_Idx);
+                        repliesItems.WriterName = res.Data.MemberInformations.Name;
 
-                            var res = await memberService.GetStudentMemberInformation(item.Student_Idx);
-                            repliesItems.WriterName = res.Data.MemberInformations.Name;
-
-                            RepliesItems.Add((Model.Replies)repliesItems.Clone());
-                        }
+                        RepliesItems.Add((Model.Replies)repliesItems.Clone());
                     }
-                    catch(Exception e)
-                    {
-                        Debug.WriteLine(e.StackTrace);
-                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("GetReplies Error : " + e.Message);
                 }
             }
         }
 
-        // 요일 
+        // 요일 구하기
         private string GetDay(DateTime date)
         {
             switch (date.DayOfWeek)
@@ -271,45 +274,44 @@ namespace Every.Core.Bamboo.ViewModel
         {
             IsEnable = false;
 
-            if (BambooPostContent != null)
+            if (BambooPostContent != null && BambooPostContent != "" && BambooPostContent != string.Empty)
             {
                 var resp = await bambooService.MakePost(BambooPostContent);
 
                 if (resp.Status == (int)HttpStatusCode.Created)
                 {
                     BambooPostResultReceived?.Invoke(this);
-                    BambooPostContent = string.Empty;
+                    BambooPostContent = string.Empty; // 작성한 댓글 내용 제거
                     await GetPosts();
                 }
             }
-
             ModalBackGround = Visibility.Collapsed;
+
             IsEnable = true;
         }
 
         // 전체 게시물에서 댓글 작성
         public async Task BambooReply(string replycontent, int? idx)
         {
-            if (BambooReplyContent != null && idx != null)
+            if (BambooReplyContent != null && BambooReplyContent != string.Empty && BambooReplyContent != "" &&  idx != null)
             {
-                //var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
                 var resp = await bambooService.MakeReply(replycontent, (int)idx);
 
                 if (resp.Status == (int)HttpStatusCode.Created)
                 {
                     BambooReplyContent = string.Empty;
                     PostItems.Clear();
-                    // TODO : 게시물 작성하고는 동기화할 때는 await 있어도 잘 되는데, 왜 댓글 작성하고는 await을 붙이면 제대로 동기화가 안될까?
+                    // TODO [수정] : 게시물 작성후 동기화할 때는 await 키워드가 있어도 잘 되는데, 왜 댓글 작성하고는 await을 붙이면 제대로 동기화가 안될까?
                     GetPosts();
                 }
             }
             return;
         }
 
-        // 특정 게시물 조회
+        // 특정 게시물 조회(댓글 개수 클릭시 보여주는 게시물)
         public async Task GetPost(int idx)
         {
-            if(PostItems != null)
+            if(PostItems.Count > 0)
             {
                 PostItems.Clear();
             }
@@ -323,21 +325,23 @@ namespace Every.Core.Bamboo.ViewModel
                     Model.Post postItems = new Model.Post();
 
                     postItems.Idx = resp.Data.Post.Idx;
-                    SpecificIdx = resp.Data.Post.Idx; // 특정 게시물에서 댓글 작성시 IDX를 저장하기 위한 속성
+                    SpecificIdx = resp.Data.Post.Idx; // 특정 게시물에서 댓글 작성을 위한 속성.
 
                     postItems.Content = resp.Data.Post.Content;
                     postItems.Created_At = resp.Data.Post.Created_At;
 
+                    // 요일 구하기
                     GetDay(postItems.Created_At);
                     postItems.DayOfWeek = Day;
 
+                    // 게시물 작성 시간
                     postItems.PostWrittenTime = (DateTime.Now - postItems.Created_At).Hours;
 
                     PostItems.Add((Model.Post)postItems.Clone());
                 }
                 catch(Exception e)
                 {
-                    Debug.WriteLine(e.StackTrace);
+                    Debug.WriteLine("GetPost Error : " + e.Message);
                 }
             }
 
@@ -349,12 +353,11 @@ namespace Every.Core.Bamboo.ViewModel
         {
             if (BambooReplyContent != null && idx != null)
             {
-                //var resp = await bambooService.MakeReply(BambooReplyContent, SelectedPost.Idx);
                 var resp = await bambooService.MakeReply(replycontent, (int)idx);
 
                 if (resp.Status == (int)HttpStatusCode.Created)
                 {
-                    BambooReplyContent = string.Empty;
+                    BambooReplyContent = string.Empty; // 특정 게시물에서 작성한 댓글내용 제거.
                     GetReplies((int)idx);                    
                     GetPosts();
                 }
@@ -371,10 +374,10 @@ namespace Every.Core.Bamboo.ViewModel
 
                 if (resp.Status == (int)HttpStatusCode.OK)
                 {
-                    RepliesItems.Clear();
-                    PostsItems.Clear();
-                    await GetReplies((int)postIdx);
-                    await GetPosts();
+                    RepliesItems.Clear(); // 특정 게시물 댓글내용 제거.
+                    PostsItems.Clear(); // 전체 게시물 삭제.
+                    await GetReplies((int)postIdx); // 특정 게시물 댓글목록 조회.
+                    await GetPosts(); // 전체 게시물 조회.
                 }
             }
             return;
@@ -383,7 +386,7 @@ namespace Every.Core.Bamboo.ViewModel
         // 특정 게시물에서 댓글 수정
         public async Task BambooReplyModify(int? replyIdx, string content, int? postIdx)
         {
-
+            // TODO : 특정 게시물 댓글 수정 제작하기.
         }
 
         public async Task LoadDataAsync()
