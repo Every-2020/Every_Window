@@ -13,7 +13,7 @@ namespace Every.Core.Meal.Service
 {
     public class MealService
     {
-        private readonly string INQUIRY_MEAL_URL = "/meal";
+        private readonly string INQUIRY_MEAL_URL = "/school/meal";
 
         public async Task<TResponse<GetMealResponse>> GetMealMenus()
         {

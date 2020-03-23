@@ -6,6 +6,19 @@
              xmlns:local="clr-namespace:Every.Control.Home"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
+    <UserControl.Resources>
+        <Style x:Key="tbmealInfoStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,80,0,0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="LineHeight" Value="30"/>
+            <Setter Property="FontSize" Value="21"/>
+            <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -83,18 +96,42 @@
                                     <TextBlock Text="아침" Foreground="White"
                                                FontFamily="나눔스퀘어_ac" FontSize="25"/>
                                 </StackPanel>
-                            </Grid>
+                                <TextBlock Text="{Binding Breakfast}"
+                                           Style="{StaticResource tbmealInfoStyle}"/>
+                            </Grid> 
 
                             <Grid Grid.Column="1">
                                 <Image Source="/Assets/Home/lunchBackground.png"
                                        Height="309" Width="330"/>
+                                <Image Source="/Assets/Home/lunchWave.png" 
+                                       Margin="26,26,25,21"/>
+                                <StackPanel Orientation="Horizontal" Margin="50,50,0,0"
+                                            VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Image Source="/Assets/Home/lunchIcon.png"
+                                           Height="31" Width="31"/>
+                                    <TextBlock Text="점심" Foreground="White"
+                                               FontFamily="나눔스퀘어_ac" FontSize="25"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Lunch}"
+                                           Style="{StaticResource tbmealInfoStyle}"/>
                             </Grid>
 
                             <Grid Grid.Column="2">
                                 <Image Source="/Assets/Home/dinnerBackground.png"
                                        Height="309" Width="330"/>
+                                <Image Source="/Assets/Home/dinnerWave.png" 
+                                       Margin="26,26,25,21"/>
                                 <Image Source="/Assets/Home/dinnersStyle.png" Margin="0,0,0,150"
                                        Height="85" Width="269" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" Margin="50,50,0,0"
+                                            VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Image Source="/Assets/Home/dinnerIcon.png"
+                                           Height="31" Width="31"/>
+                                    <TextBlock Text="저녁" Foreground="White"
+                                               FontFamily="나눔스퀘어_ac" FontSize="25"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Dinner}"
+                                           Style="{StaticResource tbmealInfoStyle}"/>
                             </Grid>
                         </Grid>
                     </Grid>

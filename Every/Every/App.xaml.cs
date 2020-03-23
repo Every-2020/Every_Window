@@ -4,6 +4,7 @@ using Every.Common;
 using Every.Control;
 using Every.Control.SignUp;
 using Every.Core.Bamboo;
+using Every.Core.Meal;
 using Every.Core.Member;
 using Every.Core.SignUp;
 using Every.View;
@@ -27,6 +28,7 @@ namespace Every_AdminWin
         public static LoginData loginData = new LoginData();
         public static MemberData memberData = new MemberData();
         public static SignUpData signUpData = new SignUpData();
+        public static MealData mealData = new MealData();
 
         // View/Window
         public static SelectIdentity selectIdentity = new SelectIdentity();

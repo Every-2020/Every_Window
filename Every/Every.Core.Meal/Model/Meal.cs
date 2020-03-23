@@ -21,9 +21,9 @@ namespace Every.Core.Meal.Model
             }
         }
 
-        private DateTime _meal_Date;
+        private string _meal_Date;
         [JsonProperty("meal_date")]
-        public DateTime Meal_Date
+        public string Meal_Date
         {
             get => _meal_Date;
             set
@@ -39,7 +39,7 @@ namespace Every.Core.Meal.Model
             get => _meal_name;
             set
             {
-
+                SetProperty(ref _meal_name, value);
             }
         }
 

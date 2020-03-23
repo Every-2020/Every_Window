@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Every_AdminWin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,11 +26,22 @@ namespace Every.Control.Home
         public HomeControl()
         {
             InitializeComponent();
+            Loaded += HomeControl_Loaded;
+        }
+
+        private void HomeControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = App.mealData.mealViewModel;
         }
 
         public string GetTitle()
         {
             return Title;
+        }
+
+        public async void LoadData()
+        {
+            await App.mealData.LoadDataAsync();
         }
     }
 }

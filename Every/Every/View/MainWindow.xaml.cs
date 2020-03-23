@@ -155,6 +155,7 @@ namespace Every_AdminWin
                 
                 ctrlNavi.Visibility = Visibility.Visible;
                 ctrlNavi.InitView();
+                await App.mealData.mealViewModel.LoadDataAsync();
             }
         }
     }

@@ -226,6 +226,10 @@
       <Project>{7580DB5A-26A6-4CFA-A894-97FDE4858512}</Project>
       <Name>Every.Core.Bamboo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Every.Core.Meal\Every.Core.Meal.csproj">
+      <Project>{4DFA8B0F-3634-458B-9E8B-BEB685A3AF51}</Project>
+      <Name>Every.Core.Meal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Every.Core.Member\Every.Core.Member.csproj">
       <Project>{6E58E2FD-135A-4E71-A887-2388B13598BE}</Project>
       <Name>Every.Core.Member</Name>
@@ -330,12 +334,18 @@
     <Resource Include="Assets\Home\dinnersStyle.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Home\dinnerWave.png" />
+    <Resource Include="Assets\Home\lunchWave.png" />
+    <Resource Include="Assets\Home\dinnerIcon.png" />
+    <Resource Include="Assets\Home\lunchIcon.png" />
     <Resource Include="Assets\NaviIcons\ColorBamboo.png" />
     <Resource Include="Assets\NaviIcons\ColorHome.png" />
     <Resource Include="Assets\NaviIcons\ColorOption.png" />
     <Resource Include="Assets\NaviIcons\ColorSchedule.png" />
     <Resource Include="Assets\Home\breakfastIcon.png" />
-    <Content Include="Assets\Home\breakfastWave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Home\breakfastWave.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" />

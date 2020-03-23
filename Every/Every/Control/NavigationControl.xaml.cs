@@ -83,6 +83,7 @@ namespace Every.Control
                     naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
                     naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
                     view.Refresh();
+                    // ctrlHome.LoadData();
                     break;
                 case NaviMenu.Bamboo:
                      page = ctrlBamboo;
@@ -115,6 +116,7 @@ namespace Every.Control
 
         public void InitView()
         {
+            naviDatas[0].NaviImagePath = ComDef.Path + "ColorHome.png"; // Icon Update
             ShowPage(ctrlHome);
         }
 
