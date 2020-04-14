@@ -77,39 +77,44 @@ namespace Every.Control
             switch (selectdata.naviMenu)
             {
                 case NaviMenu.Home:
-                    page = ctrlHome;
-                    naviDatas[0].NaviImagePath = ComDef.Path + "ColorHome.png"; // Icon Update
-                    naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
-                    naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
-                    naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
-                    view.Refresh();
-                    // ctrlHome.LoadData();
-                    break;
+                     page = ctrlHome;
+                     naviDatas[0].NaviImagePath = ComDef.Path + "ColorHome.png"; // Icon Update
+                     naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
+                     naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
+                     naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
+                     view.Refresh();
+                     // ctrlHome.LoadData();
+                     break;
                 case NaviMenu.Bamboo:
                      page = ctrlBamboo;
+                     // 순서 중요
+                     if(App.bambooData.bambooViewModel.PostsItems.Count > 0)
+                     { 
+                        App.bambooData.bambooViewModel.PostsItems.Clear();
+                     }
+                     ctrlBamboo.LoadData();
                      naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
                      naviDatas[1].NaviImagePath = ComDef.Path + "ColorBamboo.png"; // Icon Update
                      naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
                      naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
                      view.Refresh();
-                     ctrlBamboo.LoadData();
                      break;
                 case NaviMenu.Schedule:
-                    page = ctrlSchedule;
-                    naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
-                    naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
-                    naviDatas[2].NaviImagePath = ComDef.Path + "ColorSchedule.png"; // Icon Update
-                    naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
-                    view.Refresh();
-                    break;
+                     page = ctrlSchedule;
+                     naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
+                     naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
+                     naviDatas[2].NaviImagePath = ComDef.Path + "ColorSchedule.png"; // Icon Update
+                     naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
+                     view.Refresh();
+                     break;
                 case NaviMenu.Option:
-                    page = ctrlOption;
-                    naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
-                    naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
-                    naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
-                    naviDatas[3].NaviImagePath = ComDef.Path + "ColorOption.png"; // Icon Update
-                    view.Refresh();
-                    break;
+                     page = ctrlOption;
+                     naviDatas[0].NaviImagePath = ComDef.Path + "HomeIcon.png";
+                     naviDatas[1].NaviImagePath = ComDef.Path + "BambooIcon.png";
+                     naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
+                     naviDatas[3].NaviImagePath = ComDef.Path + "ColorOption.png"; // Icon Update
+                     view.Refresh();
+                     break;
             }
             ShowPage(page);
         }

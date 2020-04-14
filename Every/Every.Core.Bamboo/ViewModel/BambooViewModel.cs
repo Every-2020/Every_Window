@@ -159,11 +159,6 @@ namespace Every.Core.Bamboo.ViewModel
         // 전체 게시물 조회
         private async Task GetPosts()
         {
-            if(PostItems.Count > 0)
-            {
-                PostsItems.Clear();
-            }
-
             var resp = await bambooService.GetPosts();
 
             if(resp != null && resp.Status == 200 && resp.Data != null)

@@ -37,9 +37,10 @@
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Margin="80,50,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image Source="/Assets/Bamboo/ProfileIcon.png"
-                           Width="118" Height="117"/>
+                           Width="108" Height="107"/>
                 </Grid>
 
                 <Grid Grid.Row="1">

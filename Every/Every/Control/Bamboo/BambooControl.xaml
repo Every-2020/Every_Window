@@ -22,7 +22,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ListView Height="721" Width="900"
+            <ListView Height="721" Width="900"  
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       ItemsSource="{Binding PostsItems}"
