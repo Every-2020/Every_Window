@@ -285,7 +285,7 @@ namespace Every.Core.Bamboo.ViewModel
             IsEnable = true;
         }
 
-        // 전체 게시물에서 댓글 작성
+        // 전체 게시물에서 댓글 작성, TODO : 게시물을 컨트롤로 따로 빼기, 그렇게 하면 컨트롤 내에서는 답글 텍스트 박스가 하나이므로 여러개를 처리할 필요가 없어짐.
         public async Task BambooReply(string replycontent, int? idx)
         {
             if (BambooReplyContent != null && BambooReplyContent != string.Empty && BambooReplyContent != "" &&  idx != null)

@@ -41,7 +41,7 @@ namespace Every.Control
 
             naviDatas.Add(new NaviData
             {
-                Title = "메인",
+                Title = "홈",
                 NaviImagePath = ComDef.Path + "HomeIcon.png",
                 naviMenu = NaviMenu.Home
             });

@@ -32,6 +32,7 @@ namespace Every.Control.Home
         private void HomeControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = App.mealData.mealViewModel;
+            tbUserName.DataContext = App.memberData.memberViewModel;
         }
 
         public string GetTitle()

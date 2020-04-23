@@ -37,7 +37,7 @@ namespace BIND.Core.Login.Network
 
             var resp = await networkManager.GetResponse<TokenInfo>(Options.loginUrl, Method.POST, jObj.ToString());
 
-            // TODO 경훈 :  학생 or 직장인인지 구분하는 Idx가 null 값일 때 임시로 -1 넣어둠. 고쳐야 함.
+            // TODO :  학생 or 직장인인지 구분하는 Idx가 null 값일 때 임시로 -1 넣어둠. 고쳐야 함.
             if(resp.Data.Student_Idx == null)
             {
                 resp.Data.Student_Idx = -1;

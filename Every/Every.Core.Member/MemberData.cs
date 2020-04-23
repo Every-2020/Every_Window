@@ -10,5 +10,10 @@ namespace Every.Core.Member
     public class MemberData
     {
         public MemberViewModel memberViewModel = new MemberViewModel();
+
+        public async Task LoadDataAsync()
+        {
+            await memberViewModel.LoadDataAsync();
+        }
     }
 }

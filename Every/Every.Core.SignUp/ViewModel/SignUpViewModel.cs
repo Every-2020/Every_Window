@@ -376,15 +376,13 @@ namespace Every.Core.SignUp.ViewModel
             });
 #endregion
             DutyItems = duties;
-
         }
 
-        #region 회원 가입 Command
+        #region 회원가입
         private bool CanStudentSignUp()
         {
             return (InputSchool_Id != null) && (InputSchool_Id != "") && (InputSchool_Id != string.Empty);
         }
-
         private bool CanWorkerSignUp()
         {
             return (InputWork_Category != null) && (InputWork_Category.ToString() != "") && (InputWork_Category.ToString() != string.Empty);
@@ -398,7 +396,6 @@ namespace Every.Core.SignUp.ViewModel
                 SignUp();
             }
         }
-
         private void OnWorkerSignUp()
         {
             if(CheckEmail_OverLap == true && CheckEmail_RegularExpression == true &&

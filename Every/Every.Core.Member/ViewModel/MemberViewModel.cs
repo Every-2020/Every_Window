@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TNetwork.Common;
 
 namespace Every.Core.Member.ViewModel
 {
@@ -57,6 +58,11 @@ namespace Every.Core.Member.ViewModel
                     Debug.WriteLine(e.StackTrace);
                 }
             }
+        }
+
+        public async Task LoadDataAsync()
+        {
+            await GetStudentMemberInfo((int)Options.tokenInfo.Student_Idx);
         }
     }
 }

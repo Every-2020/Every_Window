@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Every.Core.Schedule.ViewModel
 {
-    class ScheduleViewModel
+    public class ScheduleViewModel
     {
+
     }
 }

@@ -68,6 +68,7 @@ namespace BIND.Core.Login.ViewModel
         #region Command
         public ICommand LoginCommand { get; set; }
         #endregion
+
         public LoginViewModel()
         {
             LoginCommand = new DelegateCommand(OnLogin);

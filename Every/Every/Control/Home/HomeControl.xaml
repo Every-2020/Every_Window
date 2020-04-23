@@ -39,8 +39,14 @@
 
                 <Grid Grid.Row="0" Margin="80,50,0,0"
                       HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image Source="/Assets/Bamboo/ProfileIcon.png"
-                           Width="108" Height="107"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Bamboo/ProfileIcon.png"
+                               Width="98" Height="97"/>
+                        <TextBlock Text="환영합니다!" 
+                                   FontSize="28" FontFamily="나눔스퀘어_ac"/>
+                        <TextBlock x:Name="tbUserName" Text="{Binding Name}" 
+                                   FontSize="36" DataContext="{Binding}" FontFamily="나눔스퀘어_ac"/>
+                    </StackPanel>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -52,7 +58,7 @@
             </Grid>
 
             <Grid Grid.Column="1"  Width="1135" Height="586">
-                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White">
+                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
                     </Border.Effect>
@@ -73,8 +79,8 @@
                                         <Setter Property="FontWeight" Value="ExtraBold"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <TextBlock Text="한국인은 밥심."/>
-                                <TextBlock Text="오늘의 급식을 한눈에."/>
+                                <TextBlock Text="한국인은 밥심." Margin="20,0,0,0"/>
+                                <TextBlock Text="오늘의 급식을 한눈에." Margin="20,0,0,0"/>
                             </StackPanel>
                         </Grid>
 
@@ -90,15 +96,17 @@
                                        Height="309" Width="330"/>
                                 <Image Source="/Assets/Home/breakfastWave.png" 
                                        Margin="26,26,25,21"/>
-                                <StackPanel Orientation="Horizontal" Margin="50,50,0,0"
-                                            VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Image Source="/Assets/Home/breakfastIcon.png"
-                                           Height="31" Width="31"/>
-                                    <TextBlock Text="아침" Foreground="White"
-                                               FontFamily="나눔스퀘어_ac" FontSize="25"/>
+
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="50,50,0,0">
+                                        <Image Source="/Assets/Home/breakfastIcon.png"
+                                               Height="26" Width="31"/>
+                                        <TextBlock Text="아침" Foreground="White"
+                                                   FontFamily="나눔스퀘어_ac" FontSize="25"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Breakfast}" Margin="0,5,0,0"
+                                               Style="{StaticResource tbmealInfoStyle}"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding Breakfast}"
-                                           Style="{StaticResource tbmealInfoStyle}"/>
                             </Grid> 
 
                             <Grid Grid.Column="1">
@@ -106,15 +114,17 @@
                                        Height="309" Width="330"/>
                                 <Image Source="/Assets/Home/lunchWave.png" 
                                        Margin="26,26,25,21"/>
-                                <StackPanel Orientation="Horizontal" Margin="50,50,0,0"
-                                            VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Image Source="/Assets/Home/lunchIcon.png"
-                                           Height="31" Width="31"/>
-                                    <TextBlock Text="점심" Foreground="White"
-                                               FontFamily="나눔스퀘어_ac" FontSize="25"/>
+
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="50,50,0,0">
+                                        <Image Source="/Assets/Home/lunchIcon.png"
+                                               Height="26" Width="31"/>
+                                        <TextBlock Text="점심" Foreground="White"
+                                                   FontFamily="나눔스퀘어_ac" FontSize="25"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Lunch}" Margin="0,5,0,0"
+                                               Style="{StaticResource tbmealInfoStyle}"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding Lunch}"
-                                           Style="{StaticResource tbmealInfoStyle}"/>
                             </Grid>
 
                             <Grid Grid.Column="2">
@@ -124,15 +134,17 @@
                                        Margin="26,26,25,21"/>
                                 <Image Source="/Assets/Home/dinnersStyle.png" Margin="0,0,0,150"
                                        Height="85" Width="269" VerticalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" Margin="50,50,0,0"
-                                            VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Image Source="/Assets/Home/dinnerIcon.png"
-                                           Height="31" Width="31"/>
-                                    <TextBlock Text="저녁" Foreground="White"
-                                               FontFamily="나눔스퀘어_ac" FontSize="25"/>
+
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="50,50,0,0">
+                                        <Image Source="/Assets/Home/dinnerIcon.png"
+                                               Height="26" Width="31"/>
+                                        <TextBlock Text="저녁" Foreground="White"
+                                                   FontFamily="나눔스퀘어_ac" FontSize="25"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Dinner}" Margin="0,10,0,0"
+                                               Style="{StaticResource tbmealInfoStyle}"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding Dinner}"
-                                           Style="{StaticResource tbmealInfoStyle}"/>
                             </Grid>
                         </Grid>
                     </Grid>
