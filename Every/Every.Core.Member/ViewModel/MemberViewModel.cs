@@ -17,6 +17,17 @@ namespace Every.Core.Member.ViewModel
         MemberService memberService = new MemberService();
 
         #region Properties
+        private string _userName;
+        public string UserName
+        {
+            get => _userName;
+            set
+            {
+                SetProperty(ref _userName, value);
+            }
+        }
+
+
         // 학생 IDX로 회원조회 정보 저장
         private ObservableCollection<MemberInformation> _studentMemberInfoItems = new ObservableCollection<MemberInformation>();
         public ObservableCollection<MemberInformation> StudentMemberInfoItems
@@ -47,6 +58,9 @@ namespace Every.Core.Member.ViewModel
                     memberInfo.Idx = resp.Data.MemberInformations.Idx;
                     memberInfo.Email = resp.Data.MemberInformations.Email;
                     memberInfo.Name = resp.Data.MemberInformations.Name;
+                    
+                    UserName = resp.Data.MemberInformations.Name;
+                    
                     memberInfo.Phone = resp.Data.MemberInformations.Phone;
                     memberInfo.Birth_Year = resp.Data.MemberInformations.Birth_Year;
                     memberInfo.School_Id = resp.Data.MemberInformations.School_Id;

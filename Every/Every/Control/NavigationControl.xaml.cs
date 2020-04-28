@@ -83,6 +83,7 @@ namespace Every.Control
                      naviDatas[2].NaviImagePath = ComDef.Path + "ScheduleIcon.png";
                      naviDatas[3].NaviImagePath = ComDef.Path + "OptionIcon.png";
                      view.Refresh();
+                     // ctrlHome.tbUserName.Text = App.memberData.memberViewModel.StudentMemberInfoItems.Where(x => x.Idx == (int)TNetwork.Common.Options.tokenInfo.Student_Idx).FirstOrDefault().Name;
                      // ctrlHome.LoadData();
                      break;
                 case NaviMenu.Bamboo:

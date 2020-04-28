@@ -1,6 +1,7 @@
 ﻿using BIND.Core.Login;
 using Every;
 using Every.Common;
+using Every.Control.Home;
 using Every.Control.SignUp;
 using Every.Core.Bamboo;
 using Every.Core.Meal;

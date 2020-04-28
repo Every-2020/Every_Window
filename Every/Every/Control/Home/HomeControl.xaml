@@ -42,10 +42,12 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/Bamboo/ProfileIcon.png"
                                Width="98" Height="97"/>
-                        <TextBlock Text="환영합니다!" 
-                                   FontSize="28" FontFamily="나눔스퀘어_ac"/>
-                        <TextBlock x:Name="tbUserName" Text="{Binding Name}" 
-                                   FontSize="36" DataContext="{Binding}" FontFamily="나눔스퀘어_ac"/>
+                        <StackPanel>
+                            <TextBlock Text="환영합니다!" 
+                                       FontSize="28" FontFamily="나눔스퀘어_ac"/>
+                            <TextBlock x:Name="tbUserName" Text="{Binding UserName}"
+                                       FontSize="36" FontFamily="나눔스퀘어_ac"/>    
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
 
