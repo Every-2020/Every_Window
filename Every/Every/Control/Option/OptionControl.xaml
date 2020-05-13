@@ -6,29 +6,100 @@
              xmlns:local="clr-namespace:Every.Control.Option"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
+
+    <UserControl.Resources>
+        <Storyboard x:Key="CurrentImageStoryboardKey"
+                    Storyboard.TargetProperty="(Image.Opacity)">
+            <DoubleAnimation Storyboard.TargetName="currentImage"
+                             Duration="0:0:0.5"
+                             To="1"/>
+            <DoubleAnimation Storyboard.TargetName="nextImage"
+                             Duration="0:0:1"
+                             To="0"/>
+        </Storyboard>
+        <Storyboard x:Key="NextImageStoryboardKey"
+                    Storyboard.TargetProperty="(Image.Opacity)">
+            <DoubleAnimation Storyboard.TargetName="nextImage"
+                             Duration="0:0:0.5"
+                             To="1"/>
+            <DoubleAnimation Storyboard.TargetName="currentImage"
+                             Duration="0:0:1"
+                             To="0"/>
+        </Storyboard>
+    </UserControl.Resources>
     
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="194.73"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="6*"/>
-                <ColumnDefinition Width="2*"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
 
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
 
-            </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Center">
+                        <Image Source="/Assets/Bamboo/ProfileIcon.png" Width="98" Height="97"/>
+                        <StackPanel Margin="20,10,0,0">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="36"/>
+                                    <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock x:Name="tbUserName" Text="{Binding UserName, StringFormat={}{0}님}"/>
+                            <TextBlock x:Name="tbEmail" Text="{Binding UserEmail}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                        </Border.Effect>
+                    </Border>
+                    <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
+
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                    </Border.Effect>
+                </Border>
+                <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
+                    <Image x:Name="currentImage"
+                       Height="621" Width="1119"
+                       Opacity="1"/>
+                </Border>
+                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                    </Border.Effect>
+                </Border>
+                <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
+                    <Image x:Name="nextImage"
+                       Height="621" Width="1119"
+                       Opacity="0"/>
+                </Border>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
-            <TextBlock Text="설정 기능이 공개될 예정입니다." 
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="100"
-                       FontFamily="나눔고딕_ac"/>
+            <Image Source="/Assets/Option/OptionWave.png"/>
         </Grid>
     </Grid>
 </UserControl>

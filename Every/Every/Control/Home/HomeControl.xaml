@@ -205,7 +205,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <Image Source="/Assets/Home/HomeWave.png" VerticalAlignment="Bottom"/>
+            <Image Source="/Assets/Home/HomeWave.png"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -27,6 +27,16 @@ namespace Every.Core.Member.ViewModel
             }
         }
 
+        private string _userEmail;
+        public string UserEmail
+        {
+            get => _userEmail;
+            set
+            {
+                SetProperty(ref _userEmail, value);
+            }
+        }
+
 
         // 학생 IDX로 회원조회 정보 저장
         private ObservableCollection<MemberInformation> _studentMemberInfoItems = new ObservableCollection<MemberInformation>();
@@ -56,9 +66,10 @@ namespace Every.Core.Member.ViewModel
                     MemberInformation memberInfo = new MemberInformation();
 
                     memberInfo.Idx = resp.Data.MemberInformations.Idx;
-                    memberInfo.Email = resp.Data.MemberInformations.Email;
-                    memberInfo.Name = resp.Data.MemberInformations.Name;
                     
+                    memberInfo.Email = resp.Data.MemberInformations.Email;
+                    UserEmail = resp.Data.MemberInformations.Email;
+                    memberInfo.Name = resp.Data.MemberInformations.Name;
                     UserName = resp.Data.MemberInformations.Name;
                     
                     memberInfo.Phone = resp.Data.MemberInformations.Phone;
