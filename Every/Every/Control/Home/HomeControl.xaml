@@ -33,8 +33,8 @@
 
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Margin="80,50,0,0"
@@ -42,20 +42,70 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/Bamboo/ProfileIcon.png"
                                Width="98" Height="97"/>
-                        <StackPanel>
+                        <StackPanel Margin="10,10,0,0">
                             <TextBlock Text="환영합니다!" 
                                        FontSize="28" FontFamily="나눔스퀘어_ac"/>
-                            <TextBlock x:Name="tbUserName" Text="{Binding UserName}"
+                            <TextBlock x:Name="tbUserName" Text="{Binding UserName, StringFormat={}{0}님}"
                                        FontSize="36" FontFamily="나눔스퀘어_ac"/>    
                         </StackPanel>
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Margin="60,0,0,0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
+                            <TextBlock Text="오늘의 일정" FontFamily="나눔스퀘어_ac" FontSize="20" Margin="20,10,0,0"
+                                       Height="33" Width="129" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="#2D008A" CornerRadius="20"
+                                Height="126" VerticalAlignment="Top">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
+                            <Grid>
+                                <Grid Grid.Column="0">
+                                    <StackPanel Margin="0,10,0,0">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                <Setter Property="FontSize" Value="20"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <TextBlock Text="오늘의 대나무숲 인기 게시글을" Margin="20,10,0,0"/>
+                                        <TextBlock Text="확인하세요!" Margin="20,10,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <Image Source="/Assets/Home/PopularPostBackground.png" VerticalAlignment="Top"
+                               Margin="0,17,15,0"/>
+
+                        <Button x:Name="btnPopularPost" Margin="0,55,20,0" Height="40" 
+                                Background="Transparent" BorderBrush="Transparent"
+                                VerticalAlignment="Top" HorizontalAlignment="Right">
+
+                            <ContentControl>
+                                <Image Source="/Assets/Home/PopularPostButtonBackground.png"/>
+                            </ContentControl>
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
 
@@ -81,12 +131,12 @@
                                         <Setter Property="FontWeight" Value="ExtraBold"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <TextBlock Text="한국인은 밥심." Margin="20,0,0,0"/>
-                                <TextBlock Text="오늘의 급식을 한눈에." Margin="20,0,0,0"/>
+                                <TextBlock Text="한국인은 밥심." Margin="70,30,0,0"/>
+                                <TextBlock Text="오늘의 급식을 한눈에." Margin="70,20,0,0"/>
                             </StackPanel>
                         </Grid>
 
-                        <Grid Grid.Row="1" Margin="10">
+                        <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
