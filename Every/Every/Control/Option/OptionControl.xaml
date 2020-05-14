@@ -75,7 +75,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                <!--<Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
                     </Border.Effect>
@@ -94,7 +94,14 @@
                     <Image x:Name="nextImage"
                        Height="621" Width="1119"
                        Opacity="0"/>
-                </Border>
+                </Border>-->
+                
+                <Image x:Name="currentImage"
+                       Height="621" Width="1119"
+                       Opacity="1"/>
+                <Image x:Name="nextImage"
+                       Height="621" Width="1119"
+                       Opacity="0"/>
             </Grid>
         </Grid>
 
