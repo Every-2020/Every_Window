@@ -36,8 +36,8 @@
 
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="7*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -45,63 +45,127 @@
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-
+                
                 <Grid Grid.Row="0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Center">
-                        <Image Source="/Assets/Bamboo/ProfileIcon.png" Width="98" Height="97"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,550,0"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/Assets/Bamboo/ProfileIcon.png" Width="88" Height="87"/>
                         <StackPanel Margin="20,10,0,0">
                             <StackPanel.Resources>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="FontSize" Value="36"/>
                                     <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
                                 </Style>
                             </StackPanel.Resources>
-                            <TextBlock x:Name="tbUserName" Text="{Binding UserName, StringFormat={}{0}님}"/>
-                            <TextBlock x:Name="tbEmail" Text="{Binding UserEmail}"/>
+                            <TextBlock x:Name="tbUserName" Text="{Binding UserName, StringFormat={}{0}님}" FontWeight="ExtraBold" FontSize="36"/>
+                            <TextBlock x:Name="tbEmail" Text="{Binding UserEmail}" FontSize="26"/>
                         </StackPanel>
                     </StackPanel>
+
+                    <Button x:Name="btnSetting" Height="100" Width="100" Margin="800,0,0,0"
+                            Background="Transparent" BorderBrush="Transparent">
+                        <ContentControl>
+                            <Image Source="/Assets/Option/SettingButton.png" Height="35" Width="35"/>
+                        </ContentControl>
+                    </Button>
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
-                        <Border.Effect>
-                            <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
-                        </Border.Effect>
-                    </Border>
-                    <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
-
-                    </Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20" 
+                                Height="150" Width="440">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                            <Setter Property="FontSize" Value="25"/>
+                                            <Setter Property="Foreground" Value="#2D008A"/>
+                                            <Setter Property="FontWeight" Value="ExtraBold"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <StackPanel VerticalAlignment="Center" Margin="20,0,0,0">
+                                        <TextBlock Text="Every의 새로워진 기능들을"/>
+                                        <TextBlock Text="확인하세요!"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Image Source="/Assets/Login/ColorLogo.png" 
+                                           Margin="0,0,30,0" Height="70" Width="70"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        
+                        <Border Margin="10" BorderThickness="1" BorderBrush="Transparent"/>
+                            <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="#220067" CornerRadius="20" 
+                                    Height="150" Width="440">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="FontSize" Value="25"/>
+                                                <Setter Property="FontWeight" Value="ExtraBold"/>
+                                            </Style>
+                                        </Grid.Resources>
+                                        <StackPanel VerticalAlignment="Center" Margin="20,0,0,0">
+                                            <TextBlock Text="추후에 공개될"/>
+                                            <TextBlock Text="예정입니다."/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Image Source="/Assets/Option/Character.png" Height="110" Width="110"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        <Border Margin="10" BorderThickness="1" BorderBrush="Transparent"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
-                <!--<Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="0" Width="650" Height="368">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
                     </Border.Effect>
                 </Border>
                 <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
                     <Image x:Name="currentImage"
-                       Height="621" Width="1119"
-                       Opacity="1"/>
+                           Width="650"
+                           Opacity="1">
+                    </Image>
                 </Border>
-                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="20">
+                <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="0" Width="650" Height="368">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
                     </Border.Effect>
                 </Border>
                 <Border Margin="20" BorderThickness="1" BorderBrush="Transparent">
                     <Image x:Name="nextImage"
-                       Height="621" Width="1119"
-                       Opacity="0"/>
-                </Border>-->
+                           Width="650"
+                           Opacity="0"/>
+                </Border>
                 
-                <Image x:Name="currentImage"
+                <!--<Image x:Name="currentImage"
                        Height="621" Width="1119"
                        Opacity="1"/>
                 <Image x:Name="nextImage"
                        Height="621" Width="1119"
-                       Opacity="0"/>
+                       Opacity="0"/>-->
             </Grid>
         </Grid>
 
