@@ -84,9 +84,9 @@
 
                                                         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="5">
                                                             <TextBlock Text="{Binding Idx, StringFormat={}#{0}번째 이야기}"
-                                                                           FontSize="28"
-                                                                           FontWeight="ExtraBold"
-                                                                           FontFamily="나눔스퀘어_ac"/>
+                                                                       FontSize="28"
+                                                                       FontWeight="ExtraBold"
+                                                                       FontFamily="나눔스퀘어_ac"/>
                                                             <StackPanel Orientation="Horizontal">
                                                                 <TextBlock Text="{Binding Created_At, StringFormat=yyyy년 MM월 dd일}"
                                                                                FontSize="21"
@@ -100,10 +100,10 @@
                                                                            FontFamily="나눔스퀘어_ac"/>
                                                             </StackPanel>
                                                             <TextBlock Text="{Binding PostWrittenTime, StringFormat={}{0}시간 전}"
-                                                                           FontSize="21"
-                                                                           Margin="5"
-                                                                           FontWeight="Regular"
-                                                                           FontFamily="나눔스퀘어_ac"/>
+                                                                       FontSize="21"
+                                                                       Margin="5"
+                                                                       FontWeight="Regular"
+                                                                       FontFamily="나눔스퀘어_ac"/>
                                                         </StackPanel>
                                                     </Grid>
                                                 </Grid>
@@ -111,12 +111,12 @@
                                         </Grid>
                                         
                                         <TextBlock Grid.Row="1"
-                                            Text="{Binding Content}"
-                                            FontSize="28"
-                                            FontWeight="Regular"
-                                            TextWrapping="Wrap"
-                                            FontFamily="나눔스퀘어_ac"
-                                            Margin="20"/>
+                                                   Text="{Binding Content}"
+                                                   FontSize="28"
+                                                   FontWeight="Regular"
+                                                   TextWrapping="Wrap"
+                                                   FontFamily="나눔스퀘어_ac"
+                                                   Margin="20"/>
 
                                         <Grid Grid.Row="2">
                                             <Grid.RowDefinitions>
