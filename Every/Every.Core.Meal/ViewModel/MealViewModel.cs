@@ -65,15 +65,7 @@ namespace Every.Core.Meal.ViewModel
                 {
                     foreach(var item in resp.Data.Meals)
                     {
-                        if(item.Meal_Code == 1)
-                        {
-                            MakeUpMealMenus(item.Meal_Name, item.Meal_Code);
-                        }
-                        if (item.Meal_Code == 2)
-                        {
-                            MakeUpMealMenus(item.Meal_Name, item.Meal_Code);
-                        }
-                        if (item.Meal_Code == 3)
+                        if(item.Meal_Code >= 1 && item.Meal_Code <= 3)
                         {
                             MakeUpMealMenus(item.Meal_Name, item.Meal_Code);
                         }
