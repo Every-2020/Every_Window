@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using TNetwork.Common;
 using TNetwork.Data;
 
 namespace Every.Core.SignUp.ViewModel
@@ -578,7 +579,7 @@ namespace Every.Core.SignUp.ViewModel
             {
                 try
                 {
-                    ServerAddress = "http://49.50.160.97:8080";
+                    ServerAddress = Options.serverUrl;
                     signUpService.SettingHttpRequest(ServerAddress);
 
                     var resp = await signUpService.Check_PhoneNumOverLap(InputPhoneNum);
@@ -636,7 +637,7 @@ namespace Every.Core.SignUp.ViewModel
             {
                 try
                 {
-                    ServerAddress = "http://49.50.160.97:8080";
+                    ServerAddress = Options.serverUrl;
                     signUpService.SettingHttpRequest(ServerAddress);
 
                     var resp = await signUpService.Check_EmailOverLap(InputEmail);
@@ -682,7 +683,7 @@ namespace Every.Core.SignUp.ViewModel
                 SchoolItems.Clear();
             }
 
-            ServerAddress = "http://49.50.160.97:8080";
+            ServerAddress = "";
             signUpService.SettingHttpRequest(ServerAddress);
 
             var resp = await signUpService.GetSchoolList(InputSchool_Name);
