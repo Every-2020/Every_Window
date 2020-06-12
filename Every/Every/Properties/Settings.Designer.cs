@@ -73,7 +73,7 @@ namespace Every.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://49.50.160.97:8080")]
         public string ServerURL {
             get {
                 return ((string)(this["ServerURL"]));

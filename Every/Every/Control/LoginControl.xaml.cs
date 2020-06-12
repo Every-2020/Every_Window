@@ -39,7 +39,7 @@ namespace Every.Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            App.loginData.loginViewModel.ServerAddress = "http://49.50.160.97:8080";
+            App.loginData.loginViewModel.ServerAddress = "Server Address";
             CheckAutoLoginAsync();
             //loginData = new LoginData();
             App.loginData.loginViewModel.OnLoginResultRecieved += LoginViewModel_OnLoginResultRecieved;

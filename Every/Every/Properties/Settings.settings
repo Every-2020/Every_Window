@@ -15,7 +15,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ServerURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://49.50.160.97:8080</Value>
     </Setting>
     <Setting Name="isHostServer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
