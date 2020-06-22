@@ -446,7 +446,7 @@ namespace Every.Core.SignUp.ViewModel
             TResponse<Nothing> signUpArgs = null;
             try
             {
-                ServerAddress = "http://49.50.160.97:8080";
+                ServerAddress = "ServerAddress";
                 signUpService.SettingHttpRequest(ServerAddress);
 
                 signUpArgs = await signUpService.Student_SignUp(InputEmail, InputPw, InputName, InputPhoneNum, InputBirth_Year, InputSchool_Id);
@@ -464,7 +464,7 @@ namespace Every.Core.SignUp.ViewModel
             TResponse<Nothing> signUpArgs = null;
             try
             {
-                ServerAddress = "http://49.50.160.97:8080";
+                ServerAddress = "ServerAddress";
                 signUpService.SettingHttpRequest(ServerAddress);
 
                 signUpArgs = await signUpService.Worker_SignUp(InputEmail, InputPw, InputName, InputPhoneNum, InputBirth_Year, InputWork_Place, InputWork_Category);
