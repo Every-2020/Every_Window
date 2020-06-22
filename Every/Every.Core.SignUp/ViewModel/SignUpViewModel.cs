@@ -578,7 +578,7 @@ namespace Every.Core.SignUp.ViewModel
             {
                 try
                 {
-                    ServerAddress = "Server Address";
+                    ServerAddress = "http://49.50.160.97:8080";
                     signUpService.SettingHttpRequest(ServerAddress);
 
                     var resp = await signUpService.Check_PhoneNumOverLap(InputPhoneNum);
@@ -682,7 +682,7 @@ namespace Every.Core.SignUp.ViewModel
                 SchoolItems.Clear();
             }
 
-            ServerAddress = "Server Address";
+            ServerAddress = "http://49.50.160.97:8080";
             signUpService.SettingHttpRequest(ServerAddress);
 
             var resp = await signUpService.GetSchoolList(InputSchool_Name);
