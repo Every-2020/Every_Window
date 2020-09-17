@@ -14,7 +14,6 @@ using TNetwork.Common;
 using Options = TNetwork.Common.Options;
 using TNetwork.SocketIO.Request.Data;
 using TNetwork.SocketIO.Response;
-using System.Net.Sockets;
 
 namespace TNetwork
 {

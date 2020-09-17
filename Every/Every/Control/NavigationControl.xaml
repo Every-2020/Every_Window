@@ -74,11 +74,11 @@
                             x:Name="tbBambooSearchPost"
                             Visibility="Visible">
                     <TextBox Tag="글을 검색해 보세요!"
-                             Style="{StaticResource tbSearchHintStyle}"
-                             FontSize="22"
-                             FontFamily="나눔고딕_ac"
-                             Foreground="#C2C2C2"
-                             TextWrapping="Wrap">
+                                 Style="{StaticResource tbSearchHintStyle}"
+                                 FontSize="22"
+                                 FontFamily="나눔고딕_ac"
+                                 Foreground="#C2C2C2"
+                                 TextWrapping="Wrap">
                     </TextBox>
                 </Border>
 
@@ -92,7 +92,7 @@
                                                        RelativeSource={RelativeSource AncestorType=ListView}}"
                                            MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
                                            ItemHeight="{Binding (ListView.View).ItemHeight, 
-                                                        RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                                                        RelativeSource={RelativeSource AncestorType=ListView}}" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
 
