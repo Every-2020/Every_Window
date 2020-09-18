@@ -16,7 +16,7 @@ This project helps students make school life convenient. 🏫
 - 일정 관리 기능 📅
   - 학사 일정 뿐만 아니라 개인 일정을 추가하여 관리할 수 있습니다.
 
-### Stack
+## Stack
 
 |                      | Android     | Server        | Web | Windows  | Design|
 |:--------------------:|:---------------:|:------------------:|:-----:|:----:|:---:|
@@ -24,7 +24,7 @@ This project helps students make school life convenient. 🏫
 | Language | Kotlin| Spring| NuxtJS| C#||
 | Develop Tool     | Android Studio  | Visual Studio Code | Visual Studio Code| Visual Studio|  Adobe XD|
 
-### UI / UX
+## UI / UX
 
 <div>
 <img src="https://user-images.githubusercontent.com/48943501/93597404-f753f600-f9f5-11ea-844f-86e0921d0a1a.png" width="49%" />
